@@ -5,6 +5,7 @@ Socle initial de la V2 du portail interne Bobbee.
 ## Statut
 
 Projet en cours de construction.
+
 À ce stade, le repo contient :
 - un socle Next.js minimal
 - les règles de gouvernance du repo
