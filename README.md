@@ -20,8 +20,15 @@ Projet en cours de construction.
 - Tailwind
 - pnpm
 
+## Prérequis
+
+- Node.js 20+
+- Corepack activé (`corepack enable`)
+
 ## Lancement local
 
 ```bash
+corepack enable
 pnpm install
 pnpm dev
+```
