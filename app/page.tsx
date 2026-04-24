@@ -17,7 +17,10 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="w-full max-w-xs sm:max-w-sm">
+        <div
+          className="w-full max-w-xs sm:max-w-sm"
+          style={{ animation: "bobbeeIdleFloat 6s ease-in-out infinite" }}
+        >
           <Image
             src="/bobbee/bobbee-idle.png"
             alt="Bobbee"
@@ -28,10 +31,50 @@ export default function Home() {
           />
         </div>
 
-        <p className="max-w-xl text-sm leading-6 text-zinc-500">
-          Le chat arrivera progressivement pour t'accompagner pas a pas.
-        </p>
+        <section
+          className="w-full max-w-xl rounded-2xl border border-zinc-200 bg-white p-4 text-left shadow-sm"
+          aria-label="Chat Bobbee en preparation"
+        >
+          <p className="max-w-md rounded-2xl bg-zinc-100 px-4 py-3 text-sm leading-6 text-zinc-700">
+            Bonjour, je suis Bobbee. Pose-moi bientot tes questions
+            d'onboarding.
+          </p>
+
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+            <input
+              type="text"
+              disabled
+              placeholder="Pose ta question a Bobbee..."
+              aria-label="Champ de chat Bobbee bientot disponible"
+              className="min-w-0 flex-1 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-500 placeholder:text-zinc-400 disabled:cursor-not-allowed disabled:opacity-100"
+            />
+            <button
+              type="button"
+              disabled
+              className="rounded-xl bg-zinc-900 px-4 py-3 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              Envoyer
+            </button>
+          </div>
+
+          <p className="mt-3 text-xs leading-5 text-zinc-500">
+            Le chat sera active progressivement si necessaire.
+          </p>
+        </section>
       </section>
+
+      <style>{`
+        @keyframes bobbeeIdleFloat {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+
+          50% {
+            transform: translateY(-8px);
+          }
+        }
+      `}</style>
     </main>
   );
 }
