@@ -1,5 +1,6 @@
 "use client";
 
+import competencesData from "@/data/competences.json";
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
@@ -9,6 +10,13 @@ type Message = {
 };
 
 type BobbeeState = "idle" | "thinking" | "found";
+type CompetenceEntry = {
+  competence: string;
+  personne: string;
+  domaine: string;
+  tag: string;
+  niveau: string;
+};
 
 const INITIAL_MESSAGES: Message[] = [
   {
@@ -18,8 +26,12 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-const BOBBEE_REPLY =
-  "Je pourrai bient\u00f4t chercher dans les ressources d\u2019onboarding.";
+const COMPETENCES = competencesData as CompetenceEntry[];
+const MAX_SEARCH_RESULTS = 5;
+const SEARCH_RESULTS_INTRO =
+  "J\u2019ai trouv\u00e9 quelques personnes li\u00e9es \u00e0 ta recherche :";
+const NO_SEARCH_RESULTS_REPLY =
+  "Je n\u2019ai pas encore trouv\u00e9 de comp\u00e9tence correspondante dans les donn\u00e9es disponibles.";
 const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   thinking: "/bobbee/bobbee-thinking.png",
@@ -27,6 +39,30 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 };
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
+
+function searchCompetences(query: string) {
+  const normalizedQuery = query.toLowerCase();
+
+  return COMPETENCES.filter(({ competence, personne, domaine, tag }) =>
+    [competence, personne, domaine, tag].some((value) =>
+      value.toLowerCase().includes(normalizedQuery),
+    ),
+  ).slice(0, MAX_SEARCH_RESULTS);
+}
+
+function formatBobbeeReply(results: CompetenceEntry[]) {
+  if (results.length === 0) {
+    return NO_SEARCH_RESULTS_REPLY;
+  }
+
+  return [
+    SEARCH_RESULTS_INTRO,
+    ...results.map(
+      ({ personne, competence, domaine, niveau }) =>
+        `- ${personne} | ${competence} | ${domaine} | ${niveau}`,
+    ),
+  ].join("\n");
+}
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -51,6 +87,8 @@ export default function Home() {
       return;
     }
 
+    const searchResults = searchCompetences(trimmedMessage);
+
     setMessages((currentMessages) => [
       ...currentMessages,
       { role: "user", content: trimmedMessage },
@@ -65,7 +103,7 @@ export default function Home() {
 
       setMessages((currentMessages) => [
         ...currentMessages,
-        { role: "assistant", content: BOBBEE_REPLY },
+        { role: "assistant", content: formatBobbeeReply(searchResults) },
       ]);
       setBobbeeState("found");
 
@@ -125,7 +163,7 @@ export default function Home() {
               <p
                 key={`${entry.role}-${index}`}
                 className={[
-                  "max-w-md rounded-2xl px-4 py-3 text-sm leading-6",
+                  "max-w-md whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-6",
                   entry.role === "assistant"
                     ? "bg-zinc-100 text-zinc-700"
                     : "self-end bg-zinc-900 text-white",
