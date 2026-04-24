@@ -1,65 +1,70 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+    <main className="min-h-screen bg-zinc-50 px-6 py-16 text-zinc-950 sm:px-10">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-16">
+        <section className="max-w-3xl space-y-6">
+          <span className="inline-flex rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-600">
+            AssistantBobbee
+          </span>
+          <div className="space-y-4">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+              Un point d&apos;entrée simple pour l&apos;onboarding et
+              l&apos;assistant interne.
+            </h1>
+            <p className="max-w-2xl text-base leading-7 text-zinc-600 sm:text-lg">
+              Cette première version pose une base locale, claire et réversible
+              pour accueillir les futurs parcours d&apos;onboarding, les
+              ressources utiles et un accompagnement progressif.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="#a-venir"
+              className="inline-flex items-center justify-center rounded-md bg-zinc-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
+              Voir ce qui arrive
+            </a>
             <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="#a-venir"
+              className="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-white px-5 py-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100"
             >
-              Learning
-            </a>{" "}
-            center.
+              Préparer la suite
+            </a>
+          </div>
+          <p className="text-sm leading-6 text-zinc-500">
+            Bobby pourra prendre sa place ici plus tard, de manière simple et
+            utile, sans alourdir cette base.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        </section>
+
+        <section
+          id="a-venir"
+          className="grid gap-4 sm:grid-cols-3"
+          aria-label="Contenu à venir"
+        >
+          <article className="rounded-xl border border-zinc-200 bg-white p-6">
+            <h2 className="text-lg font-semibold">Onboarding</h2>
+            <p className="mt-2 text-sm leading-6 text-zinc-600">
+              Les premiers repères pour comprendre l&apos;environnement, les
+              étapes clés et le démarrage.
+            </p>
+          </article>
+          <article className="rounded-xl border border-zinc-200 bg-white p-6">
+            <h2 className="text-lg font-semibold">Ressources utiles</h2>
+            <p className="mt-2 text-sm leading-6 text-zinc-600">
+              Un espace simple pour retrouver les liens, documents et points de
+              contact utiles.
+            </p>
+          </article>
+          <article className="rounded-xl border border-zinc-200 bg-white p-6">
+            <h2 className="text-lg font-semibold">Accompagnement</h2>
+            <p className="mt-2 text-sm leading-6 text-zinc-600">
+              Une base pour guider les utilisateurs au bon moment, sans
+              complexité inutile.
+            </p>
+          </article>
+        </section>
+      </div>
+    </main>
   );
 }
