@@ -1,7 +1,11 @@
 "use client";
 
-import competencesData from "@/data/competences.json";
-import usefulLinksData from "@/data/useful-links.raw.json";
+import {
+  searchCompetences,
+  searchUsefulLinks,
+  type CompetenceEntry,
+  type UsefulLinkEntry,
+} from "./page.search";
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
@@ -17,20 +21,6 @@ type Message = {
 };
 
 type BobbeeState = "idle" | "thinking" | "found";
-type CompetenceEntry = {
-  competence: string;
-  personne: string;
-  domaine: string;
-  tag: string;
-  niveau: string;
-};
-type UsefulLinkEntry = {
-  Rubrique?: string | null;
-  Qui?: string | null;
-  Quoi?: string | null;
-  Lien?: string | null;
-};
-
 const INITIAL_MESSAGES: Message[] = [
   {
     role: "assistant",
@@ -39,9 +29,6 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-const COMPETENCES = competencesData as CompetenceEntry[];
-const USEFUL_LINKS = usefulLinksData as UsefulLinkEntry[];
-const MAX_SEARCH_RESULTS = 5;
 const SEARCH_RESULTS_INTRO =
   "J\u2019ai trouv\u00e9 quelques personnes li\u00e9es \u00e0 ta recherche :";
 const USEFUL_LINKS_INTRO = "J\u2019ai aussi trouv\u00e9 quelques liens utiles :";
@@ -54,95 +41,6 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 };
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
-
-function getMatchPriority(
-  query: string,
-  mainValue: string | null | undefined,
-  otherValues: Array<string | null | undefined>,
-) {
-  const normalizedMainValue = (mainValue ?? "").toLowerCase();
-  const normalizedOtherValues = otherValues
-    .filter((value): value is string => typeof value === "string")
-    .map((value) => value.toLowerCase());
-
-  if (normalizedMainValue === query) {
-    return 0;
-  }
-
-  if (normalizedMainValue.startsWith(query)) {
-    return 1;
-  }
-
-  if (normalizedMainValue.includes(query)) {
-    return 2;
-  }
-
-  if (normalizedOtherValues.some((value) => value === query)) {
-    return 3;
-  }
-
-  if (normalizedOtherValues.some((value) => value.startsWith(query))) {
-    return 4;
-  }
-
-  if (normalizedOtherValues.some((value) => value.includes(query))) {
-    return 5;
-  }
-
-  return null;
-}
-
-function searchCompetences(query: string) {
-  const normalizedQuery = query.toLowerCase();
-
-  return COMPETENCES.map((entry, index) => ({
-    entry,
-    index,
-    priority: getMatchPriority(normalizedQuery, entry.competence, [
-      entry.personne,
-      entry.domaine,
-      entry.tag,
-    ]),
-  }))
-    .filter(
-      (
-        result,
-      ): result is {
-        entry: CompetenceEntry;
-        index: number;
-        priority: number;
-      } => result.priority !== null,
-    )
-    .sort((left, right) => left.priority - right.priority || left.index - right.index)
-    .slice(0, MAX_SEARCH_RESULTS)
-    .map(({ entry }) => entry);
-}
-
-function searchUsefulLinks(query: string) {
-  const normalizedQuery = query.toLowerCase();
-
-  return USEFUL_LINKS.map((entry, index) => ({
-    entry,
-    index,
-    priority: getMatchPriority(normalizedQuery, entry.Quoi ?? entry.Lien, [
-      entry.Rubrique,
-      entry.Qui,
-      entry.Lien,
-    ]),
-  }))
-    .filter(
-      (
-        result,
-      ): result is {
-        entry: UsefulLinkEntry;
-        index: number;
-        priority: number;
-      } => result.priority !== null,
-    )
-    .sort((left, right) => left.priority - right.priority || left.index - right.index)
-    .slice(0, MAX_SEARCH_RESULTS)
-    .map(({ entry }) => entry);
-}
 
 function getUsefulLinkHref(link?: string | null) {
   if (!link) {
