@@ -74,3 +74,51 @@ Objectif de la prochaine étape :
 
 Ne pas transformer la prochaine étape en vrai moteur de recherche complet.
 La priorité reste : simplicité, stabilité, progressivité.
+
+## Point d’arrêt — fin de session
+
+PS C:\Users\jsimoni\source\repos\AssistantBobbee> git status
+>> git log --oneline -n 10
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+d1a62bb (HEAD -> main, origin/main) Improve local search result ranking
+bc6b0ad Improve chat search results display
+c9e0c81 Add local useful links search
+e94321c Add local competences search
+42aa116 Add day 2 project summary
+55c060e Add parsed competences data
+c1674f8 Add raw competences data
+030a05c Connect Bobbee states to local chat
+410b65e Add local chat interaction
+dc1fdc3 Add home chat shell
+
+État Git :
+- branche `main`
+- synchronisée avec `origin/main`
+- working tree clean
+
+Fonctionnalités validées :
+- Bobbee affiché sur la home
+- micro-animation idle
+- shell chat
+- interaction locale du chat
+- états Bobbee idle / thinking / found
+- données compétences ajoutées en brut et en JSON exploitable
+- recherche locale compétences
+- recherche locale liens utiles
+- affichage lisible des résultats
+- tri simple des résultats
+
+Non fait volontairement :
+- pas d’API
+- pas de base de données
+- pas de persistance
+- pas de vraie logique IA
+- fond transparent Bobbee non résolu
+- logique de recherche encore dans `app/page.tsx`
+
+Prochaine reprise recommandée :
+- inspecter `app/page.tsx`
+- extraire prudemment la logique de recherche si le fichier devient trop dense
