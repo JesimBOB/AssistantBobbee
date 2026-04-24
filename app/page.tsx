@@ -55,25 +55,93 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
 
+function getMatchPriority(
+  query: string,
+  mainValue: string | null | undefined,
+  otherValues: Array<string | null | undefined>,
+) {
+  const normalizedMainValue = (mainValue ?? "").toLowerCase();
+  const normalizedOtherValues = otherValues
+    .filter((value): value is string => typeof value === "string")
+    .map((value) => value.toLowerCase());
+
+  if (normalizedMainValue === query) {
+    return 0;
+  }
+
+  if (normalizedMainValue.startsWith(query)) {
+    return 1;
+  }
+
+  if (normalizedMainValue.includes(query)) {
+    return 2;
+  }
+
+  if (normalizedOtherValues.some((value) => value === query)) {
+    return 3;
+  }
+
+  if (normalizedOtherValues.some((value) => value.startsWith(query))) {
+    return 4;
+  }
+
+  if (normalizedOtherValues.some((value) => value.includes(query))) {
+    return 5;
+  }
+
+  return null;
+}
+
 function searchCompetences(query: string) {
   const normalizedQuery = query.toLowerCase();
 
-  return COMPETENCES.filter(({ competence, personne, domaine, tag }) =>
-    [competence, personne, domaine, tag].some((value) =>
-      value.toLowerCase().includes(normalizedQuery),
-    ),
-  ).slice(0, MAX_SEARCH_RESULTS);
+  return COMPETENCES.map((entry, index) => ({
+    entry,
+    index,
+    priority: getMatchPriority(normalizedQuery, entry.competence, [
+      entry.personne,
+      entry.domaine,
+      entry.tag,
+    ]),
+  }))
+    .filter(
+      (
+        result,
+      ): result is {
+        entry: CompetenceEntry;
+        index: number;
+        priority: number;
+      } => result.priority !== null,
+    )
+    .sort((left, right) => left.priority - right.priority || left.index - right.index)
+    .slice(0, MAX_SEARCH_RESULTS)
+    .map(({ entry }) => entry);
 }
 
 function searchUsefulLinks(query: string) {
   const normalizedQuery = query.toLowerCase();
 
-  return USEFUL_LINKS.filter((entry) =>
-    Object.values(entry).some(
-      (value) =>
-        typeof value === "string" && value.toLowerCase().includes(normalizedQuery),
-    ),
-  ).slice(0, MAX_SEARCH_RESULTS);
+  return USEFUL_LINKS.map((entry, index) => ({
+    entry,
+    index,
+    priority: getMatchPriority(normalizedQuery, entry.Quoi ?? entry.Lien, [
+      entry.Rubrique,
+      entry.Qui,
+      entry.Lien,
+    ]),
+  }))
+    .filter(
+      (
+        result,
+      ): result is {
+        entry: UsefulLinkEntry;
+        index: number;
+        priority: number;
+      } => result.priority !== null,
+    )
+    .sort((left, right) => left.priority - right.priority || left.index - right.index)
+    .slice(0, MAX_SEARCH_RESULTS)
+    .map(({ entry }) => entry);
 }
 
 function getUsefulLinkHref(link?: string | null) {
