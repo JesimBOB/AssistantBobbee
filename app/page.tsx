@@ -5,9 +5,15 @@ import usefulLinksData from "@/data/useful-links.raw.json";
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
+type SearchResults = {
+  competenceResults: CompetenceEntry[];
+  usefulLinkResults: UsefulLinkEntry[];
+};
+
 type Message = {
   role: "assistant" | "user";
   content: string;
+  searchResults?: SearchResults;
 };
 
 type BobbeeState = "idle" | "thinking" | "found";
@@ -70,51 +76,26 @@ function searchUsefulLinks(query: string) {
   ).slice(0, MAX_SEARCH_RESULTS);
 }
 
-function formatUsefulLink(result: UsefulLinkEntry) {
-  return [
-    result.Quoi ?? result.Lien ?? result.Rubrique ?? result.Qui,
-    result.Lien,
-    result.Rubrique ?? result.Qui,
-  ]
-    .filter(
-      (value, index, values): value is string =>
-        typeof value === "string" && value.length > 0 && values.indexOf(value) === index,
-    )
-    .join(" | ");
+function getUsefulLinkHref(link?: string | null) {
+  if (!link) {
+    return null;
+  }
+
+  if (link.startsWith("http://") || link.startsWith("https://")) {
+    return link;
+  }
+
+  if (link.includes("@")) {
+    return `mailto:${link}`;
+  }
+
+  return null;
 }
 
-function formatBobbeeReply(
-  competenceResults: CompetenceEntry[],
-  usefulLinkResults: UsefulLinkEntry[],
-) {
-  if (competenceResults.length === 0 && usefulLinkResults.length === 0) {
-    return NO_SEARCH_RESULTS_REPLY;
-  }
-
-  const sections: string[] = [];
-
-  if (competenceResults.length > 0) {
-    sections.push(
-      SEARCH_RESULTS_INTRO,
-      ...competenceResults.map(
-        ({ personne, competence, domaine, niveau }) =>
-          `- ${personne} | ${competence} | ${domaine} | ${niveau}`,
-      ),
-    );
-  }
-
-  if (usefulLinkResults.length > 0) {
-    if (sections.length > 0) {
-      sections.push("");
-    }
-
-    sections.push(
-      USEFUL_LINKS_INTRO,
-      ...usefulLinkResults.map((result) => `- ${formatUsefulLink(result)}`),
-    );
-  }
-
-  return sections.join("\n");
+function getUsefulLinkSecondaryText(result: UsefulLinkEntry) {
+  return [result.Rubrique, result.Qui]
+    .filter((value): value is string => typeof value === "string" && value.length > 0)
+    .join(" | ");
 }
 
 export default function Home() {
@@ -142,6 +123,8 @@ export default function Home() {
 
     const competenceResults = searchCompetences(trimmedMessage);
     const usefulLinkResults = searchUsefulLinks(trimmedMessage);
+    const hasSearchResults =
+      competenceResults.length > 0 || usefulLinkResults.length > 0;
 
     setMessages((currentMessages) => [
       ...currentMessages,
@@ -157,10 +140,16 @@ export default function Home() {
 
       setMessages((currentMessages) => [
         ...currentMessages,
-        {
-          role: "assistant",
-          content: formatBobbeeReply(competenceResults, usefulLinkResults),
-        },
+        hasSearchResults
+          ? {
+              role: "assistant",
+              content: "",
+              searchResults: { competenceResults, usefulLinkResults },
+            }
+          : {
+              role: "assistant",
+              content: NO_SEARCH_RESULTS_REPLY,
+            },
       ]);
       setBobbeeState("found");
 
@@ -217,17 +206,84 @@ export default function Home() {
         >
           <div className="flex flex-col gap-3">
             {messages.map((entry, index) => (
-              <p
+              <div
                 key={`${entry.role}-${index}`}
                 className={[
-                  "max-w-md whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-6",
+                  "max-w-md rounded-2xl px-4 py-3 text-sm leading-6",
                   entry.role === "assistant"
                     ? "bg-zinc-100 text-zinc-700"
                     : "self-end bg-zinc-900 text-white",
                 ].join(" ")}
               >
-                {entry.content}
-              </p>
+                {entry.role === "assistant" && entry.searchResults ? (
+                  <div className="space-y-4">
+                    {entry.searchResults.competenceResults.length > 0 ? (
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-zinc-800">
+                          {SEARCH_RESULTS_INTRO}
+                        </p>
+                        <ul className="space-y-2">
+                          {entry.searchResults.competenceResults.map(
+                            ({ personne, competence, domaine, niveau }, resultIndex) => (
+                              <li
+                                key={`${personne}-${competence}-${domaine}-${niveau}-${resultIndex}`}
+                                className="rounded-xl border border-zinc-200 bg-white/70 px-3 py-2"
+                              >
+                                <p className="font-medium text-zinc-900">{personne}</p>
+                                <p className="text-zinc-800">{competence}</p>
+                                <p className="text-xs text-zinc-500">
+                                  {domaine} | Niveau {niveau}
+                                </p>
+                              </li>
+                            ),
+                          )}
+                        </ul>
+                      </div>
+                    ) : null}
+
+                    {entry.searchResults.usefulLinkResults.length > 0 ? (
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-zinc-800">
+                          {USEFUL_LINKS_INTRO}
+                        </p>
+                        <ul className="space-y-2">
+                          {entry.searchResults.usefulLinkResults.map((result, resultIndex) => {
+                            const title =
+                              result.Quoi ?? result.Lien ?? "Lien utile";
+                            const href = getUsefulLinkHref(result.Lien);
+                            const secondaryText = getUsefulLinkSecondaryText(result);
+
+                            return (
+                              <li
+                                key={`${title}-${result.Lien ?? "no-link"}-${resultIndex}`}
+                                className="rounded-xl border border-zinc-200 bg-white/70 px-3 py-2"
+                              >
+                                {href ? (
+                                  <a
+                                    href={href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-2 hover:text-zinc-700"
+                                  >
+                                    {title}
+                                  </a>
+                                ) : (
+                                  <p className="font-medium text-zinc-900">{title}</p>
+                                )}
+                                {secondaryText ? (
+                                  <p className="text-xs text-zinc-500">{secondaryText}</p>
+                                ) : null}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : (
+                  <p className="whitespace-pre-line">{entry.content}</p>
+                )}
+              </div>
             ))}
           </div>
 
