@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 
 type Message = {
   role: "assistant" | "user";
   content: string;
 };
+
+type BobbeeState = "idle" | "thinking" | "found";
 
 const INITIAL_MESSAGES: Message[] = [
   {
@@ -18,10 +20,27 @@ const INITIAL_MESSAGES: Message[] = [
 
 const BOBBEE_REPLY =
   "Je pourrai bient\u00f4t chercher dans les ressources d\u2019onboarding.";
+const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
+  idle: "/bobbee/bobbee-idle.png",
+  thinking: "/bobbee/bobbee-thinking.png",
+  found: "/bobbee/bobbee-found.png",
+};
+const THINKING_DURATION_MS = 700;
+const FOUND_DURATION_MS = 700;
 
 export default function Home() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
+  const [bobbeeState, setBobbeeState] = useState<BobbeeState>("idle");
+  const timeoutIdsRef = useRef<number[]>([]);
+
+  useEffect(() => {
+    return () => {
+      timeoutIdsRef.current.forEach((timeoutId) => {
+        window.clearTimeout(timeoutId);
+      });
+    };
+  }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,9 +54,32 @@ export default function Home() {
     setMessages((currentMessages) => [
       ...currentMessages,
       { role: "user", content: trimmedMessage },
-      { role: "assistant", content: BOBBEE_REPLY },
     ]);
     setMessage("");
+    setBobbeeState("thinking");
+
+    const thinkingTimeoutId = window.setTimeout(() => {
+      timeoutIdsRef.current = timeoutIdsRef.current.filter(
+        (timeoutId) => timeoutId !== thinkingTimeoutId,
+      );
+
+      setMessages((currentMessages) => [
+        ...currentMessages,
+        { role: "assistant", content: BOBBEE_REPLY },
+      ]);
+      setBobbeeState("found");
+
+      const foundTimeoutId = window.setTimeout(() => {
+        timeoutIdsRef.current = timeoutIdsRef.current.filter(
+          (timeoutId) => timeoutId !== foundTimeoutId,
+        );
+        setBobbeeState("idle");
+      }, FOUND_DURATION_MS);
+
+      timeoutIdsRef.current.push(foundTimeoutId);
+    }, THINKING_DURATION_MS);
+
+    timeoutIdsRef.current.push(thinkingTimeoutId);
   }
 
   return (
@@ -58,10 +100,14 @@ export default function Home() {
 
         <div
           className="w-full max-w-xs sm:max-w-sm"
-          style={{ animation: "bobbeeIdleFloat 6s ease-in-out infinite" }}
+          style={
+            bobbeeState === "idle"
+              ? { animation: "bobbeeIdleFloat 6s ease-in-out infinite" }
+              : undefined
+          }
         >
           <Image
-            src="/bobbee/bobbee-idle.png"
+            src={BOBBEE_IMAGE_BY_STATE[bobbeeState]}
             alt="Bobbee"
             width={480}
             height={480}
