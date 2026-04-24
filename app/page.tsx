@@ -1,6 +1,7 @@
 "use client";
 
 import competencesData from "@/data/competences.json";
+import usefulLinksData from "@/data/useful-links.raw.json";
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 
@@ -17,6 +18,12 @@ type CompetenceEntry = {
   tag: string;
   niveau: string;
 };
+type UsefulLinkEntry = {
+  Rubrique?: string | null;
+  Qui?: string | null;
+  Quoi?: string | null;
+  Lien?: string | null;
+};
 
 const INITIAL_MESSAGES: Message[] = [
   {
@@ -27,11 +34,13 @@ const INITIAL_MESSAGES: Message[] = [
 ];
 
 const COMPETENCES = competencesData as CompetenceEntry[];
+const USEFUL_LINKS = usefulLinksData as UsefulLinkEntry[];
 const MAX_SEARCH_RESULTS = 5;
 const SEARCH_RESULTS_INTRO =
   "J\u2019ai trouv\u00e9 quelques personnes li\u00e9es \u00e0 ta recherche :";
+const USEFUL_LINKS_INTRO = "J\u2019ai aussi trouv\u00e9 quelques liens utiles :";
 const NO_SEARCH_RESULTS_REPLY =
-  "Je n\u2019ai pas encore trouv\u00e9 de comp\u00e9tence correspondante dans les donn\u00e9es disponibles.";
+  "Je n\u2019ai pas encore trouv\u00e9 de r\u00e9sultat correspondant dans les donn\u00e9es disponibles.";
 const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   thinking: "/bobbee/bobbee-thinking.png",
@@ -50,18 +59,62 @@ function searchCompetences(query: string) {
   ).slice(0, MAX_SEARCH_RESULTS);
 }
 
-function formatBobbeeReply(results: CompetenceEntry[]) {
-  if (results.length === 0) {
+function searchUsefulLinks(query: string) {
+  const normalizedQuery = query.toLowerCase();
+
+  return USEFUL_LINKS.filter((entry) =>
+    Object.values(entry).some(
+      (value) =>
+        typeof value === "string" && value.toLowerCase().includes(normalizedQuery),
+    ),
+  ).slice(0, MAX_SEARCH_RESULTS);
+}
+
+function formatUsefulLink(result: UsefulLinkEntry) {
+  return [
+    result.Quoi ?? result.Lien ?? result.Rubrique ?? result.Qui,
+    result.Lien,
+    result.Rubrique ?? result.Qui,
+  ]
+    .filter(
+      (value, index, values): value is string =>
+        typeof value === "string" && value.length > 0 && values.indexOf(value) === index,
+    )
+    .join(" | ");
+}
+
+function formatBobbeeReply(
+  competenceResults: CompetenceEntry[],
+  usefulLinkResults: UsefulLinkEntry[],
+) {
+  if (competenceResults.length === 0 && usefulLinkResults.length === 0) {
     return NO_SEARCH_RESULTS_REPLY;
   }
 
-  return [
-    SEARCH_RESULTS_INTRO,
-    ...results.map(
-      ({ personne, competence, domaine, niveau }) =>
-        `- ${personne} | ${competence} | ${domaine} | ${niveau}`,
-    ),
-  ].join("\n");
+  const sections: string[] = [];
+
+  if (competenceResults.length > 0) {
+    sections.push(
+      SEARCH_RESULTS_INTRO,
+      ...competenceResults.map(
+        ({ personne, competence, domaine, niveau }) =>
+          `- ${personne} | ${competence} | ${domaine} | ${niveau}`,
+      ),
+    );
+  }
+
+  if (usefulLinkResults.length > 0) {
+    if (sections.length > 0) {
+      sections.push("");
+    }
+
+    sections.push(
+      USEFUL_LINKS_INTRO,
+      ...usefulLinkResults.map((result) => `- ${formatUsefulLink(result)}`),
+    );
+  }
+
+  return sections.join("\n");
 }
 
 export default function Home() {
@@ -87,7 +140,8 @@ export default function Home() {
       return;
     }
 
-    const searchResults = searchCompetences(trimmedMessage);
+    const competenceResults = searchCompetences(trimmedMessage);
+    const usefulLinkResults = searchUsefulLinks(trimmedMessage);
 
     setMessages((currentMessages) => [
       ...currentMessages,
@@ -103,7 +157,10 @@ export default function Home() {
 
       setMessages((currentMessages) => [
         ...currentMessages,
-        { role: "assistant", content: formatBobbeeReply(searchResults) },
+        {
+          role: "assistant",
+          content: formatBobbeeReply(competenceResults, usefulLinkResults),
+        },
       ]);
       setBobbeeState("found");
 
