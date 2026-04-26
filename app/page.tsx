@@ -38,14 +38,14 @@ const INITIAL_MESSAGES: Message[] = [
   {
     role: "assistant",
     content:
-      "Bonjour, je suis Bobbee. Pose-moi bientot tes questions d'onboarding.",
+      "Bonjour, je suis Bobbee. Pose-moi une question sur l'onboarding, les equipes ou les sujets internes.",
   },
 ];
 
 const RESULTS_BOBBEE_REPLY =
-  "J'ai trouve quelques elements qui peuvent t'aider sur ce sujet.";
+  "J'ai trouve quelques elements qui peuvent t'aider.";
 const EMPTY_BOBBEE_REPLY =
-  "Je n'ai pas trouve de resultat clair pour l'instant. Essaie avec un autre mot-cle ou une formulation plus precise.";
+  "Je n'ai pas trouve de resultat clair pour l'instant. Essaie avec un autre mot-cle, un nom d'equipe ou une formulation plus precise.";
 const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   thinking: "/bobbee/bobbee-thinking.png",
