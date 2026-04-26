@@ -1,23 +1,11 @@
 "use client";
 
-import {
-  searchCompetences,
-  searchUsefulLinks,
-  type CompetenceEntry,
-  type UsefulLinkEntry,
-} from "./page.search";
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
-
-type SearchResults = {
-  competenceResults: CompetenceEntry[];
-  usefulLinkResults: UsefulLinkEntry[];
-};
 
 type Message = {
   role: "assistant" | "user";
   content: string;
-  searchResults?: SearchResults;
 };
 
 type BobbeeState = "idle" | "thinking" | "found";
@@ -29,11 +17,8 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-const SEARCH_RESULTS_INTRO =
-  "J\u2019ai trouv\u00e9 quelques personnes li\u00e9es \u00e0 ta recherche :";
-const USEFUL_LINKS_INTRO = "J\u2019ai aussi trouv\u00e9 quelques liens utiles :";
-const NO_SEARCH_RESULTS_REPLY =
-  "Je n\u2019ai pas encore trouv\u00e9 de r\u00e9sultat correspondant dans les donn\u00e9es disponibles.";
+const STATIC_BOBBEE_REPLY =
+  "Je regarde ca avec toi. Pour l'instant, je peux surtout t'aider a retrouver les bons points d'entree.";
 const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   thinking: "/bobbee/bobbee-thinking.png",
@@ -41,28 +26,6 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 };
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
-
-function getUsefulLinkHref(link?: string | null) {
-  if (!link) {
-    return null;
-  }
-
-  if (link.startsWith("http://") || link.startsWith("https://")) {
-    return link;
-  }
-
-  if (link.includes("@")) {
-    return `mailto:${link}`;
-  }
-
-  return null;
-}
-
-function getUsefulLinkSecondaryText(result: UsefulLinkEntry) {
-  return [result.Rubrique, result.Qui]
-    .filter((value): value is string => typeof value === "string" && value.length > 0)
-    .join(" | ");
-}
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -87,11 +50,6 @@ export default function Home() {
       return;
     }
 
-    const competenceResults = searchCompetences(trimmedMessage);
-    const usefulLinkResults = searchUsefulLinks(trimmedMessage);
-    const hasSearchResults =
-      competenceResults.length > 0 || usefulLinkResults.length > 0;
-
     setMessages((currentMessages) => [
       ...currentMessages,
       { role: "user", content: trimmedMessage },
@@ -106,16 +64,10 @@ export default function Home() {
 
       setMessages((currentMessages) => [
         ...currentMessages,
-        hasSearchResults
-          ? {
-              role: "assistant",
-              content: "",
-              searchResults: { competenceResults, usefulLinkResults },
-            }
-          : {
-              role: "assistant",
-              content: NO_SEARCH_RESULTS_REPLY,
-            },
+        {
+          role: "assistant",
+          content: STATIC_BOBBEE_REPLY,
+        },
       ]);
       setBobbeeState("found");
 
@@ -181,74 +133,7 @@ export default function Home() {
                     : "self-end bg-zinc-900 text-white",
                 ].join(" ")}
               >
-                {entry.role === "assistant" && entry.searchResults ? (
-                  <div className="space-y-4">
-                    {entry.searchResults.competenceResults.length > 0 ? (
-                      <div className="space-y-2">
-                        <p className="text-sm font-medium text-zinc-800">
-                          {SEARCH_RESULTS_INTRO}
-                        </p>
-                        <ul className="space-y-2">
-                          {entry.searchResults.competenceResults.map(
-                            ({ personne, competence, domaine, niveau }, resultIndex) => (
-                              <li
-                                key={`${personne}-${competence}-${domaine}-${niveau}-${resultIndex}`}
-                                className="rounded-xl border border-zinc-200 bg-white/70 px-3 py-2"
-                              >
-                                <p className="font-medium text-zinc-900">{personne}</p>
-                                <p className="text-zinc-800">{competence}</p>
-                                <p className="text-xs text-zinc-500">
-                                  {domaine} | Niveau {niveau}
-                                </p>
-                              </li>
-                            ),
-                          )}
-                        </ul>
-                      </div>
-                    ) : null}
-
-                    {entry.searchResults.usefulLinkResults.length > 0 ? (
-                      <div className="space-y-2">
-                        <p className="text-sm font-medium text-zinc-800">
-                          {USEFUL_LINKS_INTRO}
-                        </p>
-                        <ul className="space-y-2">
-                          {entry.searchResults.usefulLinkResults.map((result, resultIndex) => {
-                            const title =
-                              result.Quoi ?? result.Lien ?? "Lien utile";
-                            const href = getUsefulLinkHref(result.Lien);
-                            const secondaryText = getUsefulLinkSecondaryText(result);
-
-                            return (
-                              <li
-                                key={`${title}-${result.Lien ?? "no-link"}-${resultIndex}`}
-                                className="rounded-xl border border-zinc-200 bg-white/70 px-3 py-2"
-                              >
-                                {href ? (
-                                  <a
-                                    href={href}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-2 hover:text-zinc-700"
-                                  >
-                                    {title}
-                                  </a>
-                                ) : (
-                                  <p className="font-medium text-zinc-900">{title}</p>
-                                )}
-                                {secondaryText ? (
-                                  <p className="text-xs text-zinc-500">{secondaryText}</p>
-                                ) : null}
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    ) : null}
-                  </div>
-                ) : (
-                  <p className="whitespace-pre-line">{entry.content}</p>
-                )}
+                <p className="whitespace-pre-line">{entry.content}</p>
               </div>
             ))}
           </div>

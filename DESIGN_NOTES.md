@@ -1,0 +1,5 @@
+- principes UI
+- types de réponses
+- cartes prévues
+- états Bobbee
+- choses à ne pas faire pour l’instant
