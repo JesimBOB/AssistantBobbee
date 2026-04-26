@@ -34,13 +34,7 @@ type SearchResults = {
   links: UsefulLinkEntry[];
 };
 
-const INITIAL_MESSAGES: Message[] = [
-  {
-    role: "assistant",
-    content:
-      "Bonjour, je suis Bobbee. Pose-moi une question sur l'onboarding, les equipes ou les sujets internes.",
-  },
-];
+const INITIAL_MESSAGES: Message[] = [];
 
 const RESULTS_BOBBEE_REPLY =
   "J'ai trouve quelques elements qui peuvent t'aider.";
@@ -58,6 +52,8 @@ const LEVEL_LABELS: Record<string, string> = {
   b: "Bon niveau",
   r: "Ressource / relais",
 };
+const ROUNDED_FONT_STACK =
+  '"Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif';
 
 function getLevelLabel(level: string) {
   return LEVEL_LABELS[level.toLowerCase()] ?? null;
@@ -183,24 +179,24 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-zinc-50 px-6 py-16 text-zinc-950 sm:px-10">
       <section className="mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-6 text-center">
-        <span className="inline-flex rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-600">
-          AssistantBobbee
-        </span>
-
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Bonjour, je suis Bobbee.
+        <div className="max-w-2xl space-y-3.5">
+          <h1
+            className="text-3xl font-semibold tracking-tight sm:text-4xl"
+            style={{ fontFamily: ROUNDED_FONT_STACK }}
+          >
+            Une question ? Bobbee part en &eacute;claireur.
           </h1>
           <p className="text-base leading-7 text-zinc-600 sm:text-lg">
-            Je t&apos;aide a trouver les bonnes informations d&apos;onboarding.
+            Cherche une info, une personne, une &eacute;quipe ou un sujet : Bobbee t&apos;aide a retrouver le bon chemin.
           </p>
         </div>
 
         <Link
           href="/organigramme"
-          className="inline-flex rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-700"
+          className="inline-flex items-center rounded-full border border-amber-300 bg-amber-200 px-5 py-2.5 text-sm font-semibold text-zinc-900 shadow-[0_14px_24px_-18px_rgba(180,83,9,0.6)] ring-1 ring-amber-100 transition-colors hover:bg-amber-300"
+          style={{ fontFamily: ROUNDED_FONT_STACK }}
         >
-          Voir l&apos;organigramme
+          Organigramme de la ruche
         </Link>
 
         <div
@@ -230,7 +226,7 @@ export default function Home() {
               <div
                 key={`${entry.role}-${index}`}
                 className={[
-                  "rounded-[26px] px-4 py-3.5 text-sm leading-6 break-words shadow-[0_18px_30px_-24px_rgba(24,24,27,0.45)]",
+                  "rounded-[26px] px-4 py-3.5 text-[15px] leading-7 break-words shadow-[0_18px_30px_-24px_rgba(24,24,27,0.45)] sm:text-base",
                   entry.role === "assistant"
                     ? entry.results
                       ? "max-w-full rounded-bl-lg bg-white/96 text-zinc-800 ring-1 ring-amber-200/80"
@@ -253,7 +249,7 @@ export default function Home() {
                               key={person.personId}
                               className="rounded-[24px] bg-gradient-to-br from-amber-100/90 via-amber-50/85 to-white p-4 ring-1 ring-amber-300/80 shadow-[0_18px_30px_-24px_rgba(161,98,7,0.55)]"
                             >
-                              <p className="text-[15px] font-semibold text-zinc-900">
+                              <p className="text-base font-semibold text-zinc-900">
                                 {person.nomAffiche}
                               </p>
                               <div className="mt-3 flex flex-col gap-2.5">
@@ -271,7 +267,7 @@ export default function Home() {
                                       className="rounded-[18px] bg-white/95 px-3.5 py-3 shadow-[0_12px_24px_-22px_rgba(24,24,27,0.45)] ring-1 ring-amber-100"
                                     >
                                       <div className="flex flex-wrap items-start justify-between gap-2">
-                                        <p className="min-w-0 flex-1 font-medium text-zinc-900">
+                                        <p className="min-w-0 flex-1 text-[15px] font-medium text-zinc-900">
                                           {match.competence}
                                         </p>
                                         <div className="flex flex-wrap items-center gap-2">
@@ -320,12 +316,12 @@ export default function Home() {
                                 </p>
                               ) : null}
                               {link.Quoi ? (
-                                <p className="mt-1.5 font-semibold text-zinc-900">
+                                <p className="mt-1.5 text-[15px] font-semibold text-zinc-900">
                                   {link.Quoi}
                                 </p>
                               ) : null}
                               {link.Qui ? (
-                                <p className="mt-1.5 text-sm text-zinc-600">
+                                <p className="mt-1.5 text-[15px] text-zinc-600">
                                   {link.Qui}
                                 </p>
                               ) : null}
@@ -360,11 +356,12 @@ export default function Home() {
               onChange={(event) => setMessage(event.target.value)}
               placeholder="Pose ta question a Bobbee..."
               aria-label="Champ de chat Bobbee"
-              className="min-w-0 flex-1 rounded-[18px] bg-transparent px-4 py-3.5 text-sm text-zinc-800 outline-none placeholder:text-zinc-400 focus:bg-white/75"
+              className="min-w-0 flex-1 rounded-[18px] bg-transparent px-4 py-3.5 text-[15px] text-zinc-800 outline-none placeholder:text-zinc-400 focus:bg-white/75 sm:text-base"
             />
             <button
               type="submit"
-              className="rounded-[18px] bg-amber-300 px-4 py-3.5 text-sm font-semibold text-zinc-950 shadow-[0_14px_24px_-18px_rgba(180,83,9,0.65)] ring-1 ring-amber-400/60 transition-colors hover:bg-amber-200 sm:px-5"
+              className="rounded-[18px] bg-amber-300 px-4 py-3.5 text-[15px] font-semibold text-zinc-950 shadow-[0_14px_24px_-18px_rgba(180,83,9,0.65)] ring-1 ring-amber-400/60 transition-colors hover:bg-amber-200 sm:px-5"
+              style={{ fontFamily: ROUNDED_FONT_STACK }}
             >
               Envoyer
             </button>
