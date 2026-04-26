@@ -222,41 +222,41 @@ export default function Home() {
         </div>
 
         <section
-          className="w-full max-w-xl rounded-[28px] border border-zinc-200/80 bg-white p-4 text-left shadow-[0_20px_45px_-30px_rgba(24,24,27,0.35)] sm:p-5"
+          className="w-full max-w-xl rounded-[32px] border border-amber-200/80 bg-gradient-to-b from-amber-100/85 via-amber-50/70 to-white p-3 text-left shadow-[0_24px_55px_-30px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/5 sm:p-4"
           aria-label="Chat Bobbee"
         >
-          <div className="flex max-h-[34rem] flex-col gap-3 overflow-y-auto rounded-2xl bg-zinc-50/80 p-2 pr-1 sm:p-3">
+          <div className="flex max-h-[35rem] flex-col gap-3 overflow-y-auto rounded-[26px] bg-white/30 px-1 py-1 pr-1">
             {messages.map((entry, index) => (
               <div
                 key={`${entry.role}-${index}`}
                 className={[
-                  "rounded-[22px] px-4 py-3 text-sm leading-6 break-words shadow-sm",
+                  "rounded-[26px] px-4 py-3.5 text-sm leading-6 break-words shadow-[0_18px_30px_-24px_rgba(24,24,27,0.45)]",
                   entry.role === "assistant"
                     ? entry.results
-                      ? "max-w-full border border-zinc-200/70 bg-white text-zinc-700"
-                      : "max-w-md border border-zinc-200/70 bg-white text-zinc-700"
-                    : "bg-zinc-900 text-white ring-1 ring-zinc-900/5 sm:max-w-md sm:self-end",
+                      ? "max-w-full rounded-bl-lg bg-white/96 text-zinc-800 ring-1 ring-amber-200/80"
+                      : "max-w-md rounded-bl-lg bg-white/96 text-zinc-800 ring-1 ring-amber-200/80"
+                    : "rounded-br-lg bg-zinc-900 text-white shadow-[0_20px_30px_-24px_rgba(24,24,27,0.85)] sm:max-w-md sm:self-end",
                 ].join(" ")}
               >
                 <p className="whitespace-pre-line">{entry.content}</p>
 
                 {entry.results ? (
-                  <div className="mt-3 max-h-72 space-y-4 overflow-y-auto pr-1">
+                  <div className="mt-4 space-y-5 border-t border-amber-200/80 pt-4">
                     {entry.results.people.length > 0 ? (
-                      <div className="space-y-2">
-                        <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                      <div className="space-y-3.5">
+                        <p className="inline-flex rounded-full bg-zinc-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-100 shadow-[0_10px_18px_-16px_rgba(24,24,27,0.8)]">
                           Personnes
                         </p>
-                        <div className="space-y-2">
+                        <div className="space-y-3.5">
                           {entry.results.people.map((person) => (
                             <article
                               key={person.personId}
-                              className="rounded-xl border border-zinc-200 bg-white p-3"
+                              className="rounded-[24px] bg-gradient-to-br from-amber-100/90 via-amber-50/85 to-white p-4 ring-1 ring-amber-300/80 shadow-[0_18px_30px_-24px_rgba(161,98,7,0.55)]"
                             >
-                              <p className="font-medium text-zinc-900">
+                              <p className="text-[15px] font-semibold text-zinc-900">
                                 {person.nomAffiche}
                               </p>
-                              <div className="mt-2 space-y-2">
+                              <div className="mt-3 flex flex-col gap-2.5">
                                 {person.matches.map((match) => {
                                   const levelLabel = getLevelLabel(match.niveau);
 
@@ -268,23 +268,25 @@ export default function Home() {
                                         match.domaine,
                                         match.niveau,
                                       ].join("::")}
-                                      className="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2"
+                                      className="rounded-[18px] bg-white/95 px-3.5 py-3 shadow-[0_12px_24px_-22px_rgba(24,24,27,0.45)] ring-1 ring-amber-100"
                                     >
-                                      <div className="flex flex-wrap items-center gap-2">
-                                        <p className="font-medium text-zinc-900">
+                                      <div className="flex flex-wrap items-start justify-between gap-2">
+                                        <p className="min-w-0 flex-1 font-medium text-zinc-900">
                                           {match.competence}
                                         </p>
-                                        {levelLabel ? (
-                                          <span className="rounded-full border border-zinc-200 bg-white px-2 py-1 text-xs text-zinc-600">
-                                            {levelLabel}
-                                          </span>
-                                        ) : null}
+                                        <div className="flex flex-wrap items-center gap-2">
+                                          {levelLabel ? (
+                                            <span className="rounded-full bg-amber-300/90 px-2.5 py-1 text-[11px] font-semibold text-amber-950 ring-1 ring-amber-400/70">
+                                              {levelLabel}
+                                            </span>
+                                          ) : null}
+                                          {match.domaine ? (
+                                            <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-200">
+                                              {match.domaine}
+                                            </span>
+                                          ) : null}
+                                        </div>
                                       </div>
-                                      {match.domaine ? (
-                                        <p className="mt-1 text-xs text-zinc-500">
-                                          {match.domaine}
-                                        </p>
-                                      ) : null}
                                     </div>
                                   );
                                 })}
@@ -296,11 +298,11 @@ export default function Home() {
                     ) : null}
 
                     {entry.results.links.length > 0 ? (
-                      <div className="space-y-2">
-                        <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                      <div className="space-y-3.5">
+                        <p className="inline-flex rounded-full bg-amber-200/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-900 ring-1 ring-amber-300/80">
                           Liens utiles
                         </p>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           {entry.results.links.map((link, linkIndex) => (
                             <article
                               key={[
@@ -310,20 +312,20 @@ export default function Home() {
                                 link.Lien,
                                 linkIndex,
                               ].join("::")}
-                              className="rounded-xl border border-zinc-200 bg-white p-3"
+                              className="rounded-[22px] bg-white/92 p-3.5 shadow-[0_16px_28px_-24px_rgba(24,24,27,0.35)] ring-1 ring-amber-100"
                             >
                               {link.Rubrique ? (
-                                <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
                                   {link.Rubrique}
                                 </p>
                               ) : null}
                               {link.Quoi ? (
-                                <p className="mt-1 font-medium text-zinc-900">
+                                <p className="mt-1.5 font-semibold text-zinc-900">
                                   {link.Quoi}
                                 </p>
                               ) : null}
                               {link.Qui ? (
-                                <p className="mt-1 text-sm text-zinc-600">
+                                <p className="mt-1.5 text-sm text-zinc-600">
                                   {link.Qui}
                                 </p>
                               ) : null}
@@ -332,7 +334,7 @@ export default function Home() {
                                   href={link.Lien}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="mt-2 inline-flex text-sm text-zinc-900 underline underline-offset-2"
+                                  className="mt-3 inline-flex rounded-full bg-zinc-900 px-3.5 py-1.5 text-sm font-medium text-amber-50 no-underline shadow-[0_12px_20px_-16px_rgba(24,24,27,0.8)] transition-colors hover:bg-zinc-800"
                                 >
                                   Ouvrir le lien
                                 </a>
@@ -350,7 +352,7 @@ export default function Home() {
 
           <form
             onSubmit={handleSubmit}
-            className="mt-4 flex flex-col gap-3 sm:flex-row"
+            className="mt-4 flex flex-col gap-2 rounded-[26px] bg-white/92 p-1.5 shadow-[0_18px_32px_-24px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/8 sm:flex-row sm:items-center"
           >
             <input
               type="text"
@@ -358,17 +360,17 @@ export default function Home() {
               onChange={(event) => setMessage(event.target.value)}
               placeholder="Pose ta question a Bobbee..."
               aria-label="Champ de chat Bobbee"
-              className="min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-700 shadow-sm outline-none placeholder:text-zinc-400 focus:border-zinc-300 focus:ring-2 focus:ring-zinc-200"
+              className="min-w-0 flex-1 rounded-[18px] bg-transparent px-4 py-3.5 text-sm text-zinc-800 outline-none placeholder:text-zinc-400 focus:bg-white/75"
             />
             <button
               type="submit"
-              className="rounded-2xl bg-zinc-900 px-4 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-zinc-800"
+              className="rounded-[18px] bg-amber-300 px-4 py-3.5 text-sm font-semibold text-zinc-950 shadow-[0_14px_24px_-18px_rgba(180,83,9,0.65)] ring-1 ring-amber-400/60 transition-colors hover:bg-amber-200 sm:px-5"
             >
               Envoyer
             </button>
           </form>
 
-          <p className="mt-3 text-xs leading-5 text-zinc-500">
+          <p className="mt-3 text-xs leading-5 text-zinc-600">
             Le chat sera active progressivement si necessaire.
           </p>
         </section>
