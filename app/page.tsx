@@ -178,16 +178,19 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-50 px-6 py-16 text-zinc-950 sm:px-10">
-      <section className="mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-6 text-center">
-        <div className="max-w-2xl space-y-3.5">
-          <h1
-            className="text-3xl font-semibold tracking-tight sm:text-4xl"
-            style={{ fontFamily: ROUNDED_FONT_STACK }}
-          >
-            Une question ? Bobbee part en &eacute;claireur.
-          </h1>
+      <section className="mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-5 text-center">
+        <div className="max-w-2xl space-y-3">
+          <div className="mx-auto w-full max-w-[36rem]">
+            <Image
+              src="/home/home-title-panel.png"
+              alt="Une question ? Suivez le guide."
+              width={2172}
+              height={724}
+              className="h-auto w-full"
+            />
+          </div>
           <p className="text-base leading-7 text-zinc-600 sm:text-lg">
-            Cherche une info, une personne, une &eacute;quipe ou un sujet : Bobbee t&apos;aide a retrouver le bon chemin.
+            Info, personne, &eacute;quipe, sujet : Bobbee t&apos;aide &agrave; retrouver le bon chemin.
           </p>
         </div>
 
