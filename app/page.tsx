@@ -230,12 +230,12 @@ export default function Home() {
               <div
                 key={`${entry.role}-${index}`}
                 className={[
-                  "rounded-2xl px-4 py-3 text-sm leading-6",
+                  "rounded-2xl px-4 py-3 text-sm leading-6 break-words",
                   entry.role === "assistant"
                     ? entry.results
                       ? "max-w-full bg-zinc-100 text-zinc-700"
                       : "max-w-md bg-zinc-100 text-zinc-700"
-                    : "max-w-md self-end bg-zinc-900 text-white",
+                    : "bg-zinc-900 text-white sm:max-w-md sm:self-end",
                 ].join(" ")}
               >
                 <p className="whitespace-pre-line">{entry.content}</p>
