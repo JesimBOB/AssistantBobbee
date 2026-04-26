@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import {
@@ -194,6 +195,13 @@ export default function Home() {
             Je t&apos;aide a trouver les bonnes informations d&apos;onboarding.
           </p>
         </div>
+
+        <Link
+          href="/organigramme"
+          className="inline-flex rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-700"
+        >
+          Voir l&apos;organigramme
+        </Link>
 
         <div
           className="w-full max-w-xs sm:max-w-sm"
