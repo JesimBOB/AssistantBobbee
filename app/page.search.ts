@@ -20,6 +20,36 @@ export type UsefulLinkEntry = {
 
 const COMPETENCES = competencesData as CompetenceEntry[];
 const USEFUL_LINKS = usefulLinksData as UsefulLinkEntry[];
+const FALLBACK_STOP_WORDS = new Set([
+  "a",
+  "au",
+  "aux",
+  "ce",
+  "cherche",
+  "dans",
+  "de",
+  "des",
+  "du",
+  "et",
+  "est",
+  "est-ce",
+  "info",
+  "infos",
+  "je",
+  "la",
+  "le",
+  "les",
+  "peux",
+  "peux-tu",
+  "que",
+  "sais",
+  "sinon",
+  "sur",
+  "trouver",
+  "tu",
+  "un",
+  "une",
+]);
 
 export function getMatchPriority(
   query: string,
@@ -58,7 +88,39 @@ export function getMatchPriority(
   return null;
 }
 
-export function searchCompetences(query: string) {
+function extractFallbackKeywords(query: string) {
+  const tokens = query.toLowerCase().match(/[\p{L}\p{N}-]+/gu) ?? [];
+  const seen = new Set<string>();
+
+  return tokens.filter((token) => {
+    if (token.length <= 2 || FALLBACK_STOP_WORDS.has(token) || seen.has(token)) {
+      return false;
+    }
+
+    seen.add(token);
+    return true;
+  });
+}
+
+function mergeUniqueResults<T>(resultGroups: T[][]) {
+  const results: T[] = [];
+  const seen = new Set<T>();
+
+  resultGroups.forEach((group) => {
+    group.forEach((entry) => {
+      if (seen.has(entry)) {
+        return;
+      }
+
+      seen.add(entry);
+      results.push(entry);
+    });
+  });
+
+  return results;
+}
+
+function searchCompetencesByQuery(query: string) {
   const normalizedQuery = query.toLowerCase();
 
   return COMPETENCES.map((entry, index) => ({
@@ -84,7 +146,7 @@ export function searchCompetences(query: string) {
     .map(({ entry }) => entry);
 }
 
-export function searchUsefulLinks(query: string) {
+function searchUsefulLinksByQuery(query: string) {
   const normalizedQuery = query.toLowerCase();
 
   return USEFUL_LINKS.map((entry, index) => ({
@@ -107,4 +169,32 @@ export function searchUsefulLinks(query: string) {
     )
     .sort((left, right) => left.priority - right.priority || left.index - right.index)
     .map(({ entry }) => entry);
+}
+
+export function searchCompetences(query: string) {
+  return searchCompetencesByQuery(query);
+}
+
+export function searchUsefulLinks(query: string) {
+  return searchUsefulLinksByQuery(query);
+}
+
+export function searchChatResults(query: string) {
+  const competences = searchCompetencesByQuery(query);
+  const usefulLinks = searchUsefulLinksByQuery(query);
+
+  if (competences.length > 0 || usefulLinks.length > 0) {
+    return { competences, usefulLinks };
+  }
+
+  const keywords = extractFallbackKeywords(query);
+
+  if (keywords.length === 0) {
+    return { competences, usefulLinks };
+  }
+
+  return {
+    competences: mergeUniqueResults(keywords.map(searchCompetencesByQuery)),
+    usefulLinks: mergeUniqueResults(keywords.map(searchUsefulLinksByQuery)),
+  };
 }

@@ -4,8 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import {
-  searchCompetences,
-  searchUsefulLinks,
+  searchChatResults,
   type CompetenceEntry,
   type UsefulLinkEntry,
 } from "./page.search";
@@ -131,8 +130,9 @@ export default function Home() {
 
     clearPendingTimeouts();
 
-    const people = buildPeopleResults(searchCompetences(trimmedMessage));
-    const links = searchUsefulLinks(trimmedMessage);
+    const { competences, usefulLinks } = searchChatResults(trimmedMessage);
+    const people = buildPeopleResults(competences);
+    const links = usefulLinks;
     const hasResults = people.length > 0 || links.length > 0;
 
     setMessages((currentMessages) => [
