@@ -222,20 +222,20 @@ export default function Home() {
         </div>
 
         <section
-          className="w-full max-w-xl rounded-2xl border border-zinc-200 bg-white p-4 text-left shadow-sm"
+          className="w-full max-w-xl rounded-[28px] border border-zinc-200/80 bg-white p-4 text-left shadow-[0_20px_45px_-30px_rgba(24,24,27,0.35)] sm:p-5"
           aria-label="Chat Bobbee"
         >
-          <div className="flex max-h-[34rem] flex-col gap-3 overflow-y-auto pr-1">
+          <div className="flex max-h-[34rem] flex-col gap-3 overflow-y-auto rounded-2xl bg-zinc-50/80 p-2 pr-1 sm:p-3">
             {messages.map((entry, index) => (
               <div
                 key={`${entry.role}-${index}`}
                 className={[
-                  "rounded-2xl px-4 py-3 text-sm leading-6 break-words",
+                  "rounded-[22px] px-4 py-3 text-sm leading-6 break-words shadow-sm",
                   entry.role === "assistant"
                     ? entry.results
-                      ? "max-w-full bg-zinc-100 text-zinc-700"
-                      : "max-w-md bg-zinc-100 text-zinc-700"
-                    : "bg-zinc-900 text-white sm:max-w-md sm:self-end",
+                      ? "max-w-full border border-zinc-200/70 bg-white text-zinc-700"
+                      : "max-w-md border border-zinc-200/70 bg-white text-zinc-700"
+                    : "bg-zinc-900 text-white ring-1 ring-zinc-900/5 sm:max-w-md sm:self-end",
                 ].join(" ")}
               >
                 <p className="whitespace-pre-line">{entry.content}</p>
@@ -358,11 +358,11 @@ export default function Home() {
               onChange={(event) => setMessage(event.target.value)}
               placeholder="Pose ta question a Bobbee..."
               aria-label="Champ de chat Bobbee"
-              className="min-w-0 flex-1 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3 text-sm text-zinc-700 placeholder:text-zinc-400"
+              className="min-w-0 flex-1 rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-700 shadow-sm outline-none placeholder:text-zinc-400 focus:border-zinc-300 focus:ring-2 focus:ring-zinc-200"
             />
             <button
               type="submit"
-              className="rounded-xl bg-zinc-900 px-4 py-3 text-sm font-medium text-white"
+              className="rounded-2xl bg-zinc-900 px-4 py-3 text-sm font-medium text-white shadow-sm transition-colors hover:bg-zinc-800"
             >
               Envoyer
             </button>
