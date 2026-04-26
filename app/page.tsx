@@ -2,13 +2,37 @@
 
 import Image from "next/image";
 import { type FormEvent, useEffect, useRef, useState } from "react";
+import {
+  searchCompetences,
+  searchUsefulLinks,
+  type CompetenceEntry,
+  type UsefulLinkEntry,
+} from "./page.search";
 
 type Message = {
   role: "assistant" | "user";
   content: string;
+  results?: SearchResults;
 };
 
 type BobbeeState = "idle" | "thinking" | "found";
+type PersonMatch = {
+  competence: string;
+  domaine: string;
+  niveau: string;
+};
+
+type PersonResult = {
+  personId: string;
+  nomAffiche: string;
+  matches: PersonMatch[];
+};
+
+type SearchResults = {
+  people: PersonResult[];
+  links: UsefulLinkEntry[];
+};
+
 const INITIAL_MESSAGES: Message[] = [
   {
     role: "assistant",
@@ -17,8 +41,10 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-const STATIC_BOBBEE_REPLY =
-  "Je regarde ca avec toi. Pour l'instant, je peux surtout t'aider a retrouver les bons points d'entree.";
+const RESULTS_BOBBEE_REPLY =
+  "J'ai trouve quelques elements qui peuvent t'aider sur ce sujet.";
+const EMPTY_BOBBEE_REPLY =
+  "Je n'ai pas trouve de resultat clair pour l'instant. Essaie avec un autre mot-cle ou une formulation plus precise.";
 const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   thinking: "/bobbee/bobbee-thinking.png",
@@ -26,6 +52,57 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 };
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
+const LEVEL_LABELS: Record<string, string> = {
+  a: "Expert / referent",
+  b: "Bon niveau",
+  r: "Ressource / relais",
+};
+
+function getLevelLabel(level: string) {
+  return LEVEL_LABELS[level.toLowerCase()] ?? null;
+}
+
+function buildPeopleResults(entries: CompetenceEntry[]) {
+  const peopleById = new Map<
+    string,
+    {
+      personId: string;
+      nomAffiche: string;
+      matches: PersonMatch[];
+      matchKeys: Set<string>;
+    }
+  >();
+
+  entries.forEach((entry) => {
+    const personId = entry.person_id?.trim() || entry.personne;
+    const currentPerson =
+      peopleById.get(personId) ??
+      {
+        personId,
+        nomAffiche: entry.nom_affiche?.trim() || entry.personne,
+        matches: [],
+        matchKeys: new Set<string>(),
+      };
+    const matchKey = [entry.competence, entry.domaine, entry.niveau].join("::");
+
+    if (!currentPerson.matchKeys.has(matchKey)) {
+      currentPerson.matches.push({
+        competence: entry.competence,
+        domaine: entry.domaine,
+        niveau: entry.niveau,
+      });
+      currentPerson.matchKeys.add(matchKey);
+    }
+
+    peopleById.set(personId, currentPerson);
+  });
+
+  return Array.from(peopleById.values()).map((person) => ({
+    personId: person.personId,
+    nomAffiche: person.nomAffiche,
+    matches: person.matches,
+  }));
+}
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -33,11 +110,16 @@ export default function Home() {
   const [bobbeeState, setBobbeeState] = useState<BobbeeState>("idle");
   const timeoutIdsRef = useRef<number[]>([]);
 
+  function clearPendingTimeouts() {
+    timeoutIdsRef.current.forEach((timeoutId) => {
+      window.clearTimeout(timeoutId);
+    });
+    timeoutIdsRef.current = [];
+  }
+
   useEffect(() => {
     return () => {
-      timeoutIdsRef.current.forEach((timeoutId) => {
-        window.clearTimeout(timeoutId);
-      });
+      clearPendingTimeouts();
     };
   }, []);
 
@@ -49,6 +131,12 @@ export default function Home() {
     if (!trimmedMessage) {
       return;
     }
+
+    clearPendingTimeouts();
+
+    const people = buildPeopleResults(searchCompetences(trimmedMessage));
+    const links = searchUsefulLinks(trimmedMessage);
+    const hasResults = people.length > 0 || links.length > 0;
 
     setMessages((currentMessages) => [
       ...currentMessages,
@@ -66,9 +154,16 @@ export default function Home() {
         ...currentMessages,
         {
           role: "assistant",
-          content: STATIC_BOBBEE_REPLY,
+          content: hasResults ? RESULTS_BOBBEE_REPLY : EMPTY_BOBBEE_REPLY,
+          results: hasResults ? { people, links } : undefined,
         },
       ]);
+
+      if (!hasResults) {
+        setBobbeeState("idle");
+        return;
+      }
+
       setBobbeeState("found");
 
       const foundTimeoutId = window.setTimeout(() => {
@@ -122,18 +217,125 @@ export default function Home() {
           className="w-full max-w-xl rounded-2xl border border-zinc-200 bg-white p-4 text-left shadow-sm"
           aria-label="Chat Bobbee"
         >
-          <div className="flex flex-col gap-3">
+          <div className="flex max-h-[34rem] flex-col gap-3 overflow-y-auto pr-1">
             {messages.map((entry, index) => (
               <div
                 key={`${entry.role}-${index}`}
                 className={[
-                  "max-w-md rounded-2xl px-4 py-3 text-sm leading-6",
+                  "rounded-2xl px-4 py-3 text-sm leading-6",
                   entry.role === "assistant"
-                    ? "bg-zinc-100 text-zinc-700"
-                    : "self-end bg-zinc-900 text-white",
+                    ? entry.results
+                      ? "max-w-full bg-zinc-100 text-zinc-700"
+                      : "max-w-md bg-zinc-100 text-zinc-700"
+                    : "max-w-md self-end bg-zinc-900 text-white",
                 ].join(" ")}
               >
                 <p className="whitespace-pre-line">{entry.content}</p>
+
+                {entry.results ? (
+                  <div className="mt-3 max-h-72 space-y-4 overflow-y-auto pr-1">
+                    {entry.results.people.length > 0 ? (
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                          Personnes
+                        </p>
+                        <div className="space-y-2">
+                          {entry.results.people.map((person) => (
+                            <article
+                              key={person.personId}
+                              className="rounded-xl border border-zinc-200 bg-white p-3"
+                            >
+                              <p className="font-medium text-zinc-900">
+                                {person.nomAffiche}
+                              </p>
+                              <div className="mt-2 space-y-2">
+                                {person.matches.map((match) => {
+                                  const levelLabel = getLevelLabel(match.niveau);
+
+                                  return (
+                                    <div
+                                      key={[
+                                        person.personId,
+                                        match.competence,
+                                        match.domaine,
+                                        match.niveau,
+                                      ].join("::")}
+                                      className="rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2"
+                                    >
+                                      <div className="flex flex-wrap items-center gap-2">
+                                        <p className="font-medium text-zinc-900">
+                                          {match.competence}
+                                        </p>
+                                        {levelLabel ? (
+                                          <span className="rounded-full border border-zinc-200 bg-white px-2 py-1 text-xs text-zinc-600">
+                                            {levelLabel}
+                                          </span>
+                                        ) : null}
+                                      </div>
+                                      {match.domaine ? (
+                                        <p className="mt-1 text-xs text-zinc-500">
+                                          {match.domaine}
+                                        </p>
+                                      ) : null}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </article>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {entry.results.links.length > 0 ? (
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                          Liens utiles
+                        </p>
+                        <div className="space-y-2">
+                          {entry.results.links.map((link, linkIndex) => (
+                            <article
+                              key={[
+                                link.Rubrique,
+                                link.Qui,
+                                link.Quoi,
+                                link.Lien,
+                                linkIndex,
+                              ].join("::")}
+                              className="rounded-xl border border-zinc-200 bg-white p-3"
+                            >
+                              {link.Rubrique ? (
+                                <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                                  {link.Rubrique}
+                                </p>
+                              ) : null}
+                              {link.Quoi ? (
+                                <p className="mt-1 font-medium text-zinc-900">
+                                  {link.Quoi}
+                                </p>
+                              ) : null}
+                              {link.Qui ? (
+                                <p className="mt-1 text-sm text-zinc-600">
+                                  {link.Qui}
+                                </p>
+                              ) : null}
+                              {link.Lien ? (
+                                <a
+                                  href={link.Lien}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="mt-2 inline-flex text-sm text-zinc-900 underline underline-offset-2"
+                                >
+                                  Ouvrir le lien
+                                </a>
+                              ) : null}
+                            </article>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>

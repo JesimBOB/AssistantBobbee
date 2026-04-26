@@ -7,6 +7,8 @@ export type CompetenceEntry = {
   domaine: string;
   tag: string;
   niveau: string;
+  nom_affiche?: string;
+  person_id?: string;
 };
 
 export type UsefulLinkEntry = {
@@ -18,7 +20,6 @@ export type UsefulLinkEntry = {
 
 const COMPETENCES = competencesData as CompetenceEntry[];
 const USEFUL_LINKS = usefulLinksData as UsefulLinkEntry[];
-const MAX_SEARCH_RESULTS = 5;
 
 export function getMatchPriority(
   query: string,
@@ -64,6 +65,7 @@ export function searchCompetences(query: string) {
     entry,
     index,
     priority: getMatchPriority(normalizedQuery, entry.competence, [
+      entry.nom_affiche,
       entry.personne,
       entry.domaine,
       entry.tag,
@@ -79,7 +81,6 @@ export function searchCompetences(query: string) {
       } => result.priority !== null,
     )
     .sort((left, right) => left.priority - right.priority || left.index - right.index)
-    .slice(0, MAX_SEARCH_RESULTS)
     .map(({ entry }) => entry);
 }
 
@@ -105,6 +106,5 @@ export function searchUsefulLinks(query: string) {
       } => result.priority !== null,
     )
     .sort((left, right) => left.priority - right.priority || left.index - right.index)
-    .slice(0, MAX_SEARCH_RESULTS)
     .map(({ entry }) => entry);
 }
