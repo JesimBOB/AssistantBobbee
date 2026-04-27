@@ -348,14 +348,39 @@ export default function OrganigrammePage() {
                 return (
                   <article
                     key={team.name}
-                    className={`absolute w-44 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-amber-200/60 bg-white/70 p-3 text-xs shadow-sm shadow-amber-950/5 backdrop-blur-[2px] ${overlay.className}`}
+                    className={`absolute min-w-48 max-w-60 w-[19%] -translate-x-1/2 -translate-y-[72%] overflow-hidden rounded-xl border border-amber-200/60 bg-white/75 p-2.5 text-[10px] shadow-sm shadow-amber-950/5 backdrop-blur-[2px] ${overlay.className}`}
                   >
-                    <h2 className="font-semibold tracking-tight text-zinc-950">{team.name}</h2>
-                    <ul className="mt-1.5 space-y-0.5 text-zinc-600">
-                      {team.people.slice(0, 3).map((person) => (
-                        <li key={`${team.name}-${person.name}`}>{person.name}</li>
-                      ))}
-                    </ul>
+                    <div
+                      className={
+                        team.tags.length > 0
+                          ? "grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-2.5"
+                          : ""
+                      }
+                    >
+                      <div className="min-w-0">
+                        <h2 className="font-semibold leading-tight tracking-tight text-zinc-950">{team.name}</h2>
+                        <ul className="mt-1.5 space-y-0.5 text-[9px] leading-[1.15] text-zinc-600">
+                          {team.people.map((person) => (
+                            <li key={`${team.name}-${person.name}`} className="break-words">
+                              {person.name}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {team.tags.length > 0 ? (
+                        <ul className="flex min-w-0 flex-col gap-1">
+                          {team.tags.map((tag) => (
+                            <li
+                              key={`${team.name}-${tag}`}
+                              className="rounded-lg border border-amber-200 bg-amber-50/90 px-1.5 py-1 text-[9px] leading-[1.15] text-amber-900"
+                            >
+                              {tag}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </div>
                   </article>
                 );
               })}
