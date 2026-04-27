@@ -240,29 +240,29 @@ const teams = [
 
 export default function OrganigrammePage() {
   return (
-    <main className="min-h-screen bg-zinc-50 px-6 py-12 text-zinc-950 sm:px-10">
-      <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-6">
+    <main className="min-h-screen bg-zinc-50 px-4 py-10 text-zinc-950 sm:px-6 lg:px-10">
+      <section className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <h1 className="text-3xl font-semibold tracking-tight">Organigramme</h1>
 
-        <section className="grid w-full gap-4 lg:grid-cols-3">
+        <section className="grid w-full items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
           {teams.map((team) => (
-            <article key={team.name} className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-              <h2 className="text-xl font-semibold">{team.name}</h2>
+            <article key={team.name} className="flex h-full flex-col rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
+              <h2 className="border-b border-zinc-100 pb-3 text-lg font-semibold tracking-tight">{team.name}</h2>
 
-              <ul className="mt-4 space-y-2 text-sm">
+              <ul className="mt-3 divide-y divide-zinc-100 text-sm">
                 {team.people.map((person) => (
-                  <li key={`${team.name}-${person.name}`}>
-                    <span className="font-medium">{person.name}</span>
-                    <span className="block text-zinc-600">{person.role}</span>
-                    {person.note ? <span className="block text-zinc-500">{person.note}</span> : null}
+                  <li key={`${team.name}-${person.name}`} className="py-2 first:pt-0 last:pb-0">
+                    <span className="font-medium text-zinc-950">{person.name}</span>
+                    <span className="mt-0.5 block text-zinc-600">{person.role}</span>
+                    {person.note ? <span className="mt-0.5 block text-xs text-zinc-500">{person.note}</span> : null}
                   </li>
                 ))}
               </ul>
 
               {team.tags.length > 0 ? (
-                <ul className="mt-4 flex flex-wrap gap-2">
+                <ul className="mt-4 flex flex-wrap gap-2 border-t border-zinc-100 pt-4">
                   {team.tags.map((tag) => (
-                    <li key={`${team.name}-${tag}`} className="rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-700">
+                    <li key={`${team.name}-${tag}`} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs text-zinc-700">
                       {tag}
                     </li>
                   ))}
