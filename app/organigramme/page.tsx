@@ -273,6 +273,12 @@ function getRoleClassName(role: string) {
   return "border-zinc-200 bg-zinc-50 text-zinc-700";
 }
 
+const hivePrototypeOverlays = [
+  { teamName: "Pôle ruche", className: "left-[51%] top-[47.5%]" },
+  { teamName: "Pôle essaim", className: "left-[31.5%] top-[47.5%]" },
+  { teamName: "Pôle propolis", className: "left-[70.5%] top-[47.5%]" },
+];
+
 export default function OrganigrammePage() {
   const [search, setSearch] = useState("");
   const trimmedSearch = search.trim();
@@ -313,6 +319,37 @@ export default function OrganigrammePage() {
           />
           <p className="mt-2 text-sm text-zinc-500">{resultSummary}</p>
         </div>
+
+        {!query ? (
+          <section className="hidden lg:block" aria-label="Prototype desktop fond ruche">
+            <div
+              className="relative aspect-[1491/1055] overflow-hidden rounded-3xl border border-amber-200 bg-amber-50 bg-contain bg-center bg-no-repeat shadow-sm shadow-amber-100/70"
+              style={{ backgroundImage: "url('/organigramme/organigramme-hive-background-test.png')" }}
+            >
+              {hivePrototypeOverlays.map((overlay) => {
+                const team = teams.find((currentTeam) => currentTeam.name === overlay.teamName);
+
+                if (!team) {
+                  return null;
+                }
+
+                return (
+                  <article
+                    key={team.name}
+                    className={`absolute w-44 -translate-x-1/2 -translate-y-1/2 rounded-xl border border-amber-200/60 bg-white/70 p-3 text-xs shadow-sm shadow-amber-950/5 backdrop-blur-[2px] ${overlay.className}`}
+                  >
+                    <h2 className="font-semibold tracking-tight text-zinc-950">{team.name}</h2>
+                    <ul className="mt-1.5 space-y-0.5 text-zinc-600">
+                      {team.people.slice(0, 3).map((person) => (
+                        <li key={`${team.name}-${person.name}`}>{person.name}</li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ) : null}
 
         {filteredTeams.length > 0 ? (
           <section className="grid w-full items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
