@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const teams = [
   {
     name: "Pôle propolis",
@@ -239,38 +243,70 @@ const teams = [
 ];
 
 export default function OrganigrammePage() {
+  const [search, setSearch] = useState("");
+  const query = search.trim().toLowerCase();
+  const filteredTeams = query
+    ? teams.filter((team) =>
+        [
+          team.name,
+          ...team.people.flatMap((person) => [person.name, person.role, person.note ?? ""]),
+          ...team.tags,
+        ].some((value) => value.toLowerCase().includes(query)),
+      )
+    : teams;
+
   return (
     <main className="min-h-screen bg-zinc-50 px-4 py-10 text-zinc-950 sm:px-6 lg:px-10">
       <section className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <h1 className="text-3xl font-semibold tracking-tight">Organigramme</h1>
 
-        <section className="grid w-full items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {teams.map((team) => (
-            <article key={team.name} className="flex h-full flex-col rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
-              <h2 className="border-b border-zinc-100 pb-3 text-lg font-semibold tracking-tight">{team.name}</h2>
+        <div className="w-full max-w-xl">
+          <label htmlFor="organigramme-search" className="text-sm font-medium text-zinc-700">
+            Recherche
+          </label>
+          <input
+            id="organigramme-search"
+            type="search"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Nom, pôle, rôle ou tag"
+            className="mt-2 w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm shadow-sm outline-none focus:border-zinc-400"
+          />
+        </div>
 
-              <ul className="mt-3 divide-y divide-zinc-100 text-sm">
-                {team.people.map((person) => (
-                  <li key={`${team.name}-${person.name}`} className="py-2 first:pt-0 last:pb-0">
-                    <span className="font-medium text-zinc-950">{person.name}</span>
-                    <span className="mt-0.5 block text-zinc-600">{person.role}</span>
-                    {person.note ? <span className="mt-0.5 block text-xs text-zinc-500">{person.note}</span> : null}
-                  </li>
-                ))}
-              </ul>
+        {filteredTeams.length > 0 ? (
+          <section className="grid w-full items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {filteredTeams.map((team) => (
+              <article key={team.name} className="flex h-full flex-col rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
+                <h2 className="border-b border-zinc-100 pb-3 text-lg font-semibold tracking-tight">{team.name}</h2>
 
-              {team.tags.length > 0 ? (
-                <ul className="mt-4 flex flex-wrap gap-2 border-t border-zinc-100 pt-4">
-                  {team.tags.map((tag) => (
-                    <li key={`${team.name}-${tag}`} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs text-zinc-700">
-                      {tag}
+                <ul className="mt-3 divide-y divide-zinc-100 text-sm">
+                  {team.people.map((person) => (
+                    <li key={`${team.name}-${person.name}`} className="py-2 first:pt-0 last:pb-0">
+                      <span className="font-medium text-zinc-950">{person.name}</span>
+                      <span className="mt-0.5 block text-zinc-600">{person.role}</span>
+                      {person.note ? <span className="mt-0.5 block text-xs text-zinc-500">{person.note}</span> : null}
                     </li>
                   ))}
                 </ul>
-              ) : null}
-            </article>
-          ))}
-        </section>
+
+                {team.tags.length > 0 ? (
+                  <ul className="mt-4 flex flex-wrap gap-2 border-t border-zinc-100 pt-4">
+                    {team.tags.map((tag) => (
+                      <li key={`${team.name}-${tag}`} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs text-zinc-700">
+                        {tag}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </article>
+            ))}
+          </section>
+        ) : (
+          <p className="rounded-xl border border-zinc-200 bg-white p-5 text-sm text-zinc-600 shadow-sm">
+            Aucun résultat trouvé.
+          </p>
+        )}
       </section>
     </main>
   );
