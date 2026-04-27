@@ -244,7 +244,8 @@ const teams = [
 
 export default function OrganigrammePage() {
   const [search, setSearch] = useState("");
-  const query = search.trim().toLowerCase();
+  const trimmedSearch = search.trim();
+  const query = trimmedSearch.toLowerCase();
   const filteredTeams = query
     ? teams.filter((team) =>
         [
@@ -254,6 +255,13 @@ export default function OrganigrammePage() {
         ].some((value) => value.toLowerCase().includes(query)),
       )
     : teams;
+  const resultSummary = query
+    ? filteredTeams.length === 1
+      ? `1 pôle trouvé pour “${trimmedSearch}”`
+      : filteredTeams.length > 1
+        ? `${filteredTeams.length} pôles trouvés pour “${trimmedSearch}”`
+        : `Aucun pôle trouvé pour “${trimmedSearch}”`
+    : `${teams.length} pôles affichés`;
 
   return (
     <main className="min-h-screen bg-zinc-50 px-4 py-10 text-zinc-950 sm:px-6 lg:px-10">
@@ -272,6 +280,7 @@ export default function OrganigrammePage() {
             placeholder="Nom, pôle, rôle ou tag"
             className="mt-2 w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm shadow-sm outline-none focus:border-zinc-400"
           />
+          <p className="mt-2 text-sm text-zinc-500">{resultSummary}</p>
         </div>
 
         {filteredTeams.length > 0 ? (
