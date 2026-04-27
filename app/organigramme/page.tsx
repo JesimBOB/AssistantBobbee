@@ -242,6 +242,37 @@ const teams = [
   },
 ];
 
+function getRoleClassName(role: string) {
+  const normalizedRole = role.toLowerCase();
+
+  if (
+    normalizedRole.includes("po") ||
+    normalizedRole.includes("squad lead") ||
+    normalizedRole === "pm" ||
+    normalizedRole.includes("dir")
+  ) {
+    return "border-emerald-200 bg-emerald-50 text-emerald-800";
+  }
+
+  if (normalizedRole.includes("dev") || normalizedRole.includes("archi")) {
+    return "border-rose-200 bg-rose-50 text-rose-800";
+  }
+
+  if (
+    normalizedRole.includes("consult") ||
+    normalizedRole.includes("manager") ||
+    normalizedRole.includes("cto")
+  ) {
+    return "border-amber-200 bg-amber-50 text-amber-800";
+  }
+
+  if (normalizedRole.includes("qa")) {
+    return "border-sky-200 bg-sky-50 text-sky-800";
+  }
+
+  return "border-zinc-200 bg-zinc-50 text-zinc-700";
+}
+
 export default function OrganigrammePage() {
   const [search, setSearch] = useState("");
   const trimmedSearch = search.trim();
@@ -264,7 +295,7 @@ export default function OrganigrammePage() {
     : `${teams.length} pôles affichés`;
 
   return (
-    <main className="min-h-screen bg-zinc-50 px-4 py-10 text-zinc-950 sm:px-6 lg:px-10">
+    <main className="min-h-screen bg-amber-50/40 px-4 py-10 text-zinc-950 sm:px-6 lg:px-10">
       <section className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <h1 className="text-3xl font-semibold tracking-tight">Organigramme</h1>
 
@@ -278,7 +309,7 @@ export default function OrganigrammePage() {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Nom, pôle, rôle ou tag"
-            className="mt-2 w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm shadow-sm outline-none focus:border-zinc-400"
+            className="mt-2 w-full rounded-2xl border border-amber-200 bg-white px-4 py-3 text-sm shadow-sm shadow-amber-100/60 outline-none focus:border-amber-400"
           />
           <p className="mt-2 text-sm text-zinc-500">{resultSummary}</p>
         </div>
@@ -286,23 +317,27 @@ export default function OrganigrammePage() {
         {filteredTeams.length > 0 ? (
           <section className="grid w-full items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
             {filteredTeams.map((team) => (
-              <article key={team.name} className="flex h-full flex-col rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
-                <h2 className="border-b border-zinc-100 pb-3 text-lg font-semibold tracking-tight">{team.name}</h2>
+              <article key={team.name} className="flex h-full flex-col rounded-3xl border border-amber-200 bg-white p-5 shadow-sm shadow-amber-100/70">
+                <h2 className="border-b border-amber-100 pb-3 text-lg font-semibold tracking-tight text-zinc-950">{team.name}</h2>
 
-                <ul className="mt-3 divide-y divide-zinc-100 text-sm">
+                <ul className="mt-3 divide-y divide-amber-100/70 text-sm">
                   {team.people.map((person) => (
                     <li key={`${team.name}-${person.name}`} className="py-2 first:pt-0 last:pb-0">
-                      <span className="font-medium text-zinc-950">{person.name}</span>
-                      <span className="mt-0.5 block text-zinc-600">{person.role}</span>
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <span className="font-medium text-zinc-950">{person.name}</span>
+                        <span className={`rounded-full border px-2.5 py-1 text-xs font-medium ${getRoleClassName(person.role)}`}>
+                          {person.role}
+                        </span>
+                      </div>
                       {person.note ? <span className="mt-0.5 block text-xs text-zinc-500">{person.note}</span> : null}
                     </li>
                   ))}
                 </ul>
 
                 {team.tags.length > 0 ? (
-                  <ul className="mt-4 flex flex-wrap gap-2 border-t border-zinc-100 pt-4">
+                  <ul className="mt-4 flex flex-wrap gap-2 border-t border-amber-100 pt-4">
                     {team.tags.map((tag) => (
-                      <li key={`${team.name}-${tag}`} className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs text-zinc-700">
+                      <li key={`${team.name}-${tag}`} className="rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs text-amber-900">
                         {tag}
                       </li>
                     ))}
