@@ -318,10 +318,22 @@ export default function OrganigrammePage() {
             className="mt-2 w-full rounded-2xl border border-amber-200 bg-white px-4 py-3 text-sm shadow-sm shadow-amber-100/60 outline-none focus:border-amber-400"
           />
           <p className="mt-2 text-sm text-zinc-500">{resultSummary}</p>
+          {query ? (
+            <button
+              type="button"
+              onClick={() => setSearch("")}
+              className="mt-2 hidden text-sm font-medium text-amber-800 underline-offset-4 hover:underline sm:inline-flex"
+            >
+              Effacer la recherche
+            </button>
+          ) : null}
         </div>
 
         {!query ? (
           <section className="hidden lg:block" aria-label="Prototype desktop fond ruche">
+            <p className="mb-3 text-sm text-zinc-500">
+              Vue ruche en cours d’exploration. Utilisez la recherche pour trouver une équipe, une personne ou un sujet.
+            </p>
             <div
               className="relative aspect-[1491/1055] overflow-hidden rounded-3xl border border-amber-200 bg-amber-50 bg-contain bg-center bg-no-repeat shadow-sm shadow-amber-100/70"
               style={{ backgroundImage: "url('/organigramme/organigramme-hive-background-test.png')" }}
