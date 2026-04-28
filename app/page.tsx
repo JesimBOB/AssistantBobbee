@@ -209,14 +209,128 @@ function SearchResultsContent({ results }: { results: SearchResults }) {
   );
 }
 
+function DesktopSearchResultsContent({ results }: { results: SearchResults }) {
+  return (
+    <div className="flex w-full min-w-0 flex-col gap-3.5 pr-1">
+      {results.people.length > 0 ? (
+        <section className="min-w-0 space-y-2.5">
+          <p className="inline-flex max-w-full rounded-full bg-zinc-900/88 px-2.5 py-1 text-[10px] font-semibold uppercase leading-4 tracking-[0.12em] text-amber-100 shadow-[0_8px_14px_-12px_rgba(24,24,27,0.75)]">
+            PERSONNES
+          </p>
+
+          <div className="flex w-full min-w-0 flex-col gap-2.5">
+            {results.people.map((person) => (
+              <article
+                key={person.personId}
+                className="w-full min-w-0 rounded-[14px] bg-amber-50/72 px-3 py-2.5 text-zinc-900 shadow-[0_10px_18px_-18px_rgba(120,53,15,0.28)] ring-1 ring-amber-200/45"
+              >
+                <p className="break-words text-[14px] font-semibold leading-5">
+                  {person.nomAffiche}
+                </p>
+
+                <div className="mt-2.5 flex flex-col gap-2">
+                  {person.matches.map((match) => {
+                    const levelLabel = getLevelLabel(match.niveau);
+
+                    return (
+                      <div
+                        key={[
+                          person.personId,
+                          match.competence,
+                          match.domaine,
+                          match.niveau,
+                        ].join("::")}
+                        className="border-l-2 border-amber-300/55 pl-2"
+                      >
+                        <p className="break-words text-[12px] font-medium leading-4 text-zinc-900">
+                          {match.competence}
+                        </p>
+
+                        <div className="mt-1.5 flex max-w-full flex-wrap gap-1.5">
+                          {levelLabel ? (
+                            <span className="rounded-full bg-amber-300/80 px-1.5 py-0.5 text-[10px] font-semibold leading-3 text-amber-950 ring-1 ring-amber-400/50">
+                              {levelLabel}
+                            </span>
+                          ) : null}
+                          {match.domaine ? (
+                            <span className="rounded-full bg-white/70 px-1.5 py-0.5 text-[10px] font-medium leading-3 text-zinc-600 ring-1 ring-amber-100">
+                              {match.domaine}
+                            </span>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {results.links.length > 0 ? (
+        <section className="min-w-0 space-y-2.5">
+          <p className="inline-flex max-w-full rounded-full bg-amber-200/85 px-2.5 py-1 text-[10px] font-semibold uppercase leading-4 tracking-[0.12em] text-zinc-900 shadow-[0_8px_14px_-12px_rgba(120,53,15,0.35)] ring-1 ring-amber-300/60">
+            LIENS UTILES
+          </p>
+
+          <div className="flex w-full min-w-0 flex-col gap-2.5">
+            {results.links.map((link, linkIndex) => (
+              <article
+                key={[
+                  link.Rubrique,
+                  link.Qui,
+                  link.Quoi,
+                  link.Lien,
+                  linkIndex,
+                ].join("::")}
+                className="w-full min-w-0 rounded-[14px] bg-amber-50/72 px-3 py-2.5 text-zinc-900 shadow-[0_10px_18px_-18px_rgba(120,53,15,0.28)] ring-1 ring-amber-200/45"
+              >
+                {link.Quoi ? (
+                  <p className="break-words text-[13px] font-semibold leading-5">
+                    {link.Quoi}
+                  </p>
+                ) : null}
+                {link.Rubrique ? (
+                  <p className="mt-1.5 break-words text-[10px] font-semibold uppercase leading-3 tracking-[0.1em] text-zinc-500">
+                    {link.Rubrique}
+                  </p>
+                ) : null}
+                {link.Qui ? (
+                  <p className="mt-1.5 break-words text-[12px] leading-4 text-zinc-600">
+                    {link.Qui}
+                  </p>
+                ) : null}
+                {link.Lien ? (
+                  <a
+                    href={link.Lien}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-2 inline-flex rounded-full bg-zinc-900 px-2.5 py-1 text-[11px] font-medium leading-4 text-amber-50 no-underline shadow-[0_8px_14px_-12px_rgba(24,24,27,0.75)] transition-colors hover:bg-zinc-800"
+                  >
+                    Ouvrir le lien
+                  </a>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+    </div>
+  );
+}
+
 export default function Home() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [bobbeeState, setBobbeeState] = useState<BobbeeState>("idle");
   const timeoutIdsRef = useRef<number[]>([]);
-  const latestMessage = messages[messages.length - 1];
-  const latestResults =
-    latestMessage?.role === "assistant" ? latestMessage.results : null;
+  const searchRequestIdRef = useRef(0);
+  const activeUserMessage =
+    messages.findLast((entry) => entry.role === "user") ?? null;
+  const activeAssistantMessage =
+    messages.findLast((entry) => entry.role === "assistant") ?? null;
+  const latestResults = activeAssistantMessage?.results ?? null;
 
   function clearPendingTimeouts() {
     timeoutIdsRef.current.forEach((timeoutId) => {
@@ -241,16 +355,15 @@ export default function Home() {
     }
 
     clearPendingTimeouts();
+    const requestId = searchRequestIdRef.current + 1;
+    searchRequestIdRef.current = requestId;
 
     const { competences, usefulLinks } = searchChatResults(trimmedMessage);
     const people = buildPeopleResults(competences);
     const links = usefulLinks;
     const hasResults = people.length > 0 || links.length > 0;
 
-    setMessages((currentMessages) => [
-      ...currentMessages,
-      { role: "user", content: trimmedMessage },
-    ]);
+    setMessages([{ role: "user", content: trimmedMessage }]);
     setMessage("");
     setBobbeeState("thinking");
 
@@ -259,8 +372,12 @@ export default function Home() {
         (timeoutId) => timeoutId !== thinkingTimeoutId,
       );
 
-      setMessages((currentMessages) => [
-        ...currentMessages,
+      if (searchRequestIdRef.current !== requestId) {
+        return;
+      }
+
+      setMessages([
+        { role: "user", content: trimmedMessage },
         {
           role: "assistant",
           content: hasResults ? RESULTS_BOBBEE_REPLY : EMPTY_BOBBEE_REPLY,
@@ -279,6 +396,9 @@ export default function Home() {
         timeoutIdsRef.current = timeoutIdsRef.current.filter(
           (timeoutId) => timeoutId !== foundTimeoutId,
         );
+        if (searchRequestIdRef.current !== requestId) {
+          return;
+        }
         setBobbeeState("idle");
       }, FOUND_DURATION_MS);
 
@@ -289,12 +409,8 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-50 px-6 py-12 text-zinc-950 sm:px-10 lg:py-4">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden bg-[url('/home/home-background-map-desktop.png')] bg-contain bg-top bg-no-repeat lg:block"
-      />
-
+    <main className="relative min-h-screen overflow-hidden bg-zinc-50 px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:p-0">
+      <div className="home-desktop-stage relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
       <Link
         href="/organigramme"
         aria-label="Ouvrir l'organigramme"
@@ -315,18 +431,16 @@ export default function Home() {
 
       {latestResults ? (
         <aside
-          className="absolute right-[4.5%] top-[25%] z-20 hidden h-[62vh] w-[20%] overflow-y-auto rounded-[28px] bg-white/45 p-3 text-left shadow-[0_18px_40px_-32px_rgba(24,24,27,0.45)] backdrop-blur-[1px] lg:block"
-          aria-label="Résultats de recherche"
+          className="home-results-panel absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] overflow-y-auto px-1.5 py-1 text-left lg:block"
+          aria-label="Resultats de recherche"
         >
-          <div className="space-y-5">
-            <SearchResultsContent results={latestResults} />
-          </div>
+          <DesktopSearchResultsContent results={latestResults} />
         </aside>
       ) : null}
 
-      <section className="relative z-10 mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-5 text-center lg:min-h-[calc(100vh-2rem)] lg:max-w-2xl lg:justify-start lg:gap-3 lg:pt-[clamp(13rem,30vh,20rem)]">
+      <section className="relative z-10 mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-5 text-center lg:contents">
         <div
-          className="w-full max-w-xs sm:max-w-sm lg:max-w-[17rem]"
+          className="w-full max-w-xs sm:max-w-sm lg:absolute lg:left-[50%] lg:top-[30%] lg:w-[20%] lg:max-w-none lg:-translate-x-1/2"
           style={
             bobbeeState === "idle"
               ? { animation: "bobbeeIdleFloat 6s ease-in-out infinite" }
@@ -344,31 +458,40 @@ export default function Home() {
         </div>
 
         <section
-          className="w-full max-w-xl rounded-[32px] border border-amber-200/80 bg-gradient-to-b from-amber-100/85 via-amber-50/70 to-white p-3 text-left shadow-[0_24px_55px_-30px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/5 sm:p-4 lg:max-w-md"
+          className="w-full max-w-xl rounded-[32px] border border-amber-200/80 bg-gradient-to-b from-amber-100/85 via-amber-50/70 to-white p-3 text-left shadow-[0_24px_55px_-30px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/5 sm:p-4 lg:absolute lg:left-[33.5%] lg:top-[66%] lg:flex lg:max-h-[34%] lg:w-[33%] lg:max-w-none lg:flex-col lg:overflow-hidden"
           aria-label="Chat Bobbee"
         >
-          <div className="flex max-h-[35rem] flex-col gap-3 overflow-y-auto rounded-[26px] bg-white/30 px-1 py-1 pr-1">
-            {messages.map((entry, index) => (
+          <div className="flex max-h-[35rem] flex-col gap-3 overflow-y-auto rounded-[26px] bg-white/30 px-1 py-1 pr-1 lg:min-h-0 lg:flex-1 lg:overflow-visible">
+            {activeUserMessage ? (
               <div
-                key={`${entry.role}-${index}`}
+                className="rounded-[26px] rounded-br-lg bg-zinc-900 px-4 py-3.5 text-[15px] leading-7 break-words text-white shadow-[0_20px_30px_-24px_rgba(24,24,27,0.85)] sm:max-w-md sm:self-end sm:text-base"
+              >
+                <p className="whitespace-pre-line">
+                  {activeUserMessage.content}
+                </p>
+              </div>
+            ) : null}
+
+            {activeAssistantMessage ? (
+              <div
                 className={[
-                  "rounded-[26px] px-4 py-3.5 text-[15px] leading-7 break-words shadow-[0_18px_30px_-24px_rgba(24,24,27,0.45)] sm:text-base",
-                  entry.role === "assistant"
-                    ? entry.results
-                      ? "max-w-full rounded-bl-lg bg-white/96 text-zinc-800 ring-1 ring-amber-200/80"
-                      : "max-w-md rounded-bl-lg bg-white/96 text-zinc-800 ring-1 ring-amber-200/80"
-                    : "rounded-br-lg bg-zinc-900 text-white shadow-[0_20px_30px_-24px_rgba(24,24,27,0.85)] sm:max-w-md sm:self-end",
+                  "rounded-[26px] rounded-bl-lg bg-white/96 px-4 py-3.5 text-[15px] leading-7 break-words text-zinc-800 shadow-[0_18px_30px_-24px_rgba(24,24,27,0.45)] ring-1 ring-amber-200/80 sm:text-base",
+                  activeAssistantMessage.results ? "max-w-full" : "max-w-md",
                 ].join(" ")}
               >
-                <p className="whitespace-pre-line">{entry.content}</p>
+                <p className="whitespace-pre-line">
+                  {activeAssistantMessage.content}
+                </p>
 
-                {entry.results ? (
+                {activeAssistantMessage.results ? (
                   <div className="mt-4 space-y-5 border-t border-amber-200/80 pt-4 lg:hidden">
-                    <SearchResultsContent results={entry.results} />
+                    <SearchResultsContent
+                      results={activeAssistantMessage.results}
+                    />
                   </div>
                 ) : null}
               </div>
-            ))}
+            ) : null}
           </div>
 
           <form
@@ -391,14 +514,43 @@ export default function Home() {
               Envoyer
             </button>
           </form>
-
-          <p className="mt-3 text-xs leading-5 text-zinc-600">
-            Le chat sera active progressivement si necessaire.
-          </p>
         </section>
       </section>
+      </div>
 
       <style>{`
+        @media (min-width: 1024px) {
+          .home-desktop-stage {
+            aspect-ratio: 7 / 4;
+            background-image: url("/home/home-background-map-desktop.png");
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            max-width: 1400px;
+            width: calc(100% - 2rem);
+          }
+
+          .home-results-panel {
+            overscroll-behavior: contain;
+            scrollbar-color: rgba(146, 64, 14, 0.28) transparent;
+            scrollbar-width: thin;
+          }
+
+          .home-results-panel::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          .home-results-panel::-webkit-scrollbar-track {
+            background: transparent;
+          }
+
+          .home-results-panel::-webkit-scrollbar-thumb {
+            background-color: rgba(146, 64, 14, 0.24);
+            border-radius: 999px;
+          }
+
+        }
+
         @keyframes bobbeeIdleFloat {
           0%,
           100% {
