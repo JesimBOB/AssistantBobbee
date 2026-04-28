@@ -273,12 +273,6 @@ function getRoleClassName(role: string) {
   return "border-zinc-200 bg-zinc-50 text-zinc-700";
 }
 
-const hivePrototypeOverlays = [
-  { teamName: "Pôle ruche", className: "left-[51%] top-[47.5%]" },
-  { teamName: "Pôle essaim", className: "left-[31.5%] top-[47.5%]" },
-  { teamName: "Pôle propolis", className: "left-[70.5%] top-[47.5%]" },
-];
-
 export default function OrganigrammePage() {
   const [search, setSearch] = useState("");
   const trimmedSearch = search.trim();
@@ -328,65 +322,6 @@ export default function OrganigrammePage() {
             </button>
           ) : null}
         </div>
-
-        {!query ? (
-          <section className="hidden lg:block" aria-label="Prototype desktop fond ruche">
-            <p className="mb-3 text-sm text-zinc-500">
-              Vue ruche en cours d’exploration. Utilisez la recherche pour trouver une équipe, une personne ou un sujet.
-            </p>
-            <div
-              className="relative aspect-[1491/1055] overflow-hidden rounded-3xl border border-amber-200 bg-amber-50 bg-contain bg-center bg-no-repeat shadow-sm shadow-amber-100/70"
-              style={{ backgroundImage: "url('/organigramme/organigramme-hive-background-test.png')" }}
-            >
-              {hivePrototypeOverlays.map((overlay) => {
-                const team = teams.find((currentTeam) => currentTeam.name === overlay.teamName);
-
-                if (!team) {
-                  return null;
-                }
-
-                return (
-                  <article
-                    key={team.name}
-                    className={`absolute min-w-48 max-w-60 w-[19%] -translate-x-1/2 -translate-y-[72%] overflow-hidden rounded-xl border border-amber-200/60 bg-white/75 p-2.5 text-[10px] shadow-sm shadow-amber-950/5 backdrop-blur-[2px] ${overlay.className}`}
-                  >
-                    <div
-                      className={
-                        team.tags.length > 0
-                          ? "grid grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] gap-2.5"
-                          : ""
-                      }
-                    >
-                      <div className="min-w-0">
-                        <h2 className="font-semibold leading-tight tracking-tight text-zinc-950">{team.name}</h2>
-                        <ul className="mt-1.5 space-y-0.5 text-[9px] leading-[1.15] text-zinc-600">
-                          {team.people.map((person) => (
-                            <li key={`${team.name}-${person.name}`} className="break-words">
-                              {person.name}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {team.tags.length > 0 ? (
-                        <ul className="flex min-w-0 flex-col gap-1">
-                          {team.tags.map((tag) => (
-                            <li
-                              key={`${team.name}-${tag}`}
-                              className="rounded-lg border border-amber-200 bg-amber-50/90 px-1.5 py-1 text-[9px] leading-[1.15] text-amber-900"
-                            >
-                              {tag}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-        ) : null}
 
         {filteredTeams.length > 0 ? (
           <section className="grid w-full items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
