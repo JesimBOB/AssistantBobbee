@@ -51,11 +51,16 @@ const LEVEL_LABELS: Record<string, string> = {
   b: "Bon niveau",
   r: "Ressource / relais",
 };
+const ALLOWED_PERSON_RESULT_LEVELS = new Set(["a", "r"]);
 const ROUNDED_FONT_STACK =
   '"Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif';
 
 function getLevelLabel(level: string) {
   return LEVEL_LABELS[level.toLowerCase()] ?? null;
+}
+
+function isAllowedPersonResultLevel(level: string) {
+  return ALLOWED_PERSON_RESULT_LEVELS.has(level.toLowerCase());
 }
 
 function buildPeopleResults(entries: CompetenceEntry[]) {
@@ -70,6 +75,10 @@ function buildPeopleResults(entries: CompetenceEntry[]) {
   >();
 
   entries.forEach((entry) => {
+    if (!isAllowedPersonResultLevel(entry.niveau)) {
+      return;
+    }
+
     const personId = entry.person_id?.trim() || entry.personne;
     const currentPerson =
       peopleById.get(personId) ??
@@ -413,6 +422,8 @@ export default function Home() {
       <div className="home-desktop-stage relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
       <Link
         href="/organigramme"
+        target="_blank"
+        rel="noreferrer"
         aria-label="Ouvrir l'organigramme"
         className="absolute left-[2.5%] top-[15%] z-20 hidden h-[28%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
       >

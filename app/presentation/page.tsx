@@ -1,15 +1,26 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PresentationPage() {
   return (
     <main className="min-h-screen bg-zinc-50 px-6 py-12 text-zinc-950 sm:px-10">
+      <div className="mx-auto mb-3 flex w-full max-w-4xl">
+        <Link
+          href="/"
+          aria-label="Retour à l'accueil"
+          className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-amber-50 hover:text-zinc-950"
+        >
+          <span aria-hidden="true">⌂</span>
+          <span>Home</span>
+        </Link>
+      </div>
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-8">
         <header className="rounded-[32px] border border-amber-200/80 bg-gradient-to-b from-amber-100/85 via-amber-50/70 to-white p-6 shadow-[0_24px_55px_-36px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/5 sm:p-8">
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-950 sm:text-4xl">
             Bobbee
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg">
-            Pourquoi Bobbee et présentation du produit
+            Présentation de Bobbee
           </p>
         </header>
 
@@ -62,11 +73,10 @@ export default function PresentationPage() {
             </div>
             <div className="p-5">
               <h2 className="text-lg font-semibold tracking-tight text-zinc-950">
-                Vidéo de présentation
+                Présentation du produit
               </h2>
               <p className="mt-3 text-sm leading-6 text-zinc-600">
-                Un support court pour découvrir l’esprit de BOBBEE et la place
-                qu’il prend dans le parcours d’onboarding.
+                Découvrez l’ergonomie et l’esprit de Bobbee par cette courte vidéo
               </p>
             </div>
           </section>

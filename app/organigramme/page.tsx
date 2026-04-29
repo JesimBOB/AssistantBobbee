@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 const teams = [
@@ -296,6 +297,16 @@ export default function OrganigrammePage() {
 
   return (
     <main className="min-h-screen bg-amber-50/40 px-4 py-10 text-zinc-950 sm:px-6 lg:px-10">
+      <div className="mx-auto mb-3 flex w-full max-w-7xl">
+        <Link
+          href="/"
+          aria-label="Retour à l'accueil"
+          className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-amber-50 hover:text-zinc-950"
+        >
+          <span aria-hidden="true">⌂</span>
+          <span>Home</span>
+        </Link>
+      </div>
       <section className="mx-auto flex w-full max-w-7xl flex-col gap-6">
         <h1 className="text-3xl font-semibold tracking-tight">Organigramme</h1>
 
