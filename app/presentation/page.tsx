@@ -6,10 +6,10 @@ export default function PresentationPage() {
       <section className="mx-auto flex w-full max-w-4xl flex-col gap-8">
         <header className="rounded-[32px] border border-amber-200/80 bg-gradient-to-b from-amber-100/85 via-amber-50/70 to-white p-6 shadow-[0_24px_55px_-36px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/5 sm:p-8">
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-zinc-950 sm:text-4xl">
-            Pourquoi BOBBEE et qui suis-je ?
+            Bobbee
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-700 sm:text-lg">
-            Les origines de BOBBEE et l’interface utilisateur
+            Pourquoi Bobbee et présentation du produit
           </p>
         </header>
 
