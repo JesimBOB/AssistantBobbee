@@ -54,7 +54,7 @@ export default function PresentationPage() {
                 aria-label="Vidéo de présentation BOBBEE"
               >
                 <source
-                  src="/presentation/Video presentation bobbee.mp4"
+                  src="/presentation/Pr%C3%A9sentation%20et%20philosophie.mp4"
                   type="video/mp4"
                 />
                 Votre navigateur ne peut pas lire cette vidéo.
