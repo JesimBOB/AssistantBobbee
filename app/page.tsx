@@ -340,6 +340,8 @@ export default function Home() {
   const activeAssistantMessage =
     messages.findLast((entry) => entry.role === "assistant") ?? null;
   const latestResults = activeAssistantMessage?.results ?? null;
+  const hasChatMessages =
+    activeUserMessage !== null || activeAssistantMessage !== null;
 
   function clearPendingTimeouts() {
     timeoutIdsRef.current.forEach((timeoutId) => {
@@ -455,7 +457,16 @@ export default function Home() {
         >
           <DesktopSearchResultsContent results={latestResults} />
         </aside>
-      ) : null}
+      ) : (
+        <aside
+          className="absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] items-center justify-center px-3 text-center lg:flex"
+          aria-label="Resultats de recherche"
+        >
+          <p className="text-[13px] leading-5 text-zinc-500">
+            Les résultats apparaîtront ici après votre recherche.
+          </p>
+        </aside>
+      )}
 
       <section className="relative z-10 mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-5 text-center lg:contents">
         <div
@@ -477,45 +488,50 @@ export default function Home() {
         </div>
 
         <section
-          className="w-full max-w-xl rounded-[32px] border border-amber-200/80 bg-gradient-to-b from-amber-100/85 via-amber-50/70 to-white p-3 text-left shadow-[0_24px_55px_-30px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/5 sm:p-4 lg:absolute lg:left-[33.5%] lg:top-[66%] lg:flex lg:max-h-[34%] lg:w-[33%] lg:max-w-none lg:flex-col lg:overflow-hidden"
+          className="w-full max-w-xl rounded-[30px] border border-white/70 bg-gradient-to-b from-amber-100/88 via-amber-50/78 to-white/96 p-3.5 text-left shadow-[0_28px_70px_-32px_rgba(24,24,27,0.55)] ring-1 ring-amber-300/45 sm:p-4 lg:absolute lg:left-[33%] lg:top-[65.5%] lg:flex lg:max-h-[34%] lg:w-[34%] lg:max-w-none lg:flex-col lg:overflow-hidden"
           aria-label="Chat Bobbee"
         >
-          <div className="flex max-h-[35rem] flex-col gap-3 overflow-y-auto rounded-[26px] bg-white/30 px-1 py-1 pr-1 lg:min-h-0 lg:flex-1 lg:overflow-visible">
-            {activeUserMessage ? (
-              <div
-                className="rounded-[26px] rounded-br-lg bg-zinc-900 px-4 py-3.5 text-[15px] leading-7 break-words text-white shadow-[0_20px_30px_-24px_rgba(24,24,27,0.85)] sm:max-w-md sm:self-end sm:text-base"
-              >
-                <p className="whitespace-pre-line">
-                  {activeUserMessage.content}
-                </p>
-              </div>
-            ) : null}
+          {hasChatMessages ? (
+            <div className="flex max-h-[35rem] flex-col gap-3 overflow-y-auto rounded-[24px] bg-white/35 px-1.5 py-1.5 pr-1.5 lg:min-h-0 lg:flex-1 lg:overflow-visible">
+              {activeUserMessage ? (
+                <div
+                  className="rounded-[26px] rounded-br-lg bg-zinc-900 px-4 py-3.5 text-[15px] leading-7 break-words text-white shadow-[0_20px_30px_-24px_rgba(24,24,27,0.85)] sm:max-w-md sm:self-end sm:text-base"
+                >
+                  <p className="whitespace-pre-line">
+                    {activeUserMessage.content}
+                  </p>
+                </div>
+              ) : null}
 
-            {activeAssistantMessage ? (
-              <div
-                className={[
-                  "rounded-[26px] rounded-bl-lg bg-white/96 px-4 py-3.5 text-[15px] leading-7 break-words text-zinc-800 shadow-[0_18px_30px_-24px_rgba(24,24,27,0.45)] ring-1 ring-amber-200/80 sm:text-base",
-                  activeAssistantMessage.results ? "max-w-full" : "max-w-md",
-                ].join(" ")}
-              >
-                <p className="whitespace-pre-line">
-                  {activeAssistantMessage.content}
-                </p>
+              {activeAssistantMessage ? (
+                <div
+                  className={[
+                    "rounded-[26px] rounded-bl-lg bg-white/96 px-4 py-3.5 text-[15px] leading-7 break-words text-zinc-800 shadow-[0_18px_30px_-24px_rgba(24,24,27,0.45)] ring-1 ring-amber-200/80 sm:text-base",
+                    activeAssistantMessage.results ? "max-w-full" : "max-w-md",
+                  ].join(" ")}
+                >
+                  <p className="whitespace-pre-line">
+                    {activeAssistantMessage.content}
+                  </p>
 
-                {activeAssistantMessage.results ? (
-                  <div className="mt-4 space-y-5 border-t border-amber-200/80 pt-4 lg:hidden">
-                    <SearchResultsContent
-                      results={activeAssistantMessage.results}
-                    />
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
+                  {activeAssistantMessage.results ? (
+                    <div className="mt-4 space-y-5 border-t border-amber-200/80 pt-4 lg:hidden">
+                      <SearchResultsContent
+                        results={activeAssistantMessage.results}
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
 
           <form
             onSubmit={handleSubmit}
-            className="mt-4 flex flex-col gap-2 rounded-[26px] bg-white/92 p-1.5 shadow-[0_18px_32px_-24px_rgba(24,24,27,0.45)] ring-1 ring-zinc-900/8 sm:flex-row sm:items-center"
+            className={[
+              "flex flex-col gap-2 rounded-[24px] border border-white/80 bg-white/95 p-1.5 shadow-[0_18px_36px_-24px_rgba(24,24,27,0.55)] ring-1 ring-amber-200/55 sm:flex-row sm:items-center",
+              hasChatMessages ? "mt-4" : "",
+            ].join(" ")}
           >
             <input
               type="text"
@@ -527,7 +543,7 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="rounded-[18px] bg-amber-300 px-4 py-3.5 text-[15px] font-semibold text-zinc-950 shadow-[0_14px_24px_-18px_rgba(180,83,9,0.65)] ring-1 ring-amber-400/60 transition-colors hover:bg-amber-200 sm:px-5"
+              className="rounded-[18px] bg-zinc-900 px-4 py-3.5 text-[15px] font-semibold text-amber-50 shadow-[0_16px_28px_-18px_rgba(24,24,27,0.85)] ring-1 ring-zinc-700/60 transition-colors hover:bg-zinc-800 sm:px-5"
               style={{ fontFamily: ROUNDED_FONT_STACK }}
             >
               Envoyer
