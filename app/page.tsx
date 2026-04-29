@@ -429,6 +429,14 @@ export default function Home() {
         <span className="sr-only">Ouvrir la checklist onboarding</span>
       </a>
 
+      <Link
+        href="/presentation"
+        aria-label="Decouvrir Bobbee"
+        className="absolute left-[2.5%] top-[46%] z-20 hidden h-[25%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
+      >
+        <span className="sr-only">Decouvrir Bobbee</span>
+      </Link>
+
       {latestResults ? (
         <aside
           className="home-results-panel absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] overflow-y-auto px-1.5 py-1 text-left lg:block"
