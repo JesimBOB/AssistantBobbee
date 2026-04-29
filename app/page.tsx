@@ -470,7 +470,7 @@ export default function Home() {
 
       <section className="relative z-10 mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-5 text-center lg:contents">
         <div
-          className="w-full max-w-xs sm:max-w-sm lg:absolute lg:left-[50%] lg:top-[30%] lg:w-[20%] lg:max-w-none lg:-translate-x-1/2"
+          className="w-full max-w-xs sm:max-w-sm lg:absolute lg:left-[52%] lg:top-[30%] lg:w-[20%] lg:max-w-none lg:-translate-x-1/2"
           style={
             bobbeeState === "idle"
               ? { animation: "bobbeeIdleFloat 6s ease-in-out infinite" }
@@ -488,7 +488,7 @@ export default function Home() {
         </div>
 
         <section
-          className="w-full max-w-xl rounded-[30px] border border-white/70 bg-gradient-to-b from-amber-100/88 via-amber-50/78 to-white/96 p-3.5 text-left shadow-[0_28px_70px_-32px_rgba(24,24,27,0.55)] ring-1 ring-amber-300/45 sm:p-4 lg:absolute lg:left-[33%] lg:top-[65.5%] lg:flex lg:max-h-[34%] lg:w-[34%] lg:max-w-none lg:flex-col lg:overflow-hidden"
+          className="w-full max-w-xl rounded-[30px] border border-white/70 bg-gradient-to-b from-amber-100/88 via-amber-50/78 to-white/96 p-3.5 text-left shadow-[0_28px_70px_-32px_rgba(24,24,27,0.55)] ring-1 ring-amber-300/45 sm:p-4 lg:absolute lg:left-[35%] lg:top-[65.5%] lg:flex lg:max-h-[34%] lg:w-[34%] lg:max-w-none lg:flex-col lg:overflow-hidden"
           aria-label="Chat Bobbee"
         >
           {hasChatMessages ? (
