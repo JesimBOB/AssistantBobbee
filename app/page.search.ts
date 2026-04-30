@@ -51,37 +51,46 @@ const FALLBACK_STOP_WORDS = new Set([
   "une",
 ]);
 
+function normalizeSearchValue(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .trim();
+}
+
 export function getMatchPriority(
   query: string,
   mainValue: string | null | undefined,
   otherValues: Array<string | null | undefined>,
 ) {
-  const normalizedMainValue = (mainValue ?? "").toLowerCase();
+  const normalizedQuery = normalizeSearchValue(query);
+  const normalizedMainValue = normalizeSearchValue(mainValue ?? "");
   const normalizedOtherValues = otherValues
     .filter((value): value is string => typeof value === "string")
-    .map((value) => value.toLowerCase());
+    .map(normalizeSearchValue);
 
-  if (normalizedMainValue === query) {
+  if (normalizedMainValue === normalizedQuery) {
     return 0;
   }
 
-  if (normalizedMainValue.startsWith(query)) {
+  if (normalizedMainValue.startsWith(normalizedQuery)) {
     return 1;
   }
 
-  if (normalizedMainValue.includes(query)) {
+  if (normalizedMainValue.includes(normalizedQuery)) {
     return 2;
   }
 
-  if (normalizedOtherValues.some((value) => value === query)) {
+  if (normalizedOtherValues.some((value) => value === normalizedQuery)) {
     return 3;
   }
 
-  if (normalizedOtherValues.some((value) => value.startsWith(query))) {
+  if (normalizedOtherValues.some((value) => value.startsWith(normalizedQuery))) {
     return 4;
   }
 
-  if (normalizedOtherValues.some((value) => value.includes(query))) {
+  if (normalizedOtherValues.some((value) => value.includes(normalizedQuery))) {
     return 5;
   }
 
@@ -89,7 +98,7 @@ export function getMatchPriority(
 }
 
 function extractFallbackKeywords(query: string) {
-  const tokens = query.toLowerCase().match(/[\p{L}\p{N}-]+/gu) ?? [];
+  const tokens = normalizeSearchValue(query).match(/[\p{L}\p{N}-]+/gu) ?? [];
   const seen = new Set<string>();
 
   return tokens.filter((token) => {
@@ -121,7 +130,7 @@ function mergeUniqueResults<T>(resultGroups: T[][]) {
 }
 
 function searchCompetencesByQuery(query: string) {
-  const normalizedQuery = query.toLowerCase();
+  const normalizedQuery = normalizeSearchValue(query);
 
   return COMPETENCES.map((entry, index) => ({
     entry,
@@ -147,7 +156,7 @@ function searchCompetencesByQuery(query: string) {
 }
 
 function searchUsefulLinksByQuery(query: string) {
-  const normalizedQuery = query.toLowerCase();
+  const normalizedQuery = normalizeSearchValue(query);
 
   return USEFUL_LINKS.map((entry, index) => ({
     entry,
