@@ -423,6 +423,19 @@ export default function Home() {
     <main className="relative min-h-screen overflow-hidden bg-zinc-50 px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:p-0">
       <div className="home-desktop-stage relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
       <Link
+        href="/essentiels"
+        className="mb-4 inline-flex w-fit min-w-[150px] items-center gap-2.5 rounded-full border-2 border-amber-400 bg-[linear-gradient(135deg,#fff7d6_0%,#fde68a_52%,#fef3c7_100%)] px-4 py-2 text-sm font-semibold text-amber-950 shadow-[0_14px_26px_-18px_rgba(146,64,14,0.85),0_3px_0_rgba(180,83,9,0.18)] ring-1 ring-white/80 transition-colors hover:border-amber-500 hover:bg-amber-100 lg:absolute lg:left-[2.5%] lg:top-[6.5%] lg:z-20 lg:mb-0"
+      >
+        <span
+          className="text-3xl leading-none text-orange-500 drop-shadow-[0_2px_0_rgba(120,53,15,0.18)]"
+          aria-hidden="true"
+        >
+          ★
+        </span>
+        <span>Les essentiels</span>
+      </Link>
+
+      <Link
         href="/organigramme"
         aria-label="Ouvrir l'organigramme"
         className="absolute left-[2.5%] top-[15%] z-20 hidden h-[28%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
