@@ -3,7 +3,13 @@ import Link from "next/link";
 
 export default function PresentationPage() {
   return (
-    <main className="min-h-screen bg-zinc-50 px-6 py-12 text-zinc-950 sm:px-10">
+    <main
+      className="min-h-screen bg-zinc-50 bg-cover bg-[center_top] bg-no-repeat px-6 py-12 text-zinc-950 sm:px-10"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(250, 250, 250, 0.72), rgba(250, 250, 250, 0.72)), url('/backgrounds/internal-page-background.png')",
+      }}
+    >
       <div className="mx-auto mb-4 flex w-full max-w-4xl">
         <Link
           href="/"

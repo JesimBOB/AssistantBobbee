@@ -424,8 +424,6 @@ export default function Home() {
       <div className="home-desktop-stage relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
       <Link
         href="/organigramme"
-        target="_blank"
-        rel="noreferrer"
         aria-label="Ouvrir l'organigramme"
         className="absolute left-[2.5%] top-[15%] z-20 hidden h-[28%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
       >
