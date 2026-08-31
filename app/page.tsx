@@ -435,13 +435,15 @@ export default function Home() {
         <span>Les essentiels</span>
       </Link>
 
-      <Link
-        href="/organigramme"
+      <a
+        href="https://app.klaxoon.com/participate/board/WF2N6AF"
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Ouvrir l'organigramme"
         className="absolute left-[2.5%] top-[15%] z-20 hidden h-[28%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
       >
         <span className="sr-only">Ouvrir l&apos;organigramme</span>
-      </Link>
+      </a>
 
       <a
         href="https://isagri.atlassian.net/wiki/spaces/BO/pages/6166380545/Guide+d+Onboarding+D+veloppeur+Ma+do"
