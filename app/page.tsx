@@ -36,9 +36,9 @@ type SearchResults = {
 const INITIAL_MESSAGES: Message[] = [];
 
 const RESULTS_BOBBEE_REPLY =
-  "J'ai trouve quelques elements qui peuvent t'aider.";
+  "J'ai trouvé quelques éléments qui peuvent t'aider.";
 const EMPTY_BOBBEE_REPLY =
-  "Je n'ai pas trouve de resultat clair pour l'instant. Essaie avec un autre mot-cle, un nom d'equipe ou une formulation plus precise.";
+  "Je n'ai pas trouvé de résultat clair pour l'instant. Essaie avec un autre mot-clé, un nom d'équipe ou une formulation plus précise.";
 const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   thinking: "/bobbee/bobbee-thinking.png",
@@ -47,7 +47,7 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
 const LEVEL_LABELS: Record<string, string> = {
-  a: "Expert / referent",
+  a: "Expert / référent",
   b: "Bon niveau",
   r: "Ressource / relais",
 };
@@ -457,23 +457,23 @@ export default function Home() {
 
       <Link
         href="/presentation"
-        aria-label="Decouvrir Bobbee"
+        aria-label="Découvrir Bobbee"
         className="absolute left-[2.5%] top-[46%] z-20 hidden h-[25%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
       >
-        <span className="sr-only">Decouvrir Bobbee</span>
+        <span className="sr-only">Découvrir Bobbee</span>
       </Link>
 
       {latestResults ? (
         <aside
           className="home-results-panel absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] overflow-y-auto px-1.5 py-1 text-left lg:block"
-          aria-label="Resultats de recherche"
+          aria-label="Résultats de recherche"
         >
           <DesktopSearchResultsContent results={latestResults} />
         </aside>
       ) : (
         <aside
           className="absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] items-center justify-center px-3 text-center lg:flex"
-          aria-label="Resultats de recherche"
+          aria-label="Résultats de recherche"
         >
           <p className="text-[13px] leading-5 text-zinc-500">
             Les résultats apparaîtront ici après votre recherche.
@@ -550,7 +550,7 @@ export default function Home() {
               type="text"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              placeholder="Pose ta question a Bobbee..."
+              placeholder="Pose ta question à Bobbee..."
               aria-label="Champ de chat Bobbee"
               className="min-w-0 flex-1 rounded-[18px] bg-transparent px-4 py-3.5 text-[15px] text-zinc-800 outline-none placeholder:text-zinc-400 focus:bg-white/75 sm:text-base"
             />

@@ -78,7 +78,7 @@ export default function EssentielsPage() {
       <div className="mx-auto mb-4 flex w-full max-w-4xl">
         <Link
           href="/"
-          aria-label="Retour a l'accueil"
+          aria-label="Retour à l'accueil"
           className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-amber-50 hover:text-zinc-950"
         >
           <span>Home</span>
@@ -94,7 +94,7 @@ export default function EssentielsPage() {
             Essentiels
           </h1>
           <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-600">
-            Les premiers reperes a garder sous la main pour avancer simplement.
+            Les premiers repères à garder sous la main pour avancer simplement.
           </p>
         </header>
 
