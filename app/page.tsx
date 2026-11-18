@@ -48,6 +48,9 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 };
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
+// Projet Claude partagé : recherche dans Confluence, Teams et Outlook.
+const CLAUDE_ASSISTANT_URL =
+  "https://claude.ai/project/01a1d5a2-f43a-733c-838f-6ad6eede2d06";
 const LEVEL_LABELS: Record<string, string> = {
   a: "Expert / référent",
   b: "Bon niveau",
@@ -582,9 +585,26 @@ export default function Home() {
           className="absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] items-center justify-center px-3 text-center lg:flex"
           aria-label="Résultats de recherche"
         >
-          <p className="text-[13px] leading-5 text-zinc-500">
-            Les résultats apparaîtront ici après votre recherche.
-          </p>
+          {activeAssistantMessage ? (
+            <div className="flex flex-col items-center gap-3">
+              <p className="text-[13px] leading-5 text-zinc-500">
+                L&apos;assistant Claude peut chercher pour toi dans Confluence,
+                Teams et Outlook.
+              </p>
+              <a
+                href={CLAUDE_ASSISTANT_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex rounded-full bg-zinc-900 px-3 py-1.5 text-[12px] font-medium text-amber-50 no-underline shadow-[0_8px_14px_-12px_rgba(24,24,27,0.75)] transition-colors hover:bg-zinc-800"
+              >
+                Demander à l&apos;assistant Claude
+              </a>
+            </div>
+          ) : (
+            <p className="text-[13px] leading-5 text-zinc-500">
+              Les résultats apparaîtront ici après votre recherche.
+            </p>
+          )}
         </aside>
       )}
 
@@ -640,7 +660,16 @@ export default function Home() {
                         results={activeAssistantMessage.results}
                       />
                     </div>
-                  ) : null}
+                  ) : (
+                    <a
+                      href={CLAUDE_ASSISTANT_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-flex rounded-full bg-zinc-900 px-3.5 py-1.5 text-sm font-medium text-amber-50 no-underline shadow-[0_12px_20px_-16px_rgba(24,24,27,0.8)] transition-colors hover:bg-zinc-800 lg:hidden"
+                    >
+                      Demander à l&apos;assistant Claude
+                    </a>
+                  )}
                 </div>
               ) : null}
             </div>
