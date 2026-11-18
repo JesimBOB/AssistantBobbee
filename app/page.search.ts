@@ -1,6 +1,7 @@
 import competencesData from "@/data/competences.json";
 import usefulLinksData from "@/data/useful-links.raw.json";
 import jiraSujetsData from "@/data/jira-sujets.json";
+import organigrammeData from "@/data/organigramme.json";
 
 export type CompetenceEntry = {
   competence: string;
@@ -35,7 +36,60 @@ export type JiraTopic = {
   people: JiraTopicPerson[];
 };
 
-const COMPETENCES = competencesData as CompetenceEntry[];
+// Personnes présentes dans l'organigramme (Klaxoon) : les autres ont quitté l'entreprise.
+const CURRENT_PEOPLE = organigrammeData.teams.flatMap((team) =>
+  team.people.map((person) => {
+    const [firstName = "", ...lastName] = normalizeSearchValue(person.name)
+      .replace(/[^a-z\s]/g, "")
+      .split(/\s+/);
+    return { name: person.name, firstName, lastName: lastName.join(" ") };
+  }),
+);
+
+// Retrouve une personne de l'organigramme, en tolérant les noms abrégés
+// ("Juan V") et les petites variantes d'orthographe ("Erwan" / "Erwann").
+function findCurrentPerson(rawName: string) {
+  const [firstName = "", ...rest] = normalizeSearchValue(rawName)
+    .replace(/[^a-z\s]/g, "")
+    .split(/\s+/);
+  const lastName = rest.join(" ");
+  const compact = (value: string) => value.replace(/\s/g, "");
+  const rules = [
+    (person: (typeof CURRENT_PEOPLE)[number]) =>
+      person.firstName === firstName && compact(person.lastName) === compact(lastName),
+    (person: (typeof CURRENT_PEOPLE)[number]) =>
+      person.firstName === firstName &&
+      compact(lastName).length >= 6 &&
+      compact(person.lastName).slice(0, 6) === compact(lastName).slice(0, 6),
+    (person: (typeof CURRENT_PEOPLE)[number]) =>
+      person.firstName === firstName &&
+      lastName.length === 1 &&
+      person.lastName.startsWith(lastName),
+    (person: (typeof CURRENT_PEOPLE)[number]) =>
+      person.firstName === firstName &&
+      lastName.length > 1 &&
+      person.lastName.split(" ").at(-1) === lastName.split(" ").at(-1),
+    (person: (typeof CURRENT_PEOPLE)[number]) =>
+      firstName.length >= 4 &&
+      (person.firstName.startsWith(firstName) || firstName.startsWith(person.firstName)) &&
+      compact(lastName).length >= 6 &&
+      compact(person.lastName).slice(0, 6) === compact(lastName).slice(0, 6),
+  ];
+
+  for (const rule of rules) {
+    const matches = new Set(CURRENT_PEOPLE.filter(rule).map((person) => person.name));
+    if (matches.size === 1) {
+      return [...matches][0];
+    }
+  }
+
+  return null;
+}
+
+const COMPETENCES: CompetenceEntry[] = (competencesData as CompetenceEntry[]).flatMap((entry) => {
+  const currentName = findCurrentPerson(entry.nom_affiche?.trim() || entry.personne);
+  return currentName ? [{ ...entry, nom_affiche: currentName }] : [];
+});
 const USEFUL_LINKS = usefulLinksData as UsefulLinkEntry[];
 const JIRA_TOPICS = jiraSujetsData.topics as JiraTopic[];
 const FALLBACK_STOP_WORDS = new Set([
