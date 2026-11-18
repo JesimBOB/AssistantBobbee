@@ -48,6 +48,8 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
 };
 const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
+// Nombre maximum de résultats affichés par rubrique (les plus pertinents d'abord).
+const MAX_RESULTS_PER_SECTION = 6;
 // Projet Claude partagé : recherche dans Confluence, Teams et Outlook.
 const CLAUDE_ASSISTANT_URL =
   "https://claude.ai/project/01a1d5a2-f43a-733c-838f-6ad6eede2d06";
@@ -479,8 +481,11 @@ export default function Home() {
 
     const { competences, usefulLinks, jiraTopics } =
       searchChatResults(trimmedMessage);
-    const people = buildPeopleResults(competences);
-    const links = usefulLinks;
+    const people = buildPeopleResults(competences).slice(
+      0,
+      MAX_RESULTS_PER_SECTION,
+    );
+    const links = usefulLinks.slice(0, MAX_RESULTS_PER_SECTION);
     const hasResults =
       people.length > 0 || links.length > 0 || jiraTopics.length > 0;
 
