@@ -50,6 +50,39 @@ const THINKING_DURATION_MS = 700;
 const FOUND_DURATION_MS = 700;
 // Nombre maximum de résultats affichés par rubrique (les plus pertinents d'abord).
 const MAX_RESULTS_PER_SECTION = 6;
+// Cartes de raccourcis de la home (ordinateur : colonne de gauche ; mobile : sous le chat).
+const HOME_CARDS = [
+  {
+    title: "Organigramme",
+    description: "Explore la ruche MAIDO et retrouve les équipes.",
+    cta: "Voir l'organigramme",
+    href: "/organigramme",
+    external: false,
+    image: "/home/card-organigramme.png",
+    imageWidth: 132,
+    imageHeight: 172,
+  },
+  {
+    title: "Bobbee",
+    description: "Bobbee et son histoire.",
+    cta: "Découvrir Bobbee",
+    href: "/presentation",
+    external: false,
+    image: "/home/card-bobbee.png",
+    imageWidth: 152,
+    imageHeight: 118,
+  },
+  {
+    title: "Checklist onboarding",
+    description: "Les étapes clés pour bien démarrer.",
+    cta: "Voir la checklist",
+    href: "https://isagri.atlassian.net/wiki/spaces/BO/pages/6166380545/Guide+d+Onboarding+D+veloppeur+Ma+do",
+    external: true,
+    image: "/home/card-checklist.png",
+    imageWidth: 138,
+    imageHeight: 168,
+  },
+];
 // Projet Claude partagé : recherche dans Confluence, Teams et Outlook.
 const CLAUDE_ASSISTANT_URL =
   "https://claude.ai/project/01a1d5a2-f43a-733c-838f-6ad6eede2d06";
@@ -535,8 +568,8 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-50 px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:p-0">
-      <div className="home-desktop-stage relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
+    <main className="relative min-h-screen overflow-hidden bg-zinc-50 bg-[url('/backgrounds/internal-page-background.png')] bg-cover bg-top px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:bg-none lg:p-0">
+      <div className="home-desktop-stage @container relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
       <Link
         href="/essentiels"
         className="mb-4 inline-flex w-fit min-w-[150px] items-center gap-2.5 rounded-full border-2 border-amber-400 bg-[linear-gradient(135deg,#fff7d6_0%,#fde68a_52%,#fef3c7_100%)] px-4 py-2 text-sm font-semibold text-amber-950 shadow-[0_14px_26px_-18px_rgba(146,64,14,0.85),0_3px_0_rgba(180,83,9,0.18)] ring-1 ring-white/80 transition-colors hover:border-amber-500 hover:bg-amber-100 lg:absolute lg:left-[2.5%] lg:top-[6.5%] lg:z-20 lg:mb-0"
@@ -550,44 +583,47 @@ export default function Home() {
         <span>Les essentiels</span>
       </Link>
 
-      <a
-        href="https://app.klaxoon.com/participate/board/WF2N6AF"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Ouvrir l'organigramme"
-        className="absolute left-[2.5%] top-[15%] z-20 hidden h-[28%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
-      >
-        <span className="sr-only">Ouvrir l&apos;organigramme</span>
-      </a>
+      <header className="mx-auto mt-6 max-w-md text-center lg:absolute lg:left-[35.5%] lg:top-[5%] lg:z-20 lg:mt-0 lg:w-[34%] lg:max-w-none">
+        <h1
+          className="rounded-[22px] border-[3px] border-amber-700/80 bg-[linear-gradient(180deg,#fff6e0_0%,#fbe3b5_100%)] px-5 py-3 shadow-[0_5px_0_rgba(146,64,14,0.35),0_18px_30px_-20px_rgba(120,53,15,0.7)] lg:rounded-[1.6cqw] lg:border-[0.25cqw] lg:px-[2cqw] lg:py-[1cqw]"
+          style={{ fontFamily: ROUNDED_FONT_STACK }}
+        >
+          <span className="block text-[26px] leading-tight text-zinc-900 lg:text-[2.5cqw]">
+            Une question ?
+          </span>
+          <span className="block text-[34px] leading-tight text-amber-400 [-webkit-text-stroke:2px_#3f2a14] [paint-order:stroke_fill] lg:text-[3.3cqw] lg:[-webkit-text-stroke:0.22cqw_#3f2a14]">
+            Suivez le guide.
+          </span>
+        </h1>
+        <p className="mt-3 text-sm leading-6 text-zinc-700 lg:mt-[0.9cqw] lg:text-[1.05cqw] lg:leading-normal">
+          Info, personne, équipe, sujet :{" "}
+          <span className="font-semibold text-orange-500">Bobbee</span>{" "}
+          t&apos;aide à retrouver le bon chemin.
+        </p>
+      </header>
 
-      <a
-        href="https://isagri.atlassian.net/wiki/spaces/BO/pages/6166380545/Guide+d+Onboarding+D+veloppeur+Ma+do"
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Ouvrir la checklist onboarding"
-        className="absolute left-[2.5%] top-[72%] z-20 hidden h-[24%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute bottom-[3.8%] left-[78.3%] right-[1.6%] top-[17.5%] z-10 hidden rounded-[2cqw] border border-amber-200/80 bg-[#fdf3e1]/85 shadow-[0_18px_40px_-30px_rgba(120,53,15,0.55)] lg:block"
       >
-        <span className="sr-only">Ouvrir la checklist onboarding</span>
-      </a>
-
-      <Link
-        href="/presentation"
-        aria-label="Découvrir Bobbee"
-        className="absolute left-[2.5%] top-[46%] z-20 hidden h-[25%] w-[22%] rounded-[28px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:block"
-      >
-        <span className="sr-only">Découvrir Bobbee</span>
-      </Link>
+        <p
+          className="absolute left-[8%] top-[3%] flex items-center gap-[0.5cqw] text-[1.45cqw] font-bold text-zinc-900"
+          style={{ fontFamily: ROUNDED_FONT_STACK }}
+        >
+          Résultats <span className="text-amber-400">✦</span>
+        </p>
+      </div>
 
       {latestResults ? (
         <aside
-          className="home-results-panel absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] overflow-y-auto px-1.5 py-1 text-left lg:block"
+          className="home-results-panel absolute right-[2.9%] top-[25%] z-20 hidden h-[68%] w-[17.6%] overflow-y-auto px-1.5 py-1 text-left lg:block"
           aria-label="Résultats de recherche"
         >
           <DesktopSearchResultsContent results={latestResults} />
         </aside>
       ) : (
         <aside
-          className="absolute right-[2.9%] top-[33%] z-20 hidden h-[48%] w-[17.6%] items-center justify-center px-3 text-center lg:flex"
+          className="absolute right-[2.9%] top-[25%] z-20 hidden h-[68%] w-[17.6%] items-center justify-center px-3 text-center lg:flex"
           aria-label="Résultats de recherche"
         >
           {activeAssistantMessage ? (
@@ -613,9 +649,9 @@ export default function Home() {
         </aside>
       )}
 
-      <section className="relative z-10 mx-auto flex min-h-[70vh] w-full max-w-3xl flex-col items-center justify-center gap-5 text-center lg:contents">
+      <section className="relative z-10 mx-auto mt-4 flex w-full max-w-3xl flex-col items-center gap-5 text-center lg:contents">
         <div
-          className="w-full max-w-xs sm:max-w-sm lg:absolute lg:left-[52%] lg:top-[30%] lg:w-[20%] lg:max-w-none lg:-translate-x-1/2"
+          className="w-full max-w-[11rem] sm:max-w-[13rem] lg:absolute lg:left-[52%] lg:top-[30%] lg:w-[20%] lg:max-w-none lg:-translate-x-1/2"
           style={
             bobbeeState === "idle"
               ? { animation: "bobbeeIdleFloat 6s ease-in-out infinite" }
@@ -705,13 +741,66 @@ export default function Home() {
           </form>
         </section>
       </section>
+
+      <nav
+        aria-label="Raccourcis"
+        className="relative z-10 mx-auto mt-8 grid w-full max-w-3xl gap-4 sm:grid-cols-3 lg:absolute lg:bottom-[4%] lg:left-[2.5%] lg:top-[15%] lg:z-20 lg:mt-0 lg:flex lg:w-[22%] lg:max-w-none lg:flex-col lg:gap-[1.2cqw]"
+      >
+        {HOME_CARDS.map((card) => {
+          const content = (
+            <>
+              <span className="relative z-10 flex min-h-full w-full flex-col text-left">
+                <span
+                  className="w-[60%] text-[19px] leading-tight text-zinc-900 sm:w-full lg:w-[60%] lg:text-[1.75cqw]"
+                  style={{ fontFamily: ROUNDED_FONT_STACK }}
+                >
+                  {card.title}
+                </span>
+                <span className="mb-3 mt-1.5 w-[60%] text-[13px] leading-5 text-zinc-700 sm:w-full lg:mb-[0.6cqw] lg:mt-[0.5cqw] lg:w-[60%] lg:text-[clamp(11px,0.95cqw,14px)] lg:leading-snug">
+                  {card.description}
+                </span>
+                <span className="mt-auto inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full bg-amber-300 px-3 py-1.5 text-[13px] font-semibold text-amber-950 shadow-[0_6px_14px_-10px_rgba(146,64,14,0.9)] transition-colors group-hover:bg-amber-400 lg:mt-auto lg:px-[0.9cqw] lg:py-[0.45cqw] lg:text-[clamp(11px,0.95cqw,14px)]">
+                  {card.cta}
+                  <span aria-hidden="true">→</span>
+                </span>
+              </span>
+              <Image
+                src={card.image}
+                alt=""
+                width={card.imageWidth}
+                height={card.imageHeight}
+                unoptimized
+                className="absolute right-[5%] top-[10%] h-[58%] w-auto max-w-[35%] object-contain object-top sm:hidden lg:block"
+              />
+            </>
+          );
+          const className =
+            "group relative flex min-h-[9.5rem] overflow-hidden rounded-[24px] border border-amber-200/90 bg-[#fdeed7] p-4 no-underline shadow-[0_16px_30px_-24px_rgba(120,53,15,0.7)] transition-shadow hover:shadow-[0_18px_34px_-20px_rgba(120,53,15,0.75)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:min-h-0 lg:flex-1 lg:rounded-[1.6cqw] lg:p-[1.3cqw]";
+
+          return card.external ? (
+            <a
+              key={card.title}
+              href={card.href}
+              target="_blank"
+              rel="noreferrer"
+              className={className}
+            >
+              {content}
+            </a>
+          ) : (
+            <Link key={card.title} href={card.href} className={className}>
+              {content}
+            </Link>
+          );
+        })}
+      </nav>
       </div>
 
       <style>{`
         @media (min-width: 1024px) {
           .home-desktop-stage {
             aspect-ratio: 7 / 4;
-            background-image: url("/home/home-background-map-desktop.png");
+            background-image: url("/backgrounds/internal-page-background.png");
             background-position: center center;
             background-repeat: no-repeat;
             background-size: contain;
