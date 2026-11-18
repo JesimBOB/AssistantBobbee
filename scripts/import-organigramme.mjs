@@ -1,6 +1,7 @@
-// Import de l'organigramme depuis l'export PDF du board Klaxoon.
+// Import de l'organigramme depuis le board Klaxoon : export PDF, ou export
+// navigateur produit par scripts/klaxoon-export.js (fichier .json).
 //
-// Usage : node scripts/import-organigramme.mjs "<chemin du PDF>"
+// Usage : node scripts/import-organigramme.mjs "<chemin du PDF ou du .json>"
 //
 // Produit data/organigramme.json (lu par le site) et data/organigramme.csv
 // (version lisible), puis affiche les changements par rapport à la version
@@ -16,11 +17,31 @@ const CSV_PATH = path.join(ROOT, "data", "organigramme.csv");
 
 const pdfPath = process.argv[2];
 if (!pdfPath) {
-  console.error('Usage : node scripts/import-organigramme.mjs "<chemin du PDF>"');
+  console.error('Usage : node scripts/import-organigramme.mjs "<chemin du PDF ou du .json>"');
   process.exit(1);
 }
 
+const clean = (text) => text.replace(/[​ ]/g, " ").replace(/\s+/g, " ").trim();
+
+// ---------- Lecture d'un export navigateur (scripts/klaxoon-export.js) ----------
+
+// Les coordonnées écran ont l'axe vertical vers le bas : on l'inverse pour
+// retrouver la convention du PDF (un titre de pôle est « au-dessus » de ses cartes).
+function readBrowserBoard(filePath) {
+  const exported = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  if (!Array.isArray(exported.headers) || !Array.isArray(exported.cards) || !Array.isArray(exported.labels)) {
+    throw new Error("Export navigateur invalide : headers, cards et labels sont attendus.");
+  }
+  return {
+    exportDate: exported.exportedAt,
+    headers: exported.headers.map((header) => ({ name: clean(header.name), x: header.x, y: -header.y })),
+    cards: exported.cards.map((card) => ({ name: clean(card.name), role: clean(card.role), x: card.x, y: -card.y })),
+    labels: exported.labels.map((label) => ({ texts: label.texts.map(clean), x: label.x, y: -label.y })),
+  };
+}
+
 // ---------- Lecture du PDF ----------
+function readPdfBoard() {
 
 const data = fs.readFileSync(pdfPath).toString("latin1");
 const objects = new Map();
@@ -157,7 +178,6 @@ run(streamOf(contentsId), pageResources, [1, 0, 0, 1, 0, 0]);
 
 // ---------- Interprétation du board ----------
 
-const clean = (text) => text.replace(/[​ ]/g, " ").replace(/\s+/g, " ").trim();
 
 // Une carte = des lignes consécutives très proches les unes des autres sur le board.
 const items = [];
@@ -198,6 +218,12 @@ for (let index = 0; index < items.length; index += 1) {
     labels.push({ texts, x: item.x, y: item.y });
   }
 }
+
+  return { headers, cards, labels };
+}
+
+const board = pdfPath.toLowerCase().endsWith(".json") ? readBrowserBoard(pdfPath) : readPdfBoard();
+const { headers, cards, labels } = board;
 
 // Colonnes du board : regroupement des titres de pôles par position horizontale.
 const columns = [];
@@ -267,7 +293,7 @@ for (const label of labels) {
   }
 }
 
-const isoDate = /\d{4}-\d{2}-\d{2}/.exec(path.basename(pdfPath))?.[0] ?? new Date().toISOString().slice(0, 10);
+const isoDate = board.exportDate ?? /\d{4}-\d{2}-\d{2}/.exec(path.basename(pdfPath))?.[0] ?? new Date().toISOString().slice(0, 10);
 const [year, month, day] = isoDate.split("-");
 const result = {
   source: "Klaxoon - Organigramme MAIDO public",

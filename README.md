@@ -55,9 +55,19 @@ Source qui fait foi : le board Klaxoon « Organigramme MAIDO public ».
 
 La date de l'export est lue dans le nom du fichier (`AAAA-MM-JJ`) et affichée sur la page Organigramme.
 
+**Automatique, chaque lundi à 9 h** (tâche planifiée « Bobbee : mettre à jour l'organigramme depuis Klaxoon » dans l'application Claude) : avec l'extension Claude in Chrome, Claude ouvre le board dans Chrome (session Klaxoon déjà connectée), exécute `scripts/klaxoon-export.js` qui télécharge `klaxoon-organigramme-AAAA-MM-JJ.json` dans Téléchargements, puis lance :
+
+```bash
+node scripts/import-organigramme.mjs "<Téléchargements>/klaxoon-organigramme-AAAA-MM-JJ.json"
+```
+
+Il montre les changements sans commiter ni pousser. Si Chrome n'est pas ouvert ou que Klaxoon demande une connexion, revenir à l'export PDF ci-dessus.
+
 ### Actualisation des sujets Jira (chaque mois conseillé)
 
 Alimente la rubrique « Ont travaillé dessus » du chat.
+
+Automatique le 1er de chaque mois à 9 h (tâche planifiée « Bobbee : actualiser les sujets Jira »), qui montre les changements sans commiter ni pousser. Manuellement :
 
 1. Dire à Claude : *« Mets à jour les sujets Jira »*.
 2. Claude exporte les tickets via le connecteur Atlassian dans un fichier `.ndjson` temporaire (non versionné), une ligne par ticket : `{"key","summary","assignee","resolved"}`. Requête utilisée :
