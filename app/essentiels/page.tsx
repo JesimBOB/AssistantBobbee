@@ -85,6 +85,7 @@ export default function EssentielsPage() {
           aria-label="Retour à l'accueil"
           className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-amber-50 hover:text-zinc-950"
         >
+          <span aria-hidden="true">⌂</span>
           <span>Home</span>
         </Link>
       </div>
