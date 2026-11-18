@@ -1,0 +1,1311 @@
+{
+  "source": "Jira MP - tickets terminés sur 12 mois, classés par mot-clé du titre",
+  "generatedAt": "2026-11-18",
+  "topics": [
+    {
+      "id": "tva",
+      "label": "TVA",
+      "keywords": [
+        "tva"
+      ],
+      "ticketCount": 345,
+      "people": [
+        {
+          "name": "Anthony LENGLET",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 49,
+          "lastResolved": "2026-11-05"
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 42,
+          "lastResolved": "2026-11-18"
+        },
+        {
+          "name": "Dominik KILIAN",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 38,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Cécile LEROUZIC",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 37,
+          "lastResolved": "2026-11-13"
+        },
+        {
+          "name": "Faid HASSANI",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 12,
+          "lastResolved": "2026-07-30"
+        },
+        {
+          "name": "Yann PASCOET",
+          "role": "Dev",
+          "pole": "maya",
+          "count": 10,
+          "lastResolved": "2026-10-14"
+        }
+      ]
+    },
+    {
+      "id": "immobilisations",
+      "label": "Immobilisations",
+      "keywords": [
+        "immobilisation",
+        "immo"
+      ],
+      "ticketCount": 381,
+      "people": [
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 94,
+          "lastResolved": "2026-11-04"
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 67,
+          "lastResolved": "2026-11-09"
+        },
+        {
+          "name": "Cécile LEROUZIC",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 35,
+          "lastResolved": "2026-10-26"
+        },
+        {
+          "name": "Vivien VANDERSCHOOTEN",
+          "role": "Squad Lead",
+          "pole": "maya",
+          "count": 32,
+          "lastResolved": "2026-08-06"
+        },
+        {
+          "name": "Anthony LENGLET",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 27,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Mickael HUBERT",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 16,
+          "lastResolved": "2026-05-27"
+        }
+      ]
+    },
+    {
+      "id": "facturation",
+      "label": "Facturation / facture électronique",
+      "keywords": [
+        "facturation",
+        "facture electronique",
+        "efacture",
+        "facture"
+      ],
+      "ticketCount": 81,
+      "people": [
+        {
+          "name": "Rafael COPPE",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 14,
+          "lastResolved": "2026-10-01"
+        },
+        {
+          "name": "Thibault MARIE",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 9,
+          "lastResolved": "2026-11-04"
+        },
+        {
+          "name": "Jimmy WIMS",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 8,
+          "lastResolved": "2026-10-02"
+        },
+        {
+          "name": "Valentin TALON",
+          "role": "QA",
+          "pole": "essaim",
+          "count": 7,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "William PASSET",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 6,
+          "lastResolved": "2026-10-14"
+        },
+        {
+          "name": "Hamza YAHIAOUI",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 3,
+          "lastResolved": "2026-10-26"
+        }
+      ]
+    },
+    {
+      "id": "banque",
+      "label": "Banque",
+      "keywords": [
+        "banque",
+        "bancaire",
+        "rapprochement"
+      ],
+      "ticketCount": 300,
+      "people": [
+        {
+          "name": "Dominik KILIAN",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 41,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Duncan ROZE",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 38,
+          "lastResolved": "2026-11-05"
+        },
+        {
+          "name": "Maxime DUMAS",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 24,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Stéphane ACHARI",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 13,
+          "lastResolved": "2026-11-16"
+        },
+        {
+          "name": "Julien DESPREZ",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 13,
+          "lastResolved": "2026-07-30"
+        },
+        {
+          "name": "Ibrahima TIMERA",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 12,
+          "lastResolved": "2026-11-09"
+        }
+      ]
+    },
+    {
+      "id": "cloture-revision",
+      "label": "Clôture / révision",
+      "keywords": [
+        "cloture",
+        "revision"
+      ],
+      "ticketCount": 288,
+      "people": [
+        {
+          "name": "Sonia HAMID",
+          "role": "QA",
+          "pole": "maya",
+          "count": 52,
+          "lastResolved": "2026-11-13"
+        },
+        {
+          "name": "Thomas DERUCHE",
+          "role": "Dev",
+          "pole": "maya",
+          "count": 37,
+          "lastResolved": "2026-10-27"
+        },
+        {
+          "name": "Rémy DUCLOS",
+          "role": "Dev",
+          "pole": "maya",
+          "count": 31,
+          "lastResolved": "2026-11-10"
+        },
+        {
+          "name": "Vivien VANDERSCHOOTEN",
+          "role": "Squad Lead",
+          "pole": "maya",
+          "count": 27,
+          "lastResolved": "2026-11-10"
+        },
+        {
+          "name": "Vincent PAYEN",
+          "role": "Squad Lead",
+          "pole": "nectar",
+          "count": 20,
+          "lastResolved": "2026-09-24"
+        },
+        {
+          "name": "Yann PASCOET",
+          "role": "Dev",
+          "pole": "maya",
+          "count": 19,
+          "lastResolved": "2026-10-21"
+        }
+      ]
+    },
+    {
+      "id": "liasse",
+      "label": "Liasse / états financiers",
+      "keywords": [
+        "liasse",
+        "etats financiers",
+        "etat financier"
+      ],
+      "ticketCount": 167,
+      "people": [
+        {
+          "name": "Anthony LENGLET",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 37,
+          "lastResolved": "2026-11-06"
+        },
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 17,
+          "lastResolved": "2026-05-27"
+        },
+        {
+          "name": "Djamal HASSAN",
+          "role": "QA",
+          "pole": "hydromel",
+          "count": 11,
+          "lastResolved": "2026-10-26"
+        },
+        {
+          "name": "Julien DESPREZ",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 9,
+          "lastResolved": "2026-11-16"
+        },
+        {
+          "name": "Benjamin WALLETH",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 8,
+          "lastResolved": "2026-11-16"
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 8,
+          "lastResolved": "2026-11-09"
+        }
+      ]
+    },
+    {
+      "id": "fec",
+      "label": "FEC",
+      "keywords": [
+        "fec"
+      ],
+      "ticketCount": 171,
+      "people": [
+        {
+          "name": "Mourad IMERZOUKENE",
+          "role": "QA",
+          "pole": "cire",
+          "count": 26,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Geoffrey FLEUR",
+          "role": "QA",
+          "pole": "propolis",
+          "count": 22,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Mahé FAURE",
+          "role": "Squad Lead",
+          "pole": "propolis",
+          "count": 19,
+          "lastResolved": "2026-04-23"
+        },
+        {
+          "name": "Malika CHOUBRI",
+          "role": "Dev",
+          "pole": "propolis",
+          "count": 17,
+          "lastResolved": "2026-06-04"
+        },
+        {
+          "name": "Roberto SANCHEZ",
+          "role": "Dev",
+          "pole": "cire",
+          "count": 16,
+          "lastResolved": "2026-10-26"
+        },
+        {
+          "name": "Julio CHI",
+          "role": "Dev",
+          "pole": "cire",
+          "count": 14,
+          "lastResolved": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "id": "stocks",
+      "label": "Stocks",
+      "keywords": [
+        "stock"
+      ],
+      "ticketCount": 119,
+      "people": [
+        {
+          "name": "Geoffrey FLEUR",
+          "role": "QA",
+          "pole": "propolis",
+          "count": 50,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Malika CHOUBRI",
+          "role": "Dev",
+          "pole": "propolis",
+          "count": 17,
+          "lastResolved": "2026-10-27"
+        },
+        {
+          "name": "Mahé FAURE",
+          "role": "Squad Lead",
+          "pole": "propolis",
+          "count": 13,
+          "lastResolved": "2026-11-18"
+        },
+        {
+          "name": "Raniya SADIK",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 5,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Sébastien PINGAL",
+          "role": "Dev",
+          "pole": "propolis",
+          "count": 5,
+          "lastResolved": "2026-10-27"
+        },
+        {
+          "name": "Julio CHI",
+          "role": "Dev",
+          "pole": "cire",
+          "count": 5,
+          "lastResolved": "2026-05-19"
+        }
+      ]
+    },
+    {
+      "id": "licences",
+      "label": "Licences / offres / profils",
+      "keywords": [
+        "licence",
+        "offre",
+        "profil",
+        "souscription"
+      ],
+      "ticketCount": 106,
+      "people": [
+        {
+          "name": "Alex MIVELAZ",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 28,
+          "lastResolved": "2026-10-16"
+        },
+        {
+          "name": "Erwann LE BOULCH",
+          "role": "Dev/PSM",
+          "pole": "Apiculture",
+          "count": 11,
+          "lastResolved": "2026-09-28"
+        },
+        {
+          "name": "Simon LEROY",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 10,
+          "lastResolved": "2026-11-18"
+        },
+        {
+          "name": "Romain VALLET",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 10,
+          "lastResolved": "2026-06-24"
+        },
+        {
+          "name": "Adrien LEFRANCOIS",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 7,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Jessy WATSON",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 3,
+          "lastResolved": "2026-11-16"
+        }
+      ]
+    },
+    {
+      "id": "emprunts",
+      "label": "Emprunts",
+      "keywords": [
+        "emprunt"
+      ],
+      "ticketCount": 95,
+      "people": [
+        {
+          "name": "Amina BOUTELDJA",
+          "role": "Data",
+          "pole": "pollen",
+          "count": 12,
+          "lastResolved": "2026-09-15"
+        },
+        {
+          "name": "Julien DESPREZ",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 11,
+          "lastResolved": "2026-11-03"
+        },
+        {
+          "name": "Jimmy WIMS",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 6,
+          "lastResolved": "2026-11-06"
+        },
+        {
+          "name": "Jessy WATSON",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 6,
+          "lastResolved": "2026-10-22"
+        },
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 6,
+          "lastResolved": "2026-09-30"
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 6,
+          "lastResolved": "2026-09-14"
+        }
+      ]
+    },
+    {
+      "id": "lettrage",
+      "label": "Lettrage",
+      "keywords": [
+        "lettrage"
+      ],
+      "ticketCount": 72,
+      "people": [
+        {
+          "name": "William DENOYER",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 12,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Matthieu RAPENNE",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 6,
+          "lastResolved": "2026-11-12"
+        },
+        {
+          "name": "Duncan ROZE",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 6,
+          "lastResolved": "2026-09-21"
+        },
+        {
+          "name": "Dominik KILIAN",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 4,
+          "lastResolved": "2026-10-02"
+        },
+        {
+          "name": "Maxime DUMAS",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 4,
+          "lastResolved": "2026-04-24"
+        },
+        {
+          "name": "Cherazed KERAR",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 3,
+          "lastResolved": "2026-06-04"
+        }
+      ]
+    },
+    {
+      "id": "ocr-ia",
+      "label": "OCR / IA",
+      "keywords": [
+        "ocr",
+        "ia",
+        "intelligence artificielle",
+        "llm"
+      ],
+      "ticketCount": 70,
+      "people": [
+        {
+          "name": "Amina BOUTELDJA",
+          "role": "Data",
+          "pole": "pollen",
+          "count": 19,
+          "lastResolved": "2026-10-22"
+        },
+        {
+          "name": "Dominik KILIAN",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 9,
+          "lastResolved": "2026-10-02"
+        },
+        {
+          "name": "Thomas DERUCHE",
+          "role": "Dev",
+          "pole": "maya",
+          "count": 6,
+          "lastResolved": "2026-11-13"
+        },
+        {
+          "name": "Duncan ROZE",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 4,
+          "lastResolved": "2026-09-16"
+        },
+        {
+          "name": "Mael GELEBART",
+          "role": "Dev",
+          "pole": "Apiculture",
+          "count": 3,
+          "lastResolved": "2026-09-24"
+        },
+        {
+          "name": "Eric SELLEM",
+          "role": "CTO",
+          "pole": "ruche",
+          "count": 3,
+          "lastResolved": "2026-08-03"
+        }
+      ]
+    },
+    {
+      "id": "integrations",
+      "label": "Intégrations / Chift",
+      "keywords": [
+        "chift",
+        "integration"
+      ],
+      "ticketCount": 29,
+      "people": [
+        {
+          "name": "Duncan ROZE",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 2,
+          "lastResolved": "2026-05-15"
+        },
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 2,
+          "lastResolved": "2026-03-27"
+        },
+        {
+          "name": "Amina BOUTELDJA",
+          "role": "Data",
+          "pole": "pollen",
+          "count": 2,
+          "lastResolved": "2026-03-05"
+        },
+        {
+          "name": "Gildas LE BOURNAULT",
+          "role": "Squad Lead",
+          "pole": "Apiculture",
+          "count": 2,
+          "lastResolved": "2026-02-05"
+        },
+        {
+          "name": "Malika CHOUBRI",
+          "role": "Dev",
+          "pole": "propolis",
+          "count": 1,
+          "lastResolved": "2026-11-04"
+        },
+        {
+          "name": "Mohammed BCHAIKER",
+          "role": "Devops",
+          "pole": "alvéoles",
+          "count": 1,
+          "lastResolved": "2026-10-26"
+        }
+      ]
+    },
+    {
+      "id": "grand-livre",
+      "label": "Grand livre",
+      "keywords": [
+        "grand livre",
+        "grand-livre"
+      ],
+      "ticketCount": 53,
+      "people": [
+        {
+          "name": "William DENOYER",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 25,
+          "lastResolved": "2026-11-03"
+        },
+        {
+          "name": "Benjamin WALLETH",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 4,
+          "lastResolved": "2026-08-24"
+        },
+        {
+          "name": "Sonia HAMID",
+          "role": "QA",
+          "pole": "maya",
+          "count": 3,
+          "lastResolved": "2026-11-09"
+        },
+        {
+          "name": "Adrien ALLORENT",
+          "role": "QA",
+          "pole": "hydromel",
+          "count": 3,
+          "lastResolved": "2026-05-12"
+        },
+        {
+          "name": "Matthieu RAPENNE",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 2,
+          "lastResolved": "2026-11-18"
+        },
+        {
+          "name": "Djamal HASSAN",
+          "role": "QA",
+          "pole": "hydromel",
+          "count": 2,
+          "lastResolved": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "label": "Mobile / tablette",
+      "keywords": [
+        "mobile",
+        "tablette"
+      ],
+      "ticketCount": 35,
+      "people": [
+        {
+          "name": "Alex MIVELAZ",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 8,
+          "lastResolved": "2026-11-11"
+        },
+        {
+          "name": "Adrien LEFRANCOIS",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 5,
+          "lastResolved": "2026-11-16"
+        },
+        {
+          "name": "Romain VALLET",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 3,
+          "lastResolved": "2026-11-16"
+        },
+        {
+          "name": "Juan VILAR SANCHIS",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 3,
+          "lastResolved": "2026-11-02"
+        },
+        {
+          "name": "Romain BEAUSSART",
+          "role": "Squad Lead",
+          "pole": "alvéoles",
+          "count": 3,
+          "lastResolved": "2026-10-30"
+        },
+        {
+          "name": "Julien DESPREZ",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 3,
+          "lastResolved": "2026-05-19"
+        }
+      ]
+    },
+    {
+      "id": "credit-bail",
+      "label": "Crédit-bail",
+      "keywords": [
+        "credit bail",
+        "credit-bail"
+      ],
+      "ticketCount": 25,
+      "people": [
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 8,
+          "lastResolved": "2026-11-18"
+        },
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 5,
+          "lastResolved": "2026-09-30"
+        },
+        {
+          "name": "Amina BOUTELDJA",
+          "role": "Data",
+          "pole": "pollen",
+          "count": 4,
+          "lastResolved": "2026-08-20"
+        },
+        {
+          "name": "Duncan ROZE",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 2,
+          "lastResolved": "2026-09-09"
+        },
+        {
+          "name": "Cécile LEROUZIC",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 1,
+          "lastResolved": "2026-11-13"
+        },
+        {
+          "name": "Faid HASSANI",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 1,
+          "lastResolved": "2026-08-26"
+        }
+      ]
+    },
+    {
+      "id": "budget",
+      "label": "Budget / prévisionnel",
+      "keywords": [
+        "budget",
+        "previsionnel"
+      ],
+      "ticketCount": 11,
+      "people": [
+        {
+          "name": "Emmanuel GUEISSAZ",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 6,
+          "lastResolved": "2026-11-18"
+        },
+        {
+          "name": "Moctar SAWADOGO",
+          "role": "Squad Lead",
+          "pole": "hydromel",
+          "count": 2,
+          "lastResolved": "2026-09-01"
+        },
+        {
+          "name": "Abdessamad SAYHI",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 1,
+          "lastResolved": "2026-11-03"
+        },
+        {
+          "name": "Anas ATMANI",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 1,
+          "lastResolved": "2026-08-11"
+        },
+        {
+          "name": "Benjamin WALLETH",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 1,
+          "lastResolved": "2026-01-21"
+        }
+      ]
+    },
+    {
+      "id": "analytique",
+      "label": "Analytique",
+      "keywords": [
+        "analytique"
+      ],
+      "ticketCount": 8,
+      "people": [
+        {
+          "name": "Eric SELLEM",
+          "role": "CTO",
+          "pole": "ruche",
+          "count": 3,
+          "lastResolved": "2026-01-07"
+        },
+        {
+          "name": "Benjamin WALLETH",
+          "role": "Dev",
+          "pole": "hydromel",
+          "count": 2,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Florian TANAY",
+          "role": "Dev",
+          "pole": "cire",
+          "count": 2,
+          "lastResolved": "2026-04-16"
+        },
+        {
+          "name": "Mourad IMERZOUKENE",
+          "role": "QA",
+          "pole": "cire",
+          "count": 1,
+          "lastResolved": "2026-04-15"
+        }
+      ]
+    },
+    {
+      "id": "plan-comptable",
+      "label": "Plan comptable",
+      "keywords": [
+        "plan comptable",
+        "plan de comptes"
+      ],
+      "ticketCount": 42,
+      "people": [
+        {
+          "name": "Julio CHI",
+          "role": "Dev",
+          "pole": "cire",
+          "count": 10,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Malika CHOUBRI",
+          "role": "Dev",
+          "pole": "propolis",
+          "count": 4,
+          "lastResolved": "2026-09-30"
+        },
+        {
+          "name": "Raniya SADIK",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 3,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Eric SELLEM",
+          "role": "CTO",
+          "pole": "ruche",
+          "count": 3,
+          "lastResolved": "2026-06-03"
+        },
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 2,
+          "lastResolved": "2026-10-07"
+        },
+        {
+          "name": "Geoffrey FLEUR",
+          "role": "QA",
+          "pole": "propolis",
+          "count": 2,
+          "lastResolved": "2026-10-02"
+        }
+      ]
+    },
+    {
+      "id": "fiscalite",
+      "label": "Fiscalité",
+      "keywords": [
+        "fiscalite",
+        "fiscal"
+      ],
+      "ticketCount": 95,
+      "people": [
+        {
+          "name": "Anthony LENGLET",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 22,
+          "lastResolved": "2026-11-10"
+        },
+        {
+          "name": "Ingrid CADET",
+          "role": "QA",
+          "pole": "miel",
+          "count": 5,
+          "lastResolved": "2026-11-03"
+        },
+        {
+          "name": "Julien DESPREZ",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 5,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 5,
+          "lastResolved": "2026-10-27"
+        },
+        {
+          "name": "Théodore RIANT",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 4,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Yassine DIBI",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 3,
+          "lastResolved": "2026-11-16"
+        }
+      ]
+    },
+    {
+      "id": "reprise",
+      "label": "Reprise de données",
+      "keywords": [
+        "reprise"
+      ],
+      "ticketCount": 132,
+      "people": [
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "pole": "miel",
+          "count": 19,
+          "lastResolved": "2026-10-12"
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 10,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Anthony LENGLET",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 8,
+          "lastResolved": "2026-06-25"
+        },
+        {
+          "name": "Sonia HAMID",
+          "role": "QA",
+          "pole": "maya",
+          "count": 7,
+          "lastResolved": "2026-11-13"
+        },
+        {
+          "name": "Florian TANAY",
+          "role": "Dev",
+          "pole": "cire",
+          "count": 7,
+          "lastResolved": "2026-07-06"
+        },
+        {
+          "name": "Mourad IMERZOUKENE",
+          "role": "QA",
+          "pole": "cire",
+          "count": 5,
+          "lastResolved": "2026-09-18"
+        }
+      ]
+    },
+    {
+      "id": "dossiers",
+      "label": "Dossiers (gestion des dossiers)",
+      "keywords": [
+        "dossier"
+      ],
+      "ticketCount": 163,
+      "people": [
+        {
+          "name": "Geoffrey FLEUR",
+          "role": "QA",
+          "pole": "propolis",
+          "count": 18,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "William PASSET",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 10,
+          "lastResolved": "2026-10-15"
+        },
+        {
+          "name": "Jimmy WIMS",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 9,
+          "lastResolved": "2026-10-28"
+        },
+        {
+          "name": "Erwann LE BOULCH",
+          "role": "Dev/PSM",
+          "pole": "Apiculture",
+          "count": 8,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Romain BEAUSSART",
+          "role": "Squad Lead",
+          "pole": "alvéoles",
+          "count": 7,
+          "lastResolved": "2026-11-12"
+        },
+        {
+          "name": "Rafael COPPE",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 7,
+          "lastResolved": "2026-10-19"
+        }
+      ]
+    },
+    {
+      "id": "paiements",
+      "label": "Paiements",
+      "keywords": [
+        "paiement"
+      ],
+      "ticketCount": 21,
+      "people": [
+        {
+          "name": "Ibrahima TIMERA",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 4,
+          "lastResolved": "2026-09-16"
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 2,
+          "lastResolved": "2026-10-02"
+        },
+        {
+          "name": "Jimmy WIMS",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 2,
+          "lastResolved": "2026-06-22"
+        },
+        {
+          "name": "Nicolas BOUTOUBA",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 2,
+          "lastResolved": "2026-05-11"
+        },
+        {
+          "name": "Dominik KILIAN",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 2,
+          "lastResolved": "2026-05-11"
+        },
+        {
+          "name": "Hamza YAHIAOUI",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 1,
+          "lastResolved": "2026-10-01"
+        }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "Documents / GED",
+      "keywords": [
+        "document",
+        "ged"
+      ],
+      "ticketCount": 640,
+      "people": [
+        {
+          "name": "Dominik KILIAN",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 99,
+          "lastResolved": "2026-10-29"
+        },
+        {
+          "name": "Duncan ROZE",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 58,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Ibrahima TIMERA",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 56,
+          "lastResolved": "2026-11-17"
+        },
+        {
+          "name": "Faid HASSANI",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 39,
+          "lastResolved": "2026-10-08"
+        },
+        {
+          "name": "Julien DESPREZ",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 27,
+          "lastResolved": "2026-08-14"
+        },
+        {
+          "name": "Maxime DUMAS",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 18,
+          "lastResolved": "2026-11-05"
+        }
+      ]
+    },
+    {
+      "id": "utilisateurs",
+      "label": "Utilisateurs / droits / SAML",
+      "keywords": [
+        "utilisateur",
+        "droits",
+        "saml",
+        "sso"
+      ],
+      "ticketCount": 222,
+      "people": [
+        {
+          "name": "Jimmy WIMS",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 27,
+          "lastResolved": "2026-10-02"
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 17,
+          "lastResolved": "2026-05-22"
+        },
+        {
+          "name": "Rafael COPPE",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 16,
+          "lastResolved": "2026-10-23"
+        },
+        {
+          "name": "Nicolas BOUTOUBA",
+          "role": "QA",
+          "pole": "butineuses",
+          "count": 13,
+          "lastResolved": "2026-05-11"
+        },
+        {
+          "name": "Nicolas DELFOUR",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 11,
+          "lastResolved": "2026-11-02"
+        },
+        {
+          "name": "Thibault MARIE",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 10,
+          "lastResolved": "2026-11-11"
+        }
+      ]
+    }
+  ]
+}

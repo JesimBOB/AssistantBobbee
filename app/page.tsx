@@ -6,6 +6,7 @@ import { type FormEvent, useEffect, useRef, useState } from "react";
 import {
   searchChatResults,
   type CompetenceEntry,
+  type JiraTopic,
   type UsefulLinkEntry,
 } from "./page.search";
 
@@ -31,6 +32,7 @@ type PersonResult = {
 type SearchResults = {
   people: PersonResult[];
   links: UsefulLinkEntry[];
+  jiraTopics: JiraTopic[];
 };
 
 const INITIAL_MESSAGES: Message[] = [];
@@ -57,6 +59,12 @@ const ROUNDED_FONT_STACK =
 
 function getLevelLabel(level: string) {
   return LEVEL_LABELS[level.toLowerCase()] ?? null;
+}
+
+// "2026-11-05" -> "11/2026"
+function formatMonth(isoDate: string) {
+  const [year, month] = isoDate.split("-");
+  return year && month ? `${month}/${year}` : "";
 }
 
 function isAllowedPersonResultLevel(level: string) {
@@ -112,6 +120,54 @@ function buildPeopleResults(entries: CompetenceEntry[]) {
 function SearchResultsContent({ results }: { results: SearchResults }) {
   return (
     <>
+      {results.jiraTopics.length > 0 ? (
+        <div className="space-y-3.5">
+          <p className="inline-flex rounded-full bg-zinc-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-100 shadow-[0_10px_18px_-16px_rgba(24,24,27,0.8)]">
+            Ont travaillé dessus
+          </p>
+          <div className="space-y-3.5">
+            {results.jiraTopics.map((topic) => (
+              <article
+                key={topic.id}
+                className="rounded-[24px] bg-gradient-to-br from-amber-100/90 via-amber-50/85 to-white p-4 shadow-[0_18px_30px_-24px_rgba(161,98,7,0.55)] ring-1 ring-amber-300/80"
+              >
+                <p className="text-base font-semibold text-zinc-900">
+                  {topic.label}
+                </p>
+                <p className="mt-0.5 text-[12px] text-zinc-500">
+                  Tickets Jira terminés sur 12 mois
+                </p>
+                <div className="mt-3 flex flex-col gap-2.5">
+                  {topic.people.map((person) => (
+                    <div
+                      key={`${topic.id}::${person.name}`}
+                      className="rounded-[18px] bg-white/95 px-3.5 py-3 shadow-[0_12px_24px_-22px_rgba(24,24,27,0.45)] ring-1 ring-amber-100"
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <p className="min-w-0 flex-1 text-[15px] font-medium text-zinc-900">
+                          {person.name}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="rounded-full bg-amber-300/90 px-2.5 py-1 text-[11px] font-semibold text-amber-950 ring-1 ring-amber-400/70">
+                            {person.role}
+                          </span>
+                          <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-[11px] font-medium text-zinc-600 ring-1 ring-zinc-200">
+                            {person.pole}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="mt-1.5 text-[12px] text-zinc-500">
+                        {person.count} ticket{person.count > 1 ? "s" : ""}, dernier en {formatMonth(person.lastResolved)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       {results.people.length > 0 ? (
         <div className="space-y-3.5">
           <p className="inline-flex rounded-full bg-zinc-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-100 shadow-[0_10px_18px_-16px_rgba(24,24,27,0.8)]">
@@ -221,6 +277,55 @@ function SearchResultsContent({ results }: { results: SearchResults }) {
 function DesktopSearchResultsContent({ results }: { results: SearchResults }) {
   return (
     <div className="flex w-full min-w-0 flex-col gap-3.5 pr-1">
+      {results.jiraTopics.length > 0 ? (
+        <section className="min-w-0 space-y-2.5">
+          <p className="inline-flex max-w-full rounded-full bg-zinc-900/88 px-2.5 py-1 text-[10px] font-semibold uppercase leading-4 tracking-[0.12em] text-amber-100 shadow-[0_8px_14px_-12px_rgba(24,24,27,0.75)]">
+            ONT TRAVAILLÉ DESSUS
+          </p>
+
+          <div className="flex w-full min-w-0 flex-col gap-2.5">
+            {results.jiraTopics.map((topic) => (
+              <article
+                key={topic.id}
+                className="w-full min-w-0 rounded-[14px] bg-amber-50/72 px-3 py-2.5 text-zinc-900 shadow-[0_10px_18px_-18px_rgba(120,53,15,0.28)] ring-1 ring-amber-200/45"
+              >
+                <p className="break-words text-[14px] font-semibold leading-5">
+                  {topic.label}
+                </p>
+                <p className="text-[10px] leading-4 text-zinc-500">
+                  Tickets Jira terminés sur 12 mois
+                </p>
+
+                <div className="mt-2.5 flex flex-col gap-2">
+                  {topic.people.map((person) => (
+                    <div
+                      key={`${topic.id}::${person.name}`}
+                      className="border-l-2 border-amber-300/55 pl-2"
+                    >
+                      <p className="break-words text-[12px] font-medium leading-4 text-zinc-900">
+                        {person.name}
+                      </p>
+
+                      <div className="mt-1.5 flex max-w-full flex-wrap gap-1.5">
+                        <span className="rounded-full bg-amber-300/80 px-1.5 py-0.5 text-[10px] font-semibold leading-3 text-amber-950 ring-1 ring-amber-400/50">
+                          {person.role}
+                        </span>
+                        <span className="rounded-full bg-white/70 px-1.5 py-0.5 text-[10px] font-medium leading-3 text-zinc-600 ring-1 ring-amber-100">
+                          {person.pole}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-[10px] leading-3 text-zinc-500">
+                        {person.count} ticket{person.count > 1 ? "s" : ""}, dernier en {formatMonth(person.lastResolved)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {results.people.length > 0 ? (
         <section className="min-w-0 space-y-2.5">
           <p className="inline-flex max-w-full rounded-full bg-zinc-900/88 px-2.5 py-1 text-[10px] font-semibold uppercase leading-4 tracking-[0.12em] text-amber-100 shadow-[0_8px_14px_-12px_rgba(24,24,27,0.75)]">
@@ -369,10 +474,12 @@ export default function Home() {
     const requestId = searchRequestIdRef.current + 1;
     searchRequestIdRef.current = requestId;
 
-    const { competences, usefulLinks } = searchChatResults(trimmedMessage);
+    const { competences, usefulLinks, jiraTopics } =
+      searchChatResults(trimmedMessage);
     const people = buildPeopleResults(competences);
     const links = usefulLinks;
-    const hasResults = people.length > 0 || links.length > 0;
+    const hasResults =
+      people.length > 0 || links.length > 0 || jiraTopics.length > 0;
 
     setMessages([{ role: "user", content: trimmedMessage }]);
     setMessage("");
@@ -392,7 +499,7 @@ export default function Home() {
         {
           role: "assistant",
           content: hasResults ? RESULTS_BOBBEE_REPLY : EMPTY_BOBBEE_REPLY,
-          results: hasResults ? { people, links } : undefined,
+          results: hasResults ? { people, links, jiraTopics } : undefined,
         },
       ]);
 

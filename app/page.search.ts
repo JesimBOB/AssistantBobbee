@@ -1,5 +1,6 @@
 import competencesData from "@/data/competences.json";
 import usefulLinksData from "@/data/useful-links.raw.json";
+import jiraSujetsData from "@/data/jira-sujets.json";
 
 export type CompetenceEntry = {
   competence: string;
@@ -18,8 +19,25 @@ export type UsefulLinkEntry = {
   Lien?: string | null;
 };
 
+export type JiraTopicPerson = {
+  name: string;
+  role: string;
+  pole: string;
+  count: number;
+  lastResolved: string;
+};
+
+export type JiraTopic = {
+  id: string;
+  label: string;
+  keywords: string[];
+  ticketCount: number;
+  people: JiraTopicPerson[];
+};
+
 const COMPETENCES = competencesData as CompetenceEntry[];
 const USEFUL_LINKS = usefulLinksData as UsefulLinkEntry[];
+const JIRA_TOPICS = jiraSujetsData.topics as JiraTopic[];
 const FALLBACK_STOP_WORDS = new Set([
   "a",
   "au",
@@ -188,22 +206,37 @@ export function searchUsefulLinks(query: string) {
   return searchUsefulLinksByQuery(query);
 }
 
+// Un sujet Jira est retenu si l'un de ses mots-clés apparaît en début de mot dans la question.
+export function searchJiraTopics(query: string) {
+  const normalizedQuery = ` ${normalizeSearchValue(query).replace(/[^\p{L}\p{N}]+/gu, " ")} `;
+
+  return JIRA_TOPICS.filter(
+    (topic) =>
+      topic.people.length > 0 &&
+      topic.keywords.some((keyword) =>
+        normalizedQuery.includes(` ${normalizeSearchValue(keyword)}`),
+      ),
+  );
+}
+
 export function searchChatResults(query: string) {
   const competences = searchCompetencesByQuery(query);
   const usefulLinks = searchUsefulLinksByQuery(query);
+  const jiraTopics = searchJiraTopics(query);
 
   if (competences.length > 0 || usefulLinks.length > 0) {
-    return { competences, usefulLinks };
+    return { competences, usefulLinks, jiraTopics };
   }
 
   const keywords = extractFallbackKeywords(query);
 
   if (keywords.length === 0) {
-    return { competences, usefulLinks };
+    return { competences, usefulLinks, jiraTopics };
   }
 
   return {
     competences: mergeUniqueResults(keywords.map(searchCompetencesByQuery)),
     usefulLinks: mergeUniqueResults(keywords.map(searchUsefulLinksByQuery)),
+    jiraTopics,
   };
 }
