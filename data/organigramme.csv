@@ -1,0 +1,121 @@
+﻿pole,nom,role,note
+Pôle nectar,Vincent PAYEN,Squad Lead,
+Pôle nectar,Cherazed KERAR,PO,
+Pôle nectar,Romain HOTTELET,PO,
+Pôle nectar,Maxime DUMAS,Dev,
+Pôle nectar,Clarence POTEL,Dev,
+Pôle nectar,Faid HASSANI,Dev,
+Pôle nectar,Duncan ROZE,Dev,
+Pôle nectar,Stéphane ACHARI,Dev,
+Pôle nectar,Ghazal SOLTANI,Dev,
+Pôle nectar,Dominik KILIAN,QA,
+Pôle nectar,Ibrahima TIMERA,QA,
+Pôle nectar,Nancy Bruneau,Consultant,
+Pôle propolis,Mahé FAURE,Squad Lead,
+Pôle propolis,Christophe TRICOT,PO,
+Pôle propolis,Sébastien PINGAL,Dev,
+Pôle propolis,Malika CHOUBRI,Dev,
+Pôle propolis,Fanny SIMON,QA,ATL
+Pôle propolis,Geoffrey FLEUR,QA,
+Pôle propolis,Thierry Dargent,Consultant,
+Pôle cire,Adam EMMANUEL,Squad Lead,
+Pôle cire,Hugues AMALRIC,PO,
+Pôle cire,Roberto SANCHEZ,Dev,
+Pôle cire,Florian TANAY,Dev,
+Pôle cire,Julio CHI,Dev,Presta
+Pôle cire,Mourad IMERZOUKENE,QA,
+Pôle cire,Valentin CIRCOSTA,QA,
+Pôle cire,Thierry Dargent,Consultant,
+Pôle pollen,Irina MASLOWSKI,Squad Lead,
+Pôle pollen,Amina BOUTELDJA,Data,
+Pôle pollen,Bryan OBROU,Data,Alt
+Pôle pollen,Clément BOURTGUIZAMEL,Data,
+Pôle pollen,Adrien GUITTARD,Data,Arrive le 05/10
+Pôle hydromel,Moctar SAWADOGO,Squad Lead,
+Pôle hydromel,Noelle MONTAGNER,PO,
+Pôle hydromel,Margaux VINCE,PO,
+Pôle hydromel,Benjamin WALLETH,Dev,
+Pôle hydromel,Emmanuel GUEISSAZ,Dev,
+Pôle hydromel,William DENOYER,Dev,
+Pôle hydromel,Ilyas ZELLOUFI,Dev,
+Pôle hydromel,Matthieu RAPENNE,Dev,
+Pôle hydromel,Adrien ALLORENT,QA,
+Pôle hydromel,Djamal HASSAN,QA,
+Pôle hydromel,Henri De Bussy,Consultant,
+Pôle essaim,Jérôme SIMONI,Squad Lead,
+Pôle essaim,Nicolas DELFOUR,PO,
+Pôle essaim,Rafael COPPE,Dev,
+Pôle essaim,Thibault MARIE,Dev,
+Pôle essaim,Mickael HUBERT,Dev,
+Pôle essaim,William PASSET,Dev,ALT
+Pôle essaim,Florian DEPATIN,Dev,
+Pôle essaim,Morgan BRICHE,Stagiaire Dev,stage
+Pôle essaim,Hamza YAHIAOUI,Dev,prest
+Pôle essaim,Valentin TALON,QA,
+Pôle essaim,Ramiz Haliti,Consultant,
+Pôle Apiculture,Gildas LE BOURNAULT,Squad Lead,
+Pôle Apiculture,Mael GELEBART,Dev,
+Pôle Apiculture,Erwann LE BOULCH,Dev/PSM,
+Pôle Apiculture,Hicham BOYAD,DBA,Presta
+Pôle miel,Laurent BOUVET,Squad Lead,
+Pôle miel,Vincent DEFAUX,PO,
+Pôle miel,Sarah LECOEUCHE,PO,
+Pôle miel,Annie GAROT,Expert métier,
+Pôle miel,Théodore RIANT,Dev,
+Pôle miel,Anthony LENGLET,Dev,
+Pôle miel,Yassine DIBI,Dev,Presta
+Pôle miel,Julien DESPREZ,Dev,
+Pôle miel,Gérôme LEVOUX,Dev,Arrive le 16/11
+Pôle miel,Cécile LE ROUZIC,Dev,
+Pôle miel,Julie CHOPIN,QA,
+Pôle miel,Ingrid CADET,QA,
+Pôle miel,Alexandre Bassez,Consultant,
+Pôle miel,Monique Hardier,Consultant,
+Pôle maya,Vivien VANDERSCHOOT,Squad Lead,
+Pôle maya,Damien LEFRANC,PO,
+Pôle maya,Thomas DERUCHE,Dev,
+Pôle maya,Florian LAMPAERT,Dev,
+Pôle maya,Yann PASCOET,Dev,
+Pôle maya,Rémy DUCLOS,Dev,
+Pôle maya,Alexandre NORMAND,Dev,Arrive le 04/01
+Pôle maya,Sonia HAMID,QA,
+Pôle maya,Nathalie Papa,Consultant,
+Pôle ruche,Céline VIEIRA,Dir Marketing Produit,
+Pôle ruche,Lazar KRIVOKAPIC,PM,
+Pôle ruche,Arnaud LEBON,PM,
+Pôle ruche,Eric SELLEM,CTO,
+Pôle ruche,Romain MAGISTER,Manager R&D,
+Pôle ruche,Jérémy ROYER,QA Manager,
+Pôle alvéoles,Romain BEAUSSART,Squad Lead,
+Pôle alvéoles,Nicolas Contreras Tibocha,Stagiaire Alvéoles,
+Pôle alvéoles,Thomas CAVELIER,Devops,
+Pôle alvéoles,Juan VILAR SANCHIS,Dev,
+Pôle alvéoles,Mohammed BCHAIKER,Devops,
+Pôle alvéoles,Jessy WATSON,Dev,
+Pôle alvéoles,Mathieu LETESSIER,Archi,Presta
+Pôle alvéoles,Audric GUIGON,Archi,Presta
+Pôle alvéoles,Ismael Lucas de Leyssac,Stagiaire Alvéoles,
+Pôle lavande,Jérôme SIMONI,Squad Lead,
+Pôle lavande,Sebastian ZITOUNI,PO,
+Pôle lavande,Romain VALLET,Dev,
+Pôle lavande,Adrien LEFRANCOIS,Dev,
+Pôle lavande,Muhammad ASLAN,Dev,Alternant
+Pôle lavande,Alex MIVELAS,Dev,
+Pôle lavande,Simon LEROY,QA,
+Pôle lavande,Julien Gallet,Consultant,
+Pôle butineuses,Jérémy ROYER,QA Manager,
+Pôle butineuses,Nicolas BOUTOUBA,QA,
+Pôle butineuses,Laura LIEBERKNECHT,QA,
+Pôle butineuses,Ihsane SOUMIR,QA,Arrive le 01/11
+Pôle butineuses,Abdessamad SAYHI,QA,Presta
+Pôle butineuses,Jimmy WIMS,QA,
+Pôle butineuses,Hamza EL YOUSFI,QA,Presta
+Pôle butineuses,Anas ATMANI,QA,Presta
+Pôle butineuses,Raniya SADIK,QA,Presta
+Pôle butineuses,Sanae ABAALI,QA,"Presta, Arrive le?"
+Pôle éclaireuses,Ophélie Le Bras,Resp UXUI,
+Pôle éclaireuses,Diane TRUFFAUX,Resp UXUI,remp
+Pôle éclaireuses,Laure ARTIAQUE,UXUI,Presta
+Pôle éclaireuses,Jolan PETITJEAN,UXUI,
+Pôle éclaireuses,Camila BELTRAN,UXUI,Presta
+Pôle éclaireuses,Mathieu LOMBARD,UXUI,Presta

@@ -1,0 +1,744 @@
+{
+  "source": "Klaxoon - Organigramme MAIDO public",
+  "exportDate": "2026-11-18",
+  "exportDateLabel": "18/11/2026",
+  "teams": [
+    {
+      "name": "Pôle nectar",
+      "people": [
+        {
+          "name": "Vincent PAYEN",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Cherazed KERAR",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Romain HOTTELET",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Maxime DUMAS",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Clarence POTEL",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Faid HASSANI",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Duncan ROZE",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Stéphane ACHARI",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Ghazal SOLTANI",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Dominik KILIAN",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Ibrahima TIMERA",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Nancy Bruneau",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "Documents",
+        "banques",
+        "découpe factures"
+      ]
+    },
+    {
+      "name": "Pôle propolis",
+      "people": [
+        {
+          "name": "Mahé FAURE",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Christophe TRICOT",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Sébastien PINGAL",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Malika CHOUBRI",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Fanny SIMON",
+          "role": "QA",
+          "note": "ATL"
+        },
+        {
+          "name": "Geoffrey FLEUR",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Thierry Dargent",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "Agri",
+        "stocks",
+        "gestion produits"
+      ]
+    },
+    {
+      "name": "Pôle cire",
+      "people": [
+        {
+          "name": "Adam EMMANUEL",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Hugues AMALRIC",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Roberto SANCHEZ",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Florian TANAY",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Julio CHI",
+          "role": "Dev",
+          "note": "Presta"
+        },
+        {
+          "name": "Mourad IMERZOUKENE",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Valentin CIRCOSTA",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Thierry Dargent",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "Import/export",
+        "reprise de donnés"
+      ]
+    },
+    {
+      "name": "Pôle pollen",
+      "people": [
+        {
+          "name": "Irina MASLOWSKI",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Amina BOUTELDJA",
+          "role": "Data",
+          "note": ""
+        },
+        {
+          "name": "Bryan OBROU",
+          "role": "Data",
+          "note": "Alt"
+        },
+        {
+          "name": "Clément BOURTGUIZAMEL",
+          "role": "Data",
+          "note": ""
+        },
+        {
+          "name": "Adrien GUITTARD",
+          "role": "Data",
+          "note": "Arrive le 05/10"
+        }
+      ],
+      "tags": [
+        "OCR",
+        "IA",
+        "LLM"
+      ]
+    },
+    {
+      "name": "Pôle hydromel",
+      "people": [
+        {
+          "name": "Moctar SAWADOGO",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Noelle MONTAGNER",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Margaux VINCE",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Benjamin WALLETH",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Emmanuel GUEISSAZ",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "William DENOYER",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Ilyas ZELLOUFI",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Matthieu RAPENNE",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Adrien ALLORENT",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Djamal HASSAN",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Henri De Bussy",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "Prévisionnel",
+        "rapports",
+        "bal/GL/journal",
+        "états financiers"
+      ]
+    },
+    {
+      "name": "Pôle essaim",
+      "people": [
+        {
+          "name": "Jérôme SIMONI",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Nicolas DELFOUR",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Rafael COPPE",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Thibault MARIE",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Mickael HUBERT",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "William PASSET",
+          "role": "Dev",
+          "note": "ALT"
+        },
+        {
+          "name": "Florian DEPATIN",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Morgan BRICHE",
+          "role": "Stagiaire Dev",
+          "note": "stage"
+        },
+        {
+          "name": "Hamza YAHIAOUI",
+          "role": "Dev",
+          "note": "prest"
+        },
+        {
+          "name": "Valentin TALON",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Ramiz Haliti",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "FE",
+        "GI",
+        "gestion users et clients"
+      ]
+    },
+    {
+      "name": "Pôle Apiculture",
+      "people": [
+        {
+          "name": "Gildas LE BOURNAULT",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Mael GELEBART",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Erwann LE BOULCH",
+          "role": "Dev/PSM",
+          "note": ""
+        },
+        {
+          "name": "Hicham BOYAD",
+          "role": "DBA",
+          "note": "Presta"
+        }
+      ],
+      "tags": [
+        "Modularité",
+        "scalabilité",
+        "sécurité"
+      ]
+    },
+    {
+      "name": "Pôle miel",
+      "people": [
+        {
+          "name": "Laurent BOUVET",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Vincent DEFAUX",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Sarah LECOEUCHE",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Annie GAROT",
+          "role": "Expert métier",
+          "note": ""
+        },
+        {
+          "name": "Théodore RIANT",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Anthony LENGLET",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Yassine DIBI",
+          "role": "Dev",
+          "note": "Presta"
+        },
+        {
+          "name": "Julien DESPREZ",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Gérôme LEVOUX",
+          "role": "Dev",
+          "note": "Arrive le 16/11"
+        },
+        {
+          "name": "Cécile LE ROUZIC",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Julie CHOPIN",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Ingrid CADET",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Alexandre Bassez",
+          "role": "Consultant",
+          "note": ""
+        },
+        {
+          "name": "Monique Hardier",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "Immos",
+        "TVA",
+        "fisca",
+        "crédits bails",
+        "emprunts",
+        "liasses"
+      ]
+    },
+    {
+      "name": "Pôle maya",
+      "people": [
+        {
+          "name": "Vivien VANDERSCHOOT",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Damien LEFRANC",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Thomas DERUCHE",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Florian LAMPAERT",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Yann PASCOET",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Rémy DUCLOS",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Alexandre NORMAND",
+          "role": "Dev",
+          "note": "Arrive le 04/01"
+        },
+        {
+          "name": "Sonia HAMID",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Nathalie Papa",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "Révision",
+        "supervision et visa",
+        "clôture et validation"
+      ]
+    },
+    {
+      "name": "Pôle ruche",
+      "people": [
+        {
+          "name": "Céline VIEIRA",
+          "role": "Dir Marketing Produit",
+          "note": ""
+        },
+        {
+          "name": "Lazar KRIVOKAPIC",
+          "role": "PM",
+          "note": ""
+        },
+        {
+          "name": "Arnaud LEBON",
+          "role": "PM",
+          "note": ""
+        },
+        {
+          "name": "Eric SELLEM",
+          "role": "CTO",
+          "note": ""
+        },
+        {
+          "name": "Romain MAGISTER",
+          "role": "Manager R&D",
+          "note": ""
+        },
+        {
+          "name": "Jérémy ROYER",
+          "role": "QA Manager",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "Gouvernance Bobbee"
+      ]
+    },
+    {
+      "name": "Pôle alvéoles",
+      "people": [
+        {
+          "name": "Romain BEAUSSART",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Nicolas Contreras Tibocha",
+          "role": "Stagiaire Alvéoles",
+          "note": ""
+        },
+        {
+          "name": "Thomas CAVELIER",
+          "role": "Devops",
+          "note": ""
+        },
+        {
+          "name": "Juan VILAR SANCHIS",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Mohammed BCHAIKER",
+          "role": "Devops",
+          "note": ""
+        },
+        {
+          "name": "Jessy WATSON",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Mathieu LETESSIER",
+          "role": "Archi",
+          "note": "Presta"
+        },
+        {
+          "name": "Audric GUIGON",
+          "role": "Archi",
+          "note": "Presta"
+        },
+        {
+          "name": "Ismael Lucas de Leyssac",
+          "role": "Stagiaire Alvéoles",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "CI/CD",
+        "Infras AWS et API"
+      ]
+    },
+    {
+      "name": "Pôle lavande",
+      "people": [
+        {
+          "name": "Jérôme SIMONI",
+          "role": "Squad Lead",
+          "note": ""
+        },
+        {
+          "name": "Sebastian ZITOUNI",
+          "role": "PO",
+          "note": ""
+        },
+        {
+          "name": "Romain VALLET",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Adrien LEFRANCOIS",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Muhammad ASLAN",
+          "role": "Dev",
+          "note": "Alternant"
+        },
+        {
+          "name": "Alex MIVELAS",
+          "role": "Dev",
+          "note": ""
+        },
+        {
+          "name": "Simon LEROY",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Julien Gallet",
+          "role": "Consultant",
+          "note": ""
+        }
+      ],
+      "tags": [
+        "API",
+        "mobile",
+        "chats",
+        "gestion offres et profils"
+      ]
+    },
+    {
+      "name": "Pôle butineuses",
+      "people": [
+        {
+          "name": "Jérémy ROYER",
+          "role": "QA Manager",
+          "note": ""
+        },
+        {
+          "name": "Nicolas BOUTOUBA",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Laura LIEBERKNECHT",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Ihsane SOUMIR",
+          "role": "QA",
+          "note": "Arrive le 01/11"
+        },
+        {
+          "name": "Abdessamad SAYHI",
+          "role": "QA",
+          "note": "Presta"
+        },
+        {
+          "name": "Jimmy WIMS",
+          "role": "QA",
+          "note": ""
+        },
+        {
+          "name": "Hamza EL YOUSFI",
+          "role": "QA",
+          "note": "Presta"
+        },
+        {
+          "name": "Anas ATMANI",
+          "role": "QA",
+          "note": "Presta"
+        },
+        {
+          "name": "Raniya SADIK",
+          "role": "QA",
+          "note": "Presta"
+        },
+        {
+          "name": "Sanae ABAALI",
+          "role": "QA",
+          "note": "Presta, Arrive le?"
+        }
+      ],
+      "tags": [
+        "QA transverse"
+      ]
+    },
+    {
+      "name": "Pôle éclaireuses",
+      "people": [
+        {
+          "name": "Ophélie Le Bras",
+          "role": "Resp UXUI",
+          "note": ""
+        },
+        {
+          "name": "Diane TRUFFAUX",
+          "role": "Resp UXUI",
+          "note": "remp"
+        },
+        {
+          "name": "Laure ARTIAQUE",
+          "role": "UXUI",
+          "note": "Presta"
+        },
+        {
+          "name": "Jolan PETITJEAN",
+          "role": "UXUI",
+          "note": ""
+        },
+        {
+          "name": "Camila BELTRAN",
+          "role": "UXUI",
+          "note": "Presta"
+        },
+        {
+          "name": "Mathieu LOMBARD",
+          "role": "UXUI",
+          "note": "Presta"
+        }
+      ],
+      "tags": [
+        "UX/UI"
+      ]
+    }
+  ]
+}
