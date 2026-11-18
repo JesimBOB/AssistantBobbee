@@ -568,7 +568,7 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-50 bg-[url('/backgrounds/internal-page-background.png')] bg-cover bg-top px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:bg-none lg:p-0">
+    <main className="relative min-h-screen overflow-hidden bg-zinc-50 bg-[url('/backgrounds/internal-page-background.webp')] bg-cover bg-top px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:bg-none lg:p-0">
       <div className="home-desktop-stage @container relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
       <Link
         href="/essentiels"
@@ -800,7 +800,7 @@ export default function Home() {
         @media (min-width: 1024px) {
           .home-desktop-stage {
             aspect-ratio: 7 / 4;
-            background-image: url("/backgrounds/internal-page-background.png");
+            background-image: url("/backgrounds/internal-page-background.webp");
             background-position: center center;
             background-repeat: no-repeat;
             background-size: contain;

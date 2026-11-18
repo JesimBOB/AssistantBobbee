@@ -63,7 +63,7 @@ export default function OrganigrammePage() {
       className="min-h-screen bg-amber-50/40 bg-[length:115%_auto] bg-[center_top] bg-no-repeat px-4 py-10 text-zinc-950 sm:px-6 lg:px-10"
       style={{
         backgroundImage:
-          "linear-gradient(rgba(255, 251, 235, 0.64), rgba(255, 251, 235, 0.64)), url('/backgrounds/internal-page-background.png')",
+          "linear-gradient(rgba(255, 251, 235, 0.64), rgba(255, 251, 235, 0.64)), url('/backgrounds/internal-page-background.webp')",
       }}
     >
       <div className="mx-auto mb-3 flex w-full max-w-7xl">
