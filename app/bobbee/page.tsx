@@ -1,9 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { Bangers, Nunito } from "next/font/google";
 import { type FormEvent, type ReactNode, useEffect, useRef, useState } from "react";
 
 // POC « Bobbee en chat » : page séparée, accessible en tapant /bobbee.
+// Direction visuelle « Manga » : encre noire, trame de points, bulles de BD.
+const bangers = Bangers({ weight: "400", subsets: ["latin"] });
+const nunito = Nunito({ weight: ["500", "700", "800"], subsets: ["latin"] });
+
 type ChatMessage = { role: "user" | "assistant"; content: string };
 type BobbeeState = "idle" | "thinking" | "found";
 
@@ -12,10 +17,15 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   thinking: "/bobbee/bobbee-thinking.png",
   found: "/bobbee/bobbee-found.png",
 };
+const BOBBEE_SHOUT_BY_STATE: Record<BobbeeState, string> = {
+  idle: "POSE-MOI TA QUESTION !",
+  thinking: "HMMM… JE BUTINE !",
+  found: "TROUVÉ !",
+};
 const WELCOME_MESSAGE: ChatMessage = {
   role: "assistant",
   content:
-    "Salut, moi c'est Bobbee 🐝 Demande-moi qui maîtrise un sujet, qui a bossé sur quoi, qui est dans quelle équipe ou où trouver un lien utile.",
+    "Salut ! Moi c'est Bobbee. Demande-moi qui maîtrise un sujet, qui a bossé sur quoi, qui est dans quelle équipe ou où trouver un lien utile.",
 };
 const EXAMPLE_QUESTIONS = [
   "Qui a bossé sur la TVA récemment ?",
@@ -24,6 +34,13 @@ const EXAMPLE_QUESTIONS = [
   "Où trouver la DOR et la DOD ?",
 ];
 const ERROR_REPLY = "Oups, je n'arrive pas à joindre le serveur. Réessaie dans un instant.";
+
+// Trame de points façon manga, en fond de page.
+const HALFTONE_BACKGROUND =
+  "bg-[#fffdf5] bg-[radial-gradient(#e9e2c8_1.2px,transparent_1.2px)] bg-[length:14px_14px]";
+// Rayons qui partent derrière Bobbee.
+const SPEED_LINES_BACKGROUND =
+  "bg-[repeating-conic-gradient(from_0deg_at_50%_60%,#fff_0deg_6deg,#f3f0e4_6deg_12deg)]";
 
 // Affiche les liens [texte](url) et le **gras** des réponses de Bobbee.
 function renderReply(text: string) {
@@ -40,7 +57,7 @@ function renderReply(text: string) {
           href={match[2]}
           target="_blank"
           rel="noreferrer"
-          className="font-semibold text-orange-600 underline"
+          className="font-extrabold text-zinc-950 underline decoration-[#ffd60a] decoration-[3px] underline-offset-2 hover:text-[#5b4300]"
         >
           {match[1]}
         </a>,
@@ -105,54 +122,82 @@ export default function BobbeeChatPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-amber-100 via-amber-50 to-white px-4 py-6 text-zinc-950 sm:px-6">
-      <div className="flex w-full max-w-2xl flex-1 flex-col gap-4">
-        <header className="flex items-center gap-3">
+    <main
+      className={`${nunito.className} ${HALFTONE_BACKGROUND} flex min-h-screen flex-col gap-5 px-4 py-5 text-zinc-950 sm:p-8 lg:flex-row lg:items-stretch lg:gap-7`}
+    >
+      <aside className="flex flex-col gap-4 lg:w-[360px] lg:shrink-0">
+        <div className="flex items-center justify-between gap-3 lg:flex-col lg:items-stretch">
+          <div className="-rotate-[1.5deg] rounded-md border-4 border-zinc-950 bg-[#ffd60a] px-4 py-2 shadow-[6px_6px_0_#09090b] lg:px-5 lg:py-4 lg:shadow-[8px_8px_0_#09090b]">
+            <h1 className={`${bangers.className} text-4xl leading-[0.9] tracking-wider lg:text-6xl`}>
+              BOBBEE!
+            </h1>
+            <p className="mt-1 hidden text-base font-extrabold lg:block">Ton assistant du quotidien</p>
+          </div>
+          <p className="self-center rounded border-2 border-zinc-950 bg-white px-2.5 py-1 text-xs font-extrabold lg:self-start lg:text-[13px]">
+            Démo — données fictives
+          </p>
+        </div>
+
+        <div className="relative flex h-44 items-end justify-center overflow-hidden rounded-md border-4 border-zinc-950 bg-white shadow-[6px_6px_0_#09090b] lg:h-auto lg:min-h-[360px] lg:flex-1 lg:shadow-[8px_8px_0_#09090b]">
+          <div aria-hidden="true" className={`absolute inset-0 ${SPEED_LINES_BACKGROUND}`} />
+          <p
+            className={`${bangers.className} absolute left-3 top-3 z-10 rounded-full border-[3px] border-zinc-950 bg-white px-3 py-1 text-base tracking-wide lg:left-4 lg:top-4 lg:text-[22px]`}
+            aria-live="polite"
+          >
+            {BOBBEE_SHOUT_BY_STATE[bobbeeState]}
+          </p>
           <Image
             src={BOBBEE_IMAGE_BY_STATE[bobbeeState]}
             alt="Bobbee"
-            width={96}
-            height={96}
-            className="h-20 w-20 object-contain sm:h-24 sm:w-24"
+            width={300}
+            height={300}
+            className="relative h-40 w-40 object-contain lg:h-[300px] lg:w-[300px]"
             priority
             unoptimized
           />
-          <div>
-            <h1 className="text-2xl font-bold">Bobbee</h1>
-            <p className="text-sm text-zinc-600">
-              {isThinking ? "Bobbee butine dans ses données…" : "Ton assistant du quotidien"}
-            </p>
-            <p className="mt-1 inline-flex rounded-full bg-amber-200/70 px-2 py-0.5 text-[11px] font-medium text-amber-900">
-              Démo — données fictives
-            </p>
-          </div>
-        </header>
+        </div>
+      </aside>
 
-        <section className="flex min-h-[50vh] flex-1 flex-col gap-3 overflow-y-auto rounded-[26px] border border-white/70 bg-white/60 p-3 shadow-[0_28px_70px_-32px_rgba(24,24,27,0.45)] ring-1 ring-amber-300/45 sm:p-4">
+      <section className="flex min-h-[60vh] min-w-0 flex-1 flex-col gap-4 rounded-md border-4 border-zinc-950 bg-white p-4 shadow-[6px_6px_0_#09090b] sm:p-6 lg:shadow-[8px_8px_0_#09090b]">
+        <div className="flex flex-1 flex-col gap-5 overflow-y-auto">
           {messages.map((message, index) =>
             message.role === "user" ? (
               <p
                 key={index}
-                className="max-w-[85%] self-end whitespace-pre-line rounded-[22px] rounded-br-lg bg-zinc-900 px-4 py-3 text-[15px] leading-6 break-words text-white"
+                className="relative mr-4 max-w-[80%] self-end whitespace-pre-line rounded-[18px] border-[3px] border-zinc-950 bg-zinc-950 px-4 py-3 text-[15px] font-bold leading-6 break-words text-white sm:text-base"
               >
                 {message.content}
+                <span
+                  aria-hidden="true"
+                  className="absolute -right-[18px] top-4 border-y-[10px] border-l-[18px] border-y-transparent border-l-zinc-950"
+                />
               </p>
             ) : (
               <p
                 key={index}
-                className="max-w-[90%] self-start whitespace-pre-line rounded-[22px] rounded-bl-lg bg-amber-50 px-4 py-3 text-[15px] leading-6 break-words text-zinc-900 ring-1 ring-amber-200"
+                className="relative ml-4 max-w-[88%] self-start whitespace-pre-line rounded-[18px] border-[3px] border-zinc-950 bg-white px-4 py-3 text-[15px] leading-relaxed break-words sm:px-5 sm:text-base"
               >
                 {renderReply(message.content)}
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-[18px] top-5 border-y-[10px] border-r-[18px] border-y-transparent border-r-zinc-950"
+                />
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-[12px] top-[23px] border-y-[7px] border-r-[13px] border-y-transparent border-r-white"
+                />
               </p>
             ),
           )}
           {isThinking ? (
-            <p className="self-start rounded-[22px] rounded-bl-lg bg-amber-50 px-4 py-3 text-[15px] text-zinc-500 ring-1 ring-amber-200">
-              …
+            <p
+              className={`${bangers.className} ml-4 self-start rounded-[18px] border-[3px] border-dashed border-zinc-950 bg-[#fff7cc] px-5 py-3 text-xl tracking-wider`}
+            >
+              BZZZ… JE CHERCHE
             </p>
           ) : null}
           <div ref={endOfMessagesRef} />
-        </section>
+        </div>
 
         {messages.length === 1 ? (
           <div className="flex flex-wrap gap-2">
@@ -161,7 +206,7 @@ export default function BobbeeChatPage() {
                 key={question}
                 type="button"
                 onClick={() => void ask(question)}
-                className="rounded-full border border-amber-300 bg-white/80 px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:bg-amber-100"
+                className="min-h-11 rounded-full border-[3px] border-zinc-950 bg-white px-3.5 py-1.5 text-sm font-extrabold shadow-[3px_3px_0_#09090b] transition-transform hover:-translate-y-0.5 hover:bg-[#fff7cc]"
               >
                 {question}
               </button>
@@ -169,22 +214,26 @@ export default function BobbeeChatPage() {
           </div>
         ) : null}
 
-        <form onSubmit={handleSubmit} className="flex gap-2">
+        <form onSubmit={handleSubmit} className="flex items-center gap-2 sm:gap-3">
+          <label htmlFor="bobbee-question" className="sr-only">
+            Ta question
+          </label>
           <input
+            id="bobbee-question"
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="Pose ta question à Bobbee…"
-            className="min-w-0 flex-1 rounded-full border border-amber-200 bg-white px-4 py-3 text-[15px] outline-none focus:ring-2 focus:ring-amber-300"
+            className="h-[52px] min-w-0 flex-1 rounded-full border-[3px] border-zinc-950 bg-white px-5 text-base outline-none focus:ring-4 focus:ring-[#ffd60a]"
           />
           <button
             type="submit"
             disabled={isThinking || !input.trim()}
-            className="rounded-full bg-zinc-900 px-5 py-3 text-sm font-medium text-amber-50 transition-colors hover:bg-zinc-800 disabled:opacity-40"
+            className={`${bangers.className} h-[52px] rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-5 text-2xl tracking-wider shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5 disabled:translate-y-0 disabled:opacity-50 sm:px-6`}
           >
-            Envoyer
+            ENVOYER !
           </button>
         </form>
-      </div>
+      </section>
     </main>
   );
 }
