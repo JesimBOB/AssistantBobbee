@@ -8,6 +8,7 @@ import {
   type JiraTopic,
   type UsefulLinkEntry,
 } from "@/app/page.search";
+import demoArrivee from "./demo-data/arrivee.json";
 import demoCompetences from "./demo-data/competences.json";
 import demoJiraSujets from "./demo-data/jira-sujets.json";
 import demoOrganigramme from "./demo-data/organigramme.json";
@@ -141,6 +142,13 @@ export const BOBBEE_TOOLS: Anthropic.Beta.BetaTool[] = [
     input_schema: searchInput("Mot-clé court (ex. « congés », « DOR », « planification »)."),
     strict: true,
   },
+  {
+    name: "consulter_checklist_arrivee",
+    description:
+      "Donne l'état de la checklist d'arrivée du nouvel arrivant, tenue par son manager : matériel, comptes, accès, licences, parrain. Renvoie chaque étape avec son statut (ok, en_cours, a_faire) et un éventuel détail. À utiliser pour « où en sont mes accès », « ma licence est-elle prête », « qu'est-ce qui manque pour mon arrivée ».",
+    input_schema: { type: "object", properties: {}, required: [], additionalProperties: false },
+    strict: true,
+  },
 ];
 
 export function runBobbeeTool(name: string, input: unknown) {
@@ -170,6 +178,9 @@ export function runBobbeeTool(name: string, input: unknown) {
       const results = findUsefulLinks(query);
       return { total: results.length, resultats: results.slice(0, MAX_RESULTS) };
     }
+    case "consulter_checklist_arrivee":
+      // Pas encore de source réelle : la checklist n'existe qu'en version fictive.
+      return USE_REAL_DATA ? { erreur: "La checklist d'arrivée n'est pas encore branchée sur les vraies données." } : demoArrivee;
     default:
       return { erreur: `Outil inconnu : ${name}` };
   }

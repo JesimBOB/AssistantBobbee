@@ -10,6 +10,8 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+import arrivee from "./demo-data/arrivee.json";
+import demoUsefulLinks from "./demo-data/useful-links.json";
 
 // POC « Bobbee en chat » : page séparée, accessible en tapant /bobbee.
 // Direction visuelle « Manga » : encre noire, trame de points, bulles de BD.
@@ -108,6 +110,107 @@ function stopSpeaking() {
   }
 }
 
+// Parcours de première visite pour les nouveaux arrivants.
+type Metier = "Dev" | "QA" | "PO" | "SL";
+type ArrivalChoice = { nouveau: boolean; metier: Metier | null };
+
+const METIERS: { code: Metier; label: string }[] = [
+  { code: "Dev", label: "Développeur·se" },
+  { code: "QA", label: "QA / testeur·se" },
+  { code: "PO", label: "Product Owner" },
+  { code: "SL", label: "Squad Lead" },
+];
+const CHECKLIST_STATUS: Record<string, { icon: string; label: string }> = {
+  ok: { icon: "✅", label: "Fait" },
+  en_cours: { icon: "⏳", label: "En cours" },
+  a_faire: { icon: "⬜", label: "À faire" },
+};
+const NEWCOMER_QUESTIONS = [
+  "Où en sont mes accès et licences ?",
+  "Où trouver mon guide d'onboarding ?",
+  "Qui est dans le pôle lavande ?",
+  "Comment installer le VPN ?",
+];
+const TOUR_STEP_COUNT = 4;
+const CHECKLIST_DONE_COUNT = arrivee.checklist.filter((item) => item.statut === "ok").length;
+const CHECKLIST_UPDATED_ON = arrivee.miseAJour.split("-").reverse().join("/");
+
+// Le navigateur retient que le parcours a été vu (en mémoire si le stockage est bloqué).
+const ARRIVAL_STORAGE_KEY = "bobbee-arrivee";
+const ARRIVAL_NOT_LOADED = "non-charge";
+let arrivalMemory: string | null = null;
+const arrivalListeners = new Set<() => void>();
+
+function readArrival() {
+  try {
+    return window.localStorage.getItem(ARRIVAL_STORAGE_KEY) ?? arrivalMemory;
+  } catch {
+    return arrivalMemory;
+  }
+}
+
+function writeArrival(value: string | null) {
+  arrivalMemory = value;
+  try {
+    if (value === null) {
+      window.localStorage.removeItem(ARRIVAL_STORAGE_KEY);
+    } else {
+      window.localStorage.setItem(ARRIVAL_STORAGE_KEY, value);
+    }
+  } catch {
+    // Stockage bloqué : la mémoire suffit pour la visite en cours.
+  }
+  arrivalListeners.forEach((listener) => listener());
+}
+
+function subscribeToArrival(listener: () => void) {
+  arrivalListeners.add(listener);
+  return () => {
+    arrivalListeners.delete(listener);
+  };
+}
+
+function parseArrival(raw: string | null): ArrivalChoice | null {
+  if (raw === null || raw === ARRIVAL_NOT_LOADED) {
+    return null;
+  }
+  try {
+    const value: unknown = JSON.parse(raw);
+    if (typeof value === "object" && value !== null && "nouveau" in value && typeof value.nouveau === "boolean") {
+      const metier = "metier" in value ? METIERS.find((item) => item.code === value.metier)?.code : undefined;
+      return { nouveau: value.nouveau, metier: metier ?? null };
+    }
+  } catch {
+    // Valeur illisible : on refait le parcours.
+  }
+  return null;
+}
+
+function renderChecklist() {
+  return (
+    <ul className="flex flex-col gap-1.5">
+      {arrivee.checklist.map((item) => {
+        const status = CHECKLIST_STATUS[item.statut] ?? CHECKLIST_STATUS.a_faire;
+        return (
+          <li key={item.etape} className="flex gap-2 text-sm leading-5">
+            <span aria-label={status.label} role="img">
+              {status.icon}
+            </span>
+            <span>
+              <span className="font-bold">{item.etape}</span>
+              {"detail" in item && item.detail ? <span className="block text-zinc-600">{item.detail}</span> : null}
+            </span>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+const TOUR_PRIMARY_BUTTON = `${bangers.className} min-h-11 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-5 text-xl tracking-wider shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5`;
+const TOUR_SECONDARY_BUTTON =
+  "min-h-11 rounded-full border-[3px] border-zinc-950 bg-white px-3.5 py-1.5 text-sm font-extrabold shadow-[3px_3px_0_#09090b] transition-transform hover:-translate-y-0.5 hover:bg-[#fff7cc]";
+
 // Trame de points façon manga, en fond de page.
 const HALFTONE_BACKGROUND =
   "bg-[#fffdf5] bg-[radial-gradient(#e9e2c8_1.2px,transparent_1.2px)] bg-[length:14px_14px]";
@@ -163,6 +266,14 @@ export default function BobbeeChatPage() {
   const endOfMessagesRef = useRef<HTMLDivElement>(null);
   const isThinking = bobbeeState === "thinking";
   const bobbeeShout = isListening ? "JE T'ÉCOUTE !" : BOBBEE_SHOUT_BY_STATE[bobbeeState];
+  const arrivalRaw = useSyncExternalStore(subscribeToArrival, readArrival, () => ARRIVAL_NOT_LOADED);
+  const arrivalChoice = parseArrival(arrivalRaw);
+  const showTour = arrivalRaw !== ARRIVAL_NOT_LOADED && arrivalChoice === null;
+  const [tourStep, setTourStep] = useState(0);
+  const [tourMetier, setTourMetier] = useState<Metier | null>(null);
+  const tourGuides = demoUsefulLinks.filter(
+    (link) => link.Rubrique === "Onboarding & organisation" && link.Qui === tourMetier && link.Lien,
+  );
 
   useEffect(() => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -277,6 +388,19 @@ export default function BobbeeChatPage() {
     recognition.start();
   }
 
+  function finishTour(nouveau: boolean, question?: string) {
+    writeArrival(JSON.stringify({ nouveau, metier: nouveau ? tourMetier : null }));
+    if (question) {
+      void ask(question);
+    }
+  }
+
+  function restartTour() {
+    setTourStep(0);
+    setTourMetier(null);
+    writeArrival(null);
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     void ask(input);
@@ -348,10 +472,163 @@ export default function BobbeeChatPage() {
             </button>
           ) : null}
         </div>
+
+        {arrivalChoice?.nouveau ? (
+          <details className="rounded-md border-4 border-zinc-950 bg-white px-4 py-3 shadow-[6px_6px_0_#09090b] lg:shadow-[8px_8px_0_#09090b]">
+            <summary className={`${bangers.className} cursor-pointer text-xl tracking-wide`}>
+              TON ARRIVÉE : {CHECKLIST_DONE_COUNT}/{arrivee.checklist.length} OK
+            </summary>
+            <div className="mt-3 flex flex-col gap-3">
+              {renderChecklist()}
+              <p className="text-xs font-bold text-zinc-600">
+                Checklist tenue par {arrivee.manager}, mise à jour le {CHECKLIST_UPDATED_ON}.
+              </p>
+            </div>
+          </details>
+        ) : null}
+        {arrivalChoice ? (
+          <button
+            type="button"
+            onClick={restartTour}
+            className="self-start text-sm font-extrabold underline decoration-[#ffd60a] decoration-[3px] underline-offset-2 hover:text-[#5b4300]"
+          >
+            Revoir le parcours d&apos;arrivée
+          </button>
+        ) : null}
       </aside>
 
       <section className="flex min-h-[60vh] min-w-0 flex-1 flex-col gap-4 rounded-md border-4 border-zinc-950 bg-white p-4 shadow-[6px_6px_0_#09090b] sm:p-6 lg:shadow-[8px_8px_0_#09090b]">
-        <div className="flex flex-1 flex-col gap-5 overflow-y-auto">
+        {showTour ? (
+          <div className="flex flex-1 flex-col gap-4 rounded-[18px] border-[3px] border-zinc-950 bg-[#fff7cc] p-4 sm:p-6">
+            {tourStep > 0 ? (
+              <p className="text-xs font-extrabold tracking-wide text-zinc-600">
+                ÉTAPE {tourStep}/{TOUR_STEP_COUNT}
+              </p>
+            ) : null}
+
+            {tourStep === 0 ? (
+              <>
+                <h2 className={`${bangers.className} text-3xl tracking-wider`}>BIENVENUE !</h2>
+                <p className="text-base leading-relaxed">
+                  Tu viens d&apos;arriver dans l&apos;équipe ? Je te fais faire le tour en une minute : tes guides,
+                  l&apos;état de ton arrivée et ce que tu peux me demander.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <button type="button" onClick={() => setTourStep(1)} className={TOUR_PRIMARY_BUTTON}>
+                    Oui, je suis nouveau
+                  </button>
+                  <button type="button" onClick={() => finishTour(false)} className={TOUR_SECONDARY_BUTTON}>
+                    Non, je connais déjà
+                  </button>
+                </div>
+              </>
+            ) : null}
+
+            {tourStep === 1 ? (
+              <>
+                <h2 className={`${bangers.className} text-3xl tracking-wider`}>TON MÉTIER</h2>
+                <p className="text-base leading-relaxed">Dis-moi ce que tu fais, je te montre les bons guides.</p>
+                <div className="flex flex-wrap gap-2">
+                  {METIERS.map((metier) => (
+                    <button
+                      key={metier.code}
+                      type="button"
+                      onClick={() => {
+                        setTourMetier(metier.code);
+                        setTourStep(2);
+                      }}
+                      className={TOUR_SECONDARY_BUTTON}
+                    >
+                      {metier.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            ) : null}
+
+            {tourStep === 2 ? (
+              <>
+                <h2 className={`${bangers.className} text-3xl tracking-wider`}>TES GUIDES</h2>
+                {tourGuides.length > 0 ? (
+                  <>
+                    <p className="text-base leading-relaxed">Commence par lire les guides d&apos;onboarding de ton métier :</p>
+                    <ul className="flex flex-col gap-2">
+                      {tourGuides.map((guide) => (
+                        <li key={guide.Quoi}>
+                          <a
+                            href={guide.Lien ?? undefined}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-extrabold underline decoration-[#ffd60a] decoration-[3px] underline-offset-2 hover:text-[#5b4300]"
+                          >
+                            {guide.Quoi}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <p className="text-base leading-relaxed">
+                    Je n&apos;ai pas de guide dédié à ton métier. Demande-moi « guide d&apos;onboarding » pour voir
+                    tous ceux qui existent.
+                  </p>
+                )}
+                <button type="button" onClick={() => setTourStep(3)} className={`${TOUR_PRIMARY_BUTTON} self-start`}>
+                  Suivant
+                </button>
+              </>
+            ) : null}
+
+            {tourStep === 3 ? (
+              <>
+                <h2 className={`${bangers.className} text-3xl tracking-wider`}>TON ARRIVÉE</h2>
+                <p className="text-base leading-relaxed">
+                  Voici où en est ta checklist d&apos;arrivée, tenue par ton manager {arrivee.manager} (
+                  {CHECKLIST_DONE_COUNT}/{arrivee.checklist.length} étapes faites) :
+                </p>
+                {renderChecklist()}
+                <p className="text-sm font-bold text-zinc-600">Tu la retrouves à tout moment dans « Ton arrivée ».</p>
+                <button type="button" onClick={() => setTourStep(4)} className={`${TOUR_PRIMARY_BUTTON} self-start`}>
+                  Suivant
+                </button>
+              </>
+            ) : null}
+
+            {tourStep === 4 ? (
+              <>
+                <h2 className={`${bangers.className} text-3xl tracking-wider`}>À TOI DE JOUER !</h2>
+                <p className="text-base leading-relaxed">Pose-moi tes questions quand tu veux. Par exemple :</p>
+                <div className="flex flex-wrap gap-2">
+                  {NEWCOMER_QUESTIONS.map((question) => (
+                    <button
+                      key={question}
+                      type="button"
+                      onClick={() => finishTour(true, question)}
+                      className={TOUR_SECONDARY_BUTTON}
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+                <button type="button" onClick={() => finishTour(true)} className={`${TOUR_PRIMARY_BUTTON} self-start`}>
+                  C&apos;est parti !
+                </button>
+              </>
+            ) : null}
+
+            {tourStep > 0 && tourStep < TOUR_STEP_COUNT ? (
+              <button
+                type="button"
+                onClick={() => finishTour(true)}
+                className="mt-auto self-end text-sm font-extrabold underline underline-offset-2"
+              >
+                Passer le parcours
+              </button>
+            ) : null}
+          </div>
+        ) : null}
+
+        <div className={`flex flex-1 flex-col gap-5 overflow-y-auto ${showTour ? "hidden" : ""}`}>
           {messages.map((message, index) =>
             message.role === "user" ? (
               <p
@@ -391,7 +668,7 @@ export default function BobbeeChatPage() {
           <div ref={endOfMessagesRef} />
         </div>
 
-        {messages.length === 1 ? (
+        {messages.length === 1 && !showTour ? (
           <div className="flex flex-wrap gap-2">
             {EXAMPLE_QUESTIONS.map((question) => (
               <button
@@ -406,7 +683,7 @@ export default function BobbeeChatPage() {
           </div>
         ) : null}
 
-        <form onSubmit={handleSubmit} className="flex items-center gap-2 sm:gap-3">
+        <form onSubmit={handleSubmit} className={`flex items-center gap-2 sm:gap-3 ${showTour ? "hidden" : ""}`}>
           <label htmlFor="bobbee-question" className="sr-only">
             Ta question
           </label>
