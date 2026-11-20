@@ -8,13 +8,13 @@
       "keywords": [
         "tva"
       ],
-      "ticketCount": 345,
+      "ticketCount": 344,
       "people": [
         {
           "name": "Anthony LENGLET",
           "role": "Dev",
           "pole": "miel",
-          "count": 49,
+          "count": 48,
           "lastResolved": "2026-11-05"
         },
         {
@@ -61,7 +61,7 @@
         "immobilisation",
         "immo"
       ],
-      "ticketCount": 381,
+      "ticketCount": 382,
       "people": [
         {
           "name": "Laurent BOUVET",
@@ -229,7 +229,7 @@
           "name": "Sonia HAMID",
           "role": "QA",
           "pole": "maya",
-          "count": 52,
+          "count": 53,
           "lastResolved": "2026-11-13"
         },
         {
@@ -250,7 +250,7 @@
           "name": "Vivien VANDERSCHOOTEN",
           "role": "Squad Lead",
           "pole": "maya",
-          "count": 27,
+          "count": 26,
           "lastResolved": "2026-11-10"
         },
         {
@@ -277,13 +277,13 @@
         "etats financiers",
         "etat financier"
       ],
-      "ticketCount": 167,
+      "ticketCount": 166,
       "people": [
         {
           "name": "Anthony LENGLET",
           "role": "Dev",
           "pole": "miel",
-          "count": 37,
+          "count": 36,
           "lastResolved": "2026-11-06"
         },
         {
