@@ -421,7 +421,7 @@ export default function BobbeeChatPage() {
             <p className="mt-1 hidden text-base font-extrabold lg:block">Ton assistant du quotidien</p>
           </div>
           <p className="self-center rounded border-2 border-zinc-950 bg-white px-2.5 py-1 text-xs font-extrabold lg:self-start lg:text-[13px]">
-            Démo — données fictives
+            POC — données réelles
           </p>
         </div>
 
