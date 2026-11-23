@@ -36,12 +36,6 @@ const WELCOME_MESSAGE: ChatMessage = {
   content:
     "Salut ! Moi c'est Bobbee. Demande-moi qui maîtrise un sujet, qui a bossé sur quoi, qui est dans quelle équipe ou où trouver un lien utile.",
 };
-const EXAMPLE_QUESTIONS = [
-  "Qui a bossé sur la TVA récemment ?",
-  "Qui est dans le pôle lavande ?",
-  "Qui s'y connaît en Docker ?",
-  "Où trouver la DOR et la DOD ?",
-];
 // Projet Claude partagé : recherche dans Confluence, Teams et Outlook (même lien que l'accueil).
 const CLAUDE_ASSISTANT_URL = "https://claude.ai/project/01a1d5a2-f43a-733c-838f-6ad6eede2d06";
 const ERROR_REPLY ="Oups, je n'arrive pas à joindre le serveur. Réessaie dans un instant.";
@@ -670,20 +664,6 @@ export default function BobbeeChatPage() {
           <div ref={endOfMessagesRef} />
         </div>
 
-        {messages.length === 1 && !showTour ? (
-          <div className="flex flex-wrap gap-2">
-            {EXAMPLE_QUESTIONS.map((question) => (
-              <button
-                key={question}
-                type="button"
-                onClick={() => void ask(question)}
-                className="min-h-11 rounded-full border-[3px] border-zinc-950 bg-white px-3.5 py-1.5 text-sm font-extrabold shadow-[3px_3px_0_#09090b] transition-transform hover:-translate-y-0.5 hover:bg-[#fff7cc]"
-              >
-                {question}
-              </button>
-            ))}
-          </div>
-        ) : null}
 
         <form onSubmit={handleSubmit} className={`flex items-center gap-2 sm:gap-3 ${showTour ? "hidden" : ""}`}>
           <label htmlFor="bobbee-question" className="sr-only">
