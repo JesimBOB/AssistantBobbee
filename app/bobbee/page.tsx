@@ -42,7 +42,9 @@ const EXAMPLE_QUESTIONS = [
   "Qui s'y connaît en Docker ?",
   "Où trouver la DOR et la DOD ?",
 ];
-const ERROR_REPLY = "Oups, je n'arrive pas à joindre le serveur. Réessaie dans un instant.";
+// Projet Claude partagé : recherche dans Confluence, Teams et Outlook (même lien que l'accueil).
+const CLAUDE_ASSISTANT_URL = "https://claude.ai/project/01a1d5a2-f43a-733c-838f-6ad6eede2d06";
+const ERROR_REPLY ="Oups, je n'arrive pas à joindre le serveur. Réessaie dans un instant.";
 const MIC_ERROR_HINT = "Je n'arrive pas à t'entendre : vérifie que le micro est autorisé pour ce site.";
 
 // Dictée vocale du navigateur (Chrome, Edge) : la voix est transformée en texte par le navigateur.
@@ -730,6 +732,17 @@ export default function BobbeeChatPage() {
           </button>
         </form>
         {micError ? <p className="text-sm font-bold text-[#9a1b1b]">{MIC_ERROR_HINT}</p> : null}
+        <p className={`flex flex-wrap items-center gap-2 text-sm font-bold ${showTour ? "hidden" : ""}`}>
+          Mails, Teams, Confluence : l&apos;assistant Claude peut chercher pour toi.
+          <a
+            href={CLAUDE_ASSISTANT_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-9 items-center rounded-full border-[3px] border-zinc-950 bg-white px-3.5 py-1 font-extrabold text-zinc-950 no-underline shadow-[3px_3px_0_#09090b] transition-transform hover:-translate-y-0.5 hover:bg-[#fff7cc]"
+          >
+            Demander à l&apos;assistant Claude
+          </a>
+        </p>
       </section>
     </main>
   );
