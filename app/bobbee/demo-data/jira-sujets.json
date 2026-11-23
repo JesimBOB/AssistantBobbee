@@ -1,0 +1,982 @@
+{
+  "source": "DONNÉES FICTIVES — démo POC Bobbee (aucune personne réelle)",
+  "generatedAt": "2026-11-19",
+  "topics": [
+    {
+      "id": "tva",
+      "label": "TVA",
+      "keywords": [
+        "tva"
+      ],
+      "ticketCount": 344,
+      "people": [
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 41,
+          "lastResolved": "2026-10-10"
+        },
+        {
+          "name": "Théo HENRY",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 31,
+          "lastResolved": "2026-04-06"
+        },
+        {
+          "name": "Enzo MOREL",
+          "role": "Expert métier",
+          "pole": "miel",
+          "count": 27,
+          "lastResolved": "2026-10-08"
+        },
+        {
+          "name": "Jade FOURNIER",
+          "role": "Consultant",
+          "pole": "miel",
+          "count": 25,
+          "lastResolved": "2026-02-12"
+        }
+      ]
+    },
+    {
+      "id": "immobilisations",
+      "label": "Immobilisations",
+      "keywords": [
+        "immobilisation",
+        "immo"
+      ],
+      "ticketCount": 382,
+      "people": [
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 32,
+          "lastResolved": "2026-02-21"
+        },
+        {
+          "name": "Arthur MASSON",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 28,
+          "lastResolved": "2026-07-03"
+        },
+        {
+          "name": "Sarah MULLER",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 23,
+          "lastResolved": "2026-09-19"
+        },
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 7,
+          "lastResolved": "2026-03-21"
+        }
+      ]
+    },
+    {
+      "id": "facturation",
+      "label": "Facturation / facture électronique",
+      "keywords": [
+        "facturation",
+        "facture electronique",
+        "efacture",
+        "facture"
+      ],
+      "ticketCount": 81,
+      "people": [
+        {
+          "name": "Enzo MOREL",
+          "role": "Expert métier",
+          "pole": "miel",
+          "count": 17,
+          "lastResolved": "2026-11-14"
+        },
+        {
+          "name": "Camille PERRIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 14,
+          "lastResolved": "2026-03-03"
+        },
+        {
+          "name": "Arthur MASSON",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 12,
+          "lastResolved": "2026-04-14"
+        },
+        {
+          "name": "Raphaël PICARD",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 10,
+          "lastResolved": "2026-07-10"
+        }
+      ]
+    },
+    {
+      "id": "banque",
+      "label": "Banque",
+      "keywords": [
+        "banque",
+        "bancaire",
+        "rapprochement"
+      ],
+      "ticketCount": 300,
+      "people": [
+        {
+          "name": "Théo HENRY",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 39,
+          "lastResolved": "2026-03-17"
+        },
+        {
+          "name": "Enzo MOREL",
+          "role": "Expert métier",
+          "pole": "miel",
+          "count": 34,
+          "lastResolved": "2026-08-07"
+        },
+        {
+          "name": "Chloé FAURE",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 9,
+          "lastResolved": "2026-04-26"
+        },
+        {
+          "name": "Sarah MULLER",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 8,
+          "lastResolved": "2026-11-10"
+        }
+      ]
+    },
+    {
+      "id": "cloture-revision",
+      "label": "Clôture / révision",
+      "keywords": [
+        "cloture",
+        "revision"
+      ],
+      "ticketCount": 288,
+      "people": [
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 34,
+          "lastResolved": "2026-06-03"
+        },
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 23,
+          "lastResolved": "2026-10-22"
+        },
+        {
+          "name": "Jade FOURNIER",
+          "role": "Consultant",
+          "pole": "miel",
+          "count": 12,
+          "lastResolved": "2026-11-16"
+        },
+        {
+          "name": "Emma SANCHEZ",
+          "role": "Consultant",
+          "pole": "lavande",
+          "count": 8,
+          "lastResolved": "2026-02-28"
+        }
+      ]
+    },
+    {
+      "id": "liasse",
+      "label": "Liasse / états financiers",
+      "keywords": [
+        "liasse",
+        "etats financiers",
+        "etat financier"
+      ],
+      "ticketCount": 166,
+      "people": [
+        {
+          "name": "Sarah MULLER",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 24,
+          "lastResolved": "2026-06-28"
+        },
+        {
+          "name": "Jade FOURNIER",
+          "role": "Consultant",
+          "pole": "miel",
+          "count": 15,
+          "lastResolved": "2026-08-15"
+        },
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 13,
+          "lastResolved": "2026-07-20"
+        },
+        {
+          "name": "Zoé FONTAINE",
+          "role": "PO",
+          "pole": "lavande",
+          "count": 6,
+          "lastResolved": "2026-07-07"
+        }
+      ]
+    },
+    {
+      "id": "fec",
+      "label": "FEC",
+      "keywords": [
+        "fec"
+      ],
+      "ticketCount": 171,
+      "people": [
+        {
+          "name": "Lucas GUERIN",
+          "role": "PO",
+          "pole": "miel",
+          "count": 37,
+          "lastResolved": "2026-07-09"
+        },
+        {
+          "name": "Arthur MASSON",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 34,
+          "lastResolved": "2026-05-24"
+        },
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 20,
+          "lastResolved": "2026-07-05"
+        },
+        {
+          "name": "Théo HENRY",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 17,
+          "lastResolved": "2026-02-17"
+        }
+      ]
+    },
+    {
+      "id": "stocks",
+      "label": "Stocks",
+      "keywords": [
+        "stock"
+      ],
+      "ticketCount": 119,
+      "people": [
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 44,
+          "lastResolved": "2026-04-13"
+        },
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 31,
+          "lastResolved": "2026-07-16"
+        },
+        {
+          "name": "Inès BONNET",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 28,
+          "lastResolved": "2026-05-27"
+        },
+        {
+          "name": "Chloé FAURE",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 9,
+          "lastResolved": "2026-08-12"
+        }
+      ]
+    },
+    {
+      "id": "licences",
+      "label": "Licences / offres / profils",
+      "keywords": [
+        "licence",
+        "offre",
+        "profil",
+        "souscription"
+      ],
+      "ticketCount": 106,
+      "people": [
+        {
+          "name": "Clara DUVAL",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 18,
+          "lastResolved": "2026-10-18"
+        },
+        {
+          "name": "Chloé FAURE",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 13,
+          "lastResolved": "2026-05-11"
+        },
+        {
+          "name": "Jules MEUNIER",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 13,
+          "lastResolved": "2026-10-18"
+        },
+        {
+          "name": "Rose BRUN",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 7,
+          "lastResolved": "2026-08-27"
+        }
+      ]
+    },
+    {
+      "id": "emprunts",
+      "label": "Emprunts",
+      "keywords": [
+        "emprunt"
+      ],
+      "ticketCount": 95,
+      "people": [
+        {
+          "name": "Arthur MASSON",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 28,
+          "lastResolved": "2026-04-04"
+        },
+        {
+          "name": "Chloé FAURE",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 25,
+          "lastResolved": "2026-06-27"
+        },
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 5,
+          "lastResolved": "2026-07-20"
+        },
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 5,
+          "lastResolved": "2026-04-10"
+        }
+      ]
+    },
+    {
+      "id": "lettrage",
+      "label": "Lettrage",
+      "keywords": [
+        "lettrage"
+      ],
+      "ticketCount": 72,
+      "people": [
+        {
+          "name": "Arthur MASSON",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 28,
+          "lastResolved": "2026-04-11"
+        },
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 21,
+          "lastResolved": "2026-03-01"
+        },
+        {
+          "name": "Clara DUVAL",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 19,
+          "lastResolved": "2026-04-25"
+        },
+        {
+          "name": "Inès BONNET",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 17,
+          "lastResolved": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "id": "ocr-ia",
+      "label": "OCR / IA",
+      "keywords": [
+        "ocr",
+        "ia",
+        "intelligence artificielle",
+        "llm"
+      ],
+      "ticketCount": 70,
+      "people": [
+        {
+          "name": "Rose BRUN",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 40,
+          "lastResolved": "2026-01-09"
+        },
+        {
+          "name": "Lina ROBIN",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 33,
+          "lastResolved": "2026-02-09"
+        },
+        {
+          "name": "Clara DUVAL",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 18,
+          "lastResolved": "2026-06-26"
+        },
+        {
+          "name": "Lucas GUERIN",
+          "role": "PO",
+          "pole": "miel",
+          "count": 6,
+          "lastResolved": "2026-02-19"
+        }
+      ]
+    },
+    {
+      "id": "integrations",
+      "label": "Intégrations / Chift",
+      "keywords": [
+        "chift",
+        "integration"
+      ],
+      "ticketCount": 29,
+      "people": [
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 41,
+          "lastResolved": "2026-11-02"
+        },
+        {
+          "name": "Camille PERRIN",
+          "role": "QA",
+          "pole": "miel",
+          "count": 35,
+          "lastResolved": "2026-01-02"
+        },
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 24,
+          "lastResolved": "2026-06-23"
+        },
+        {
+          "name": "Inès BONNET",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 15,
+          "lastResolved": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "id": "grand-livre",
+      "label": "Grand livre",
+      "keywords": [
+        "grand livre",
+        "grand-livre"
+      ],
+      "ticketCount": 53,
+      "people": [
+        {
+          "name": "Rose BRUN",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 30,
+          "lastResolved": "2026-11-20"
+        },
+        {
+          "name": "Enzo MOREL",
+          "role": "Expert métier",
+          "pole": "miel",
+          "count": 18,
+          "lastResolved": "2026-10-17"
+        },
+        {
+          "name": "Arthur MASSON",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 11,
+          "lastResolved": "2026-09-25"
+        },
+        {
+          "name": "Sarah MULLER",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 10,
+          "lastResolved": "2026-02-14"
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "label": "Mobile / tablette",
+      "keywords": [
+        "mobile",
+        "tablette"
+      ],
+      "ticketCount": 35,
+      "people": [
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 42,
+          "lastResolved": "2026-08-13"
+        },
+        {
+          "name": "Clara DUVAL",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 25,
+          "lastResolved": "2026-09-11"
+        },
+        {
+          "name": "Sarah MULLER",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 17,
+          "lastResolved": "2026-09-13"
+        },
+        {
+          "name": "Inès BONNET",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 9,
+          "lastResolved": "2026-05-03"
+        }
+      ]
+    },
+    {
+      "id": "credit-bail",
+      "label": "Crédit-bail",
+      "keywords": [
+        "credit bail",
+        "credit-bail"
+      ],
+      "ticketCount": 25,
+      "people": [
+        {
+          "name": "Jade FOURNIER",
+          "role": "Consultant",
+          "pole": "miel",
+          "count": 43,
+          "lastResolved": "2026-04-20"
+        },
+        {
+          "name": "Théo HENRY",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 38,
+          "lastResolved": "2026-08-18"
+        },
+        {
+          "name": "Nathan ROUSSEL",
+          "role": "Consultant",
+          "pole": "nectar",
+          "count": 35,
+          "lastResolved": "2026-01-11"
+        },
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 29,
+          "lastResolved": "2026-05-15"
+        }
+      ]
+    },
+    {
+      "id": "budget",
+      "label": "Budget / prévisionnel",
+      "keywords": [
+        "budget",
+        "previsionnel"
+      ],
+      "ticketCount": 11,
+      "people": [
+        {
+          "name": "Sarah MULLER",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 31,
+          "lastResolved": "2026-08-10"
+        },
+        {
+          "name": "Clara DUVAL",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 30,
+          "lastResolved": "2026-02-17"
+        },
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 24,
+          "lastResolved": "2026-04-14"
+        },
+        {
+          "name": "Lucas GUERIN",
+          "role": "PO",
+          "pole": "miel",
+          "count": 23,
+          "lastResolved": "2026-03-06"
+        }
+      ]
+    },
+    {
+      "id": "analytique",
+      "label": "Analytique",
+      "keywords": [
+        "analytique"
+      ],
+      "ticketCount": 8,
+      "people": [
+        {
+          "name": "Lina ROBIN",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 43,
+          "lastResolved": "2026-06-08"
+        },
+        {
+          "name": "Inès BONNET",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 36,
+          "lastResolved": "2026-06-15"
+        },
+        {
+          "name": "Gabriel CHEVALIER",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 10,
+          "lastResolved": "2026-10-08"
+        },
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 5,
+          "lastResolved": "2026-07-07"
+        }
+      ]
+    },
+    {
+      "id": "plan-comptable",
+      "label": "Plan comptable",
+      "keywords": [
+        "plan comptable",
+        "plan de comptes"
+      ],
+      "ticketCount": 42,
+      "people": [
+        {
+          "name": "Jade FOURNIER",
+          "role": "Consultant",
+          "pole": "miel",
+          "count": 42,
+          "lastResolved": "2026-01-28"
+        },
+        {
+          "name": "Chloé FAURE",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 37,
+          "lastResolved": "2026-04-28"
+        },
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 22,
+          "lastResolved": "2026-02-12"
+        },
+        {
+          "name": "Raphaël PICARD",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 9,
+          "lastResolved": "2026-06-06"
+        }
+      ]
+    },
+    {
+      "id": "fiscalite",
+      "label": "Fiscalité",
+      "keywords": [
+        "fiscalite",
+        "fiscal"
+      ],
+      "ticketCount": 95,
+      "people": [
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 35,
+          "lastResolved": "2026-11-01"
+        },
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 29,
+          "lastResolved": "2026-03-17"
+        },
+        {
+          "name": "Inès BONNET",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 17,
+          "lastResolved": "2026-06-19"
+        },
+        {
+          "name": "Théo HENRY",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 10,
+          "lastResolved": "2026-07-20"
+        }
+      ]
+    },
+    {
+      "id": "reprise",
+      "label": "Reprise de données",
+      "keywords": [
+        "reprise"
+      ],
+      "ticketCount": 132,
+      "people": [
+        {
+          "name": "Clara DUVAL",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 38,
+          "lastResolved": "2026-09-15"
+        },
+        {
+          "name": "Hugo LEFEVRE",
+          "role": "PO",
+          "pole": "nectar",
+          "count": 24,
+          "lastResolved": "2026-11-23"
+        },
+        {
+          "name": "Emma SANCHEZ",
+          "role": "Consultant",
+          "pole": "lavande",
+          "count": 24,
+          "lastResolved": "2026-01-02"
+        },
+        {
+          "name": "Adam LEROUX",
+          "role": "QA",
+          "pole": "essaim",
+          "count": 22,
+          "lastResolved": "2026-04-11"
+        }
+      ]
+    },
+    {
+      "id": "dossiers",
+      "label": "Dossiers (gestion des dossiers)",
+      "keywords": [
+        "dossier"
+      ],
+      "ticketCount": 163,
+      "people": [
+        {
+          "name": "Jade FOURNIER",
+          "role": "Consultant",
+          "pole": "miel",
+          "count": 44,
+          "lastResolved": "2026-05-05"
+        },
+        {
+          "name": "Gabriel CHEVALIER",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 42,
+          "lastResolved": "2026-01-05"
+        },
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 19,
+          "lastResolved": "2026-07-11"
+        },
+        {
+          "name": "Chloé FAURE",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 14,
+          "lastResolved": "2026-01-21"
+        }
+      ]
+    },
+    {
+      "id": "paiements",
+      "label": "Paiements",
+      "keywords": [
+        "paiement"
+      ],
+      "ticketCount": 21,
+      "people": [
+        {
+          "name": "Clara DUVAL",
+          "role": "PO",
+          "pole": "essaim",
+          "count": 25,
+          "lastResolved": "2026-02-01"
+        },
+        {
+          "name": "Chloé FAURE",
+          "role": "QA",
+          "pole": "nectar",
+          "count": 22,
+          "lastResolved": "2026-07-20"
+        },
+        {
+          "name": "Tom GIRAUD",
+          "role": "Dev",
+          "pole": "nectar",
+          "count": 15,
+          "lastResolved": "2026-10-17"
+        },
+        {
+          "name": "Rose BRUN",
+          "role": "Dev",
+          "pole": "essaim",
+          "count": 5,
+          "lastResolved": "2026-04-14"
+        }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "Documents / GED",
+      "keywords": [
+        "document",
+        "ged"
+      ],
+      "ticketCount": 640,
+      "people": [
+        {
+          "name": "Nathan ROUSSEL",
+          "role": "Consultant",
+          "pole": "nectar",
+          "count": 25,
+          "lastResolved": "2026-07-02"
+        },
+        {
+          "name": "Théo HENRY",
+          "role": "Dev",
+          "pole": "miel",
+          "count": 24,
+          "lastResolved": "2026-07-11"
+        },
+        {
+          "name": "Zoé FONTAINE",
+          "role": "PO",
+          "pole": "lavande",
+          "count": 21,
+          "lastResolved": "2026-11-06"
+        },
+        {
+          "name": "Gabriel CHEVALIER",
+          "role": "Dev",
+          "pole": "lavande",
+          "count": 9,
+          "lastResolved": "2026-09-22"
+        }
+      ]
+    },
+    {
+      "id": "utilisateurs",
+      "label": "Utilisateurs / droits / SAML",
+      "keywords": [
+        "utilisateur",
+        "droits",
+        "saml",
+        "sso"
+      ],
+      "ticketCount": 222,
+      "people": [
+        {
+          "name": "Arthur MASSON",
+          "role": "QA",
+          "pole": "lavande",
+          "count": 27,
+          "lastResolved": "2026-10-10"
+        },
+        {
+          "name": "Enzo MOREL",
+          "role": "Expert métier",
+          "pole": "miel",
+          "count": 23,
+          "lastResolved": "2026-03-19"
+        },
+        {
+          "name": "Nathan ROUSSEL",
+          "role": "Consultant",
+          "pole": "nectar",
+          "count": 19,
+          "lastResolved": "2026-09-07"
+        },
+        {
+          "name": "Paul GAUTIER",
+          "role": "Dev",
+          "pole": "alvéoles",
+          "count": 6,
+          "lastResolved": "2026-04-05"
+        }
+      ]
+    }
+  ]
+}
