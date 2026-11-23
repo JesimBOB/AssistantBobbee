@@ -26,14 +26,14 @@
         },
         {
           "name": "Enzo MOREL",
-          "role": "PO",
+          "role": "Expert métier",
           "pole": "miel",
           "count": 27,
           "lastResolved": "2026-10-08"
         },
         {
           "name": "Jade FOURNIER",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "miel",
           "count": 25,
           "lastResolved": "2026-02-12"
@@ -92,7 +92,7 @@
       "people": [
         {
           "name": "Enzo MOREL",
-          "role": "PO",
+          "role": "Expert métier",
           "pole": "miel",
           "count": 17,
           "lastResolved": "2026-11-14"
@@ -139,7 +139,7 @@
         },
         {
           "name": "Enzo MOREL",
-          "role": "PO",
+          "role": "Expert métier",
           "pole": "miel",
           "count": 34,
           "lastResolved": "2026-08-07"
@@ -185,14 +185,14 @@
         },
         {
           "name": "Jade FOURNIER",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "miel",
           "count": 12,
           "lastResolved": "2026-11-16"
         },
         {
           "name": "Emma SANCHEZ",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "lavande",
           "count": 8,
           "lastResolved": "2026-02-28"
@@ -218,7 +218,7 @@
         },
         {
           "name": "Jade FOURNIER",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "miel",
           "count": 15,
           "lastResolved": "2026-08-15"
@@ -530,7 +530,7 @@
         },
         {
           "name": "Enzo MOREL",
-          "role": "PO",
+          "role": "Expert métier",
           "pole": "miel",
           "count": 18,
           "lastResolved": "2026-10-17"
@@ -601,7 +601,7 @@
       "people": [
         {
           "name": "Jade FOURNIER",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "miel",
           "count": 43,
           "lastResolved": "2026-04-20"
@@ -615,7 +615,7 @@
         },
         {
           "name": "Nathan ROUSSEL",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "nectar",
           "count": 35,
           "lastResolved": "2026-01-11"
@@ -717,7 +717,7 @@
       "people": [
         {
           "name": "Jade FOURNIER",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "miel",
           "count": 42,
           "lastResolved": "2026-01-28"
@@ -808,7 +808,7 @@
         },
         {
           "name": "Emma SANCHEZ",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "lavande",
           "count": 24,
           "lastResolved": "2026-01-02"
@@ -832,7 +832,7 @@
       "people": [
         {
           "name": "Jade FOURNIER",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "miel",
           "count": 44,
           "lastResolved": "2026-05-05"
@@ -909,7 +909,7 @@
       "people": [
         {
           "name": "Nathan ROUSSEL",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "nectar",
           "count": 25,
           "lastResolved": "2026-07-02"
@@ -957,14 +957,14 @@
         },
         {
           "name": "Enzo MOREL",
-          "role": "PO",
+          "role": "Expert métier",
           "pole": "miel",
           "count": 23,
           "lastResolved": "2026-03-19"
         },
         {
           "name": "Nathan ROUSSEL",
-          "role": "PO",
+          "role": "Consultant",
           "pole": "nectar",
           "count": 19,
           "lastResolved": "2026-09-07"
