@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { MangaPage, PAGE_TITLE, PANEL, bangers } from "../manga";
 
 const essentials = [
   {
@@ -72,64 +72,45 @@ const essentials = [
 
 export default function EssentielsPage() {
   return (
-    <main
-      className="min-h-screen bg-zinc-50 bg-cover bg-[center_top] bg-no-repeat px-6 py-12 text-zinc-950 sm:px-10"
-      style={{
-        backgroundImage:
-          "linear-gradient(rgba(250, 250, 250, 0.72), rgba(250, 250, 250, 0.72)), url('/backgrounds/internal-page-background.webp')",
-      }}
-    >
-      <div className="mx-auto mb-4 flex w-full max-w-4xl">
-        <Link
-          href="/"
-          aria-label="Retour à l'accueil"
-          className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 shadow-sm transition-colors hover:bg-amber-50 hover:text-zinc-950"
-        >
-          <span aria-hidden="true">⌂</span>
-          <span>Home</span>
-        </Link>
-      </div>
-
-      <section className="mx-auto flex w-full max-w-4xl flex-col gap-6">
-        <header className="rounded-[28px] border border-amber-200/70 bg-white p-5 shadow-[0_18px_42px_-34px_rgba(24,24,27,0.42)] sm:p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-amber-700">
-            Onboarding
-          </p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-950 sm:text-4xl">
-            Essentiels
-          </h1>
-          <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-600">
-            Les premiers repères à garder sous la main pour avancer simplement.
-          </p>
-        </header>
-
-        <div className="grid gap-4 md:grid-cols-3">
-          {essentials.map((section) => (
-            <article
-              key={section.title}
-              className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm shadow-zinc-200/60"
-            >
-              <h2 className="text-lg font-semibold tracking-tight text-zinc-950">
-                {section.title}
-              </h2>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-zinc-600">
-                {section.items.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
+    <MangaPage current="essentiels">
+      <section className="flex flex-col gap-3.5">
+        <h1 className={PAGE_TITLE}>LES ESSENTIELS</h1>
+        <p className="mt-2.5 text-lg font-semibold">
+          Les premiers repères à garder sous la main pour avancer simplement.
+        </p>
       </section>
-    </main>
+
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-7">
+        {essentials.map((section) => (
+          <article key={section.title} className={`${PANEL} overflow-hidden`}>
+            <h2
+              className={`${bangers.className} border-b-4 border-zinc-950 bg-[#ffd60a] px-[18px] pb-2 pt-3 text-[28px] font-normal uppercase leading-none tracking-[1.5px]`}
+            >
+              {section.title}
+            </h2>
+            <ul className="px-[18px] pb-3 pt-1.5">
+              {section.items.map((item) => (
+                <li key={item.label} className="border-b-2 border-dashed border-zinc-200 last:border-b-0">
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex min-h-12 items-center justify-between gap-3 py-2 text-base font-bold text-zinc-950 no-underline hover:text-[#5b4300]"
+                  >
+                    {item.label}
+                    <span
+                      aria-hidden="true"
+                      className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-zinc-950 bg-[#fff7cc] text-sm"
+                    >
+                      ↗
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </MangaPage>
   );
 }
