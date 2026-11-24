@@ -1,26 +1,21 @@
 import { CLAUDE_ASSISTANT_URL, MangaPage, PAGE_TITLE, PANEL, bangers } from "../manga";
 
-// BROUILLON : les étapes ci-dessous sont à confirmer (marquées « à confirmer » sur la page).
 const STEPS = [
   {
     title: "Avoir accès à Claude",
-    text: "Il te faut un compte Claude. L'accès peut prendre quelques jours : pas d'inquiétude, découvre la ruche en attendant.",
-    confirm: "Qui demander pour obtenir l'accès ?",
+    text: "Ton compte Claude est créé automatiquement. Compte 24 à 48 heures après ton arrivée : pas d'inquiétude, découvre la ruche en attendant.",
   },
   {
     title: "Ouvrir le projet de Bobbee",
     text: "Le bouton en bas de page ouvre le projet partagé dans Claude. C'est là que Bobbee répond.",
-    confirm: null,
   },
   {
     title: "Connecter tes outils",
-    text: "Dans Claude, ouvre les paramètres puis les connecteurs, et connecte tes comptes Atlassian (Confluence, Jira) et Microsoft 365 (Outlook, Teams, SharePoint).",
-    confirm: "Noms exacts des écrans et des connecteurs à vérifier.",
+    text: "Dans Claude, ouvre Paramètres, puis Personnalisation, puis l'onglet Connecteurs. Clique sur Connecter à côté d'Atlassian MCP (Confluence, Jira) et de Microsoft 365 (Outlook, Teams, SharePoint), puis connecte-toi avec ton compte pro. Chacun connecte ses propres comptes.",
   },
   {
     title: "Poser ta première question",
     text: "Écris ta question à Bobbee. Il cherche dans tes outils connectés et te répond.",
-    confirm: null,
   },
 ];
 
@@ -48,11 +43,6 @@ export default function AssistantPage() {
               </h2>
             </div>
             <p className="text-base italic leading-normal text-zinc-600">{step.text}</p>
-            {step.confirm && (
-              <p className="rounded-md border-2 border-dashed border-zinc-950 bg-[#fff7cc] px-3 py-1.5 text-sm font-bold text-zinc-950">
-                À confirmer : {step.confirm}
-              </p>
-            )}
           </li>
         ))}
       </ol>

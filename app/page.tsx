@@ -186,7 +186,7 @@ export default function Home() {
               là-bas. Si Claude affiche un avertissement, c&apos;est normal : continue.
             </p>
             <p className="-mt-1.5 text-center text-sm italic leading-snug text-zinc-700">
-              Pas encore d&apos;accès à Claude ? Ça peut prendre quelques jours : en attendant,
+              Pas encore d&apos;accès à Claude ? Ça peut prendre 24 à 48 heures : en attendant,
               découvre la ruche avec ton parcours ci-dessous.
             </p>
             <p className="-mt-1.5 text-center text-sm font-semibold text-zinc-950">
