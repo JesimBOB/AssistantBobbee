@@ -164,8 +164,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div
-          className="relative flex min-h-[460px] min-w-0 flex-[1_1_400px] flex-col items-center justify-center overflow-hidden rounded-xl border-4 border-zinc-950 px-5 pb-8 pt-20 shadow-[6px_6px_0_#09090b] sm:pt-8"
+        <a
+          href={CLAUDE_ASSISTANT_URL}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Poser une question à Bobbee dans Claude (nouvel onglet)"
+          className="relative flex min-h-[460px] min-w-0 flex-[1_1_400px] flex-col items-center justify-center overflow-hidden rounded-xl border-4 border-zinc-950 px-5 pb-8 pt-20 text-zinc-950 no-underline shadow-[6px_6px_0_#09090b] transition-transform hover:-translate-y-1"
           style={RAYS_BACKGROUND}
         >
           <p
@@ -189,7 +193,7 @@ export default function Home() {
             priority
             className="mt-6 h-auto w-[min(300px,75%)] drop-shadow-[0_10px_14px_rgba(120,72,0,0.25)]"
           />
-        </div>
+        </a>
       </section>
 
       <section aria-labelledby="parcours" className="flex flex-col gap-5">
@@ -203,7 +207,7 @@ export default function Home() {
           <article className={STEP_CARD}>
             <StepHeader number={1} title="DÉCOUVRE L'ÉQUIPE" />
             <p className={STEP_TEXT}>Qui fait quoi dans la ruche, et d&apos;où vient Bobbee.</p>
-            <div className="mt-auto flex flex-col">
+            <div className="flex flex-col">
               <Link href="/organigramme" className={`${STEP_LINK} border-b-2 border-zinc-100`}>
                 L&apos;organigramme <span aria-hidden="true">→</span>
               </Link>
@@ -216,7 +220,7 @@ export default function Home() {
           <article className={STEP_CARD}>
             <StepHeader number={2} title="DÉMARRE" />
             <p className={STEP_TEXT}>Les étapes clés pour bien démarrer.</p>
-            <div className="mt-auto flex flex-col">
+            <div className="flex flex-col">
               {START_LINKS.map((link, index) => (
                 <a
                   key={link.label}
@@ -238,7 +242,7 @@ export default function Home() {
             </p>
             <Link
               href="/essentiels"
-              className="mt-auto flex min-h-12 items-center justify-between rounded-[10px] border-[3px] border-zinc-950 bg-[#ffd60a] px-4 text-base font-extrabold text-zinc-950 no-underline transition-transform hover:-translate-y-0.5"
+              className="mt-1 flex min-h-12 items-center justify-between rounded-[10px] border-[3px] border-zinc-950 bg-[#ffd60a] px-4 text-base font-extrabold text-zinc-950 no-underline transition-transform hover:-translate-y-0.5"
             >
               Ouvrir Les essentiels <span aria-hidden="true">→</span>
             </Link>
