@@ -75,7 +75,26 @@ function SiteNav({ current }: { current: NavKey }) {
   );
 }
 
-// Cadre commun : fond crème à trame de points, conteneur centré, barre de navigation.
+// Accueil : pas de barre de navigation (le parcours y mène déjà), juste le logo.
+function HomeLogo() {
+  return (
+    <header className="flex items-center gap-2.5">
+      <Image
+        src="/bobbee/bobbee-idle.png"
+        alt=""
+        width={40}
+        height={40}
+        className="h-10 w-10 object-contain"
+      />
+      <span className={`${bangers.className} text-[30px] leading-none tracking-[1.5px]`}>
+        BOBBEE
+      </span>
+    </header>
+  );
+}
+
+// Cadre commun : fond crème, conteneur centré, barre de navigation.
+// L'accueil a un fond uni et pas de barre ; les autres pages gardent la trame de points.
 export function MangaPage({
   current,
   children,
@@ -83,10 +102,20 @@ export function MangaPage({
   current: NavKey;
   children: ReactNode;
 }) {
+  const isHome = current === "accueil";
+
   return (
-    <main className="min-h-screen bg-[#fffdf5] bg-[radial-gradient(#e9e2c8_1.2px,transparent_1.2px)] bg-[length:14px_14px] text-zinc-950">
-      <div className="mx-auto flex max-w-[1280px] flex-col gap-9 px-4 pb-14 pt-6 sm:px-10">
-        <SiteNav current={current} />
+    <main
+      className={
+        isHome
+          ? "min-h-screen bg-[#fffdf5] text-zinc-950"
+          : "min-h-screen bg-[#fffdf5] bg-[radial-gradient(#e9e2c8_1.2px,transparent_1.2px)] bg-[length:14px_14px] text-zinc-950"
+      }
+    >
+      <div
+        className={`mx-auto flex flex-col px-4 pb-14 pt-6 sm:px-10 ${isHome ? "max-w-[1200px] gap-14" : "max-w-[1280px] gap-9"}`}
+      >
+        {isHome ? <HomeLogo /> : <SiteNav current={current} />}
         {children}
       </div>
     </main>
