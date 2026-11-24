@@ -99,8 +99,14 @@ export default function Home() {
 
   function goToTourStep(step: number | null) {
     setTourStep(step);
-    if (step !== null) {
-      zoneRefs.current[step]?.scrollIntoView({ behavior: "smooth", block: "center" });
+    const zone = step !== null ? zoneRefs.current[step] : null;
+    if (zone) {
+      // On ne défile que si la zone n'est pas entièrement visible, pour que Bobbee reste sous la souris.
+      const rect = zone.getBoundingClientRect();
+      const fullyVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+      if (!fullyVisible) {
+        zone.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
     }
   }
 
@@ -242,7 +248,7 @@ export default function Home() {
           </p>
           <div
             aria-live="polite"
-            className="relative max-w-[300px] rounded-[22px] border-[3px] border-zinc-950 bg-white px-[18px] py-3.5 text-center text-lg font-extrabold leading-snug"
+            className="relative flex min-h-[84px] max-w-[300px] items-center justify-center rounded-[22px] border-[3px] border-zinc-950 bg-white px-[18px] py-3.5 text-center text-lg font-extrabold leading-snug"
           >
             {tourStep === null ? TOUR_INTRO : TOUR_STEPS[tourStep].bubble}
             <span
@@ -252,11 +258,17 @@ export default function Home() {
           </div>
           <button
             type="button"
-            onClick={() => goToTourStep(tourStep === null ? 0 : null)}
+            onClick={() =>
+              goToTourStep(
+                tourStep === null ? 0 : tourStep === TOUR_STEPS.length - 1 ? null : tourStep + 1,
+              )
+            }
             aria-label={
               tourStep === null
                 ? "Lancer la visite guidée avec Bobbee"
-                : "Arrêter la visite guidée"
+                : tourStep === TOUR_STEPS.length - 1
+                  ? "Terminer la visite guidée"
+                  : "Étape suivante de la visite guidée"
             }
             className="mt-6 w-[min(300px,75%)] cursor-pointer transition-transform hover:scale-105"
           >
@@ -269,11 +281,11 @@ export default function Home() {
               className="h-auto w-full drop-shadow-[0_10px_14px_rgba(120,72,0,0.25)]"
             />
           </button>
-          {tourStep !== null && (
-            <div className="mt-4 flex items-center gap-3">
+          {/* Barre toujours présente (invisible hors visite) pour ne pas décaler Bobbee. */}
+          <div className={`mt-4 flex items-center gap-3 ${tourStep === null ? "invisible" : ""}`}>
               <button
                 type="button"
-                onClick={() => goToTourStep(tourStep - 1)}
+                onClick={() => goToTourStep(tourStep === null ? 0 : tourStep - 1)}
                 aria-label="Étape précédente"
                 className={`${TOUR_ROUND_BUTTON} ${tourStep === 0 ? "invisible" : ""}`}
               >
@@ -296,14 +308,17 @@ export default function Home() {
               </div>
               <button
                 type="button"
-                onClick={() => goToTourStep(tourStep === TOUR_STEPS.length - 1 ? null : tourStep + 1)}
+                onClick={() =>
+                  goToTourStep(
+                    tourStep === null ? 0 : tourStep === TOUR_STEPS.length - 1 ? null : tourStep + 1,
+                  )
+                }
                 aria-label={tourStep === TOUR_STEPS.length - 1 ? "Terminer la visite" : "Étape suivante"}
                 className={TOUR_ROUND_BUTTON}
               >
                 {tourStep === TOUR_STEPS.length - 1 ? "✓" : "›"}
               </button>
             </div>
-          )}
         </div>
       </section>
 
