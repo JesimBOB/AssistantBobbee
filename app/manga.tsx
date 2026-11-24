@@ -17,7 +17,7 @@ export const PANEL =
 export const PAGE_TITLE = `${bangers.className} -rotate-[1.5deg] self-start rounded-lg border-4 border-zinc-950 bg-[#ffd60a] px-6 pb-1.5 pt-2.5 text-[44px] font-normal leading-none tracking-[2px] shadow-[7px_7px_0_#09090b] sm:text-[64px]`;
 export const SECTION_TITLE = `${bangers.className} -rotate-1 self-start rounded-md bg-zinc-950 px-4 pb-1 pt-1.5 text-[34px] font-normal tracking-[2px] text-white`;
 
-type NavKey = "accueil" | "equipe" | "histoire" | "essentiels";
+type NavKey = "accueil" | "equipe" | "histoire" | "essentiels" | "assistant";
 
 const NAV_LINKS: { key: NavKey; label: string; href: string }[] = [
   { key: "accueil", label: "Accueil", href: "/" },
