@@ -186,6 +186,10 @@ export default function Home() {
               Ta question s&apos;ouvre dans Claude, dans un nouvel onglet, et Bobbee te répond
               là-bas. Si Claude affiche un avertissement, c&apos;est normal : continue.
             </p>
+            <p className="-mt-1.5 text-center text-sm leading-snug text-zinc-700">
+              Pas encore d&apos;accès à Claude ? Ça peut prendre quelques jours : en attendant,
+              découvre la ruche avec ton parcours ci-dessous.
+            </p>
             <div className="flex flex-col gap-0.5 border-t-2 border-dashed border-zinc-200 pt-3">
               <p className="mb-0.5 text-sm font-semibold text-zinc-600">
                 Pas d&apos;idée ? Clique sur une question pour la mettre dans le champ.
