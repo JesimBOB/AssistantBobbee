@@ -39,6 +39,34 @@ const START_LINKS = [
     href: "https://isagri.atlassian.net/wiki/x/AoDDcQE",
   },
 ];
+// Visite guidée lancée par Bobbee : zone visée (0 = question, 1 à 3 = cartes du parcours).
+const TOUR_STEPS = [
+  {
+    label: "Ici, pose ta question à Bobbee",
+    bubble: "Ici, pose ta question à Bobbee. Je te réponds dans Claude.",
+  },
+  { label: "Là, découvre l'organigramme", bubble: "Là, découvre l'organigramme." },
+  {
+    label: "Ce qu'il te faut pour bien démarrer",
+    bubble: "Ce qu'il te faut pour bien démarrer.",
+  },
+  { label: "Enfin, tous les liens utiles", bubble: "Enfin, tous les liens utiles." },
+];
+const TOUR_INTRO = "Bzzz ! Clique sur moi, je te fais visiter.";
+const TOUR_ACTIVE = "ring-[5px] ring-[#ffd60a]";
+const TOUR_ROUND_BUTTON =
+  "flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[3px] border-zinc-950 bg-white text-base font-extrabold leading-none text-zinc-950";
+
+function TourTag({ active, text }: { active: boolean; text: string }) {
+  if (!active) return null;
+  return (
+    <span className="absolute -top-4 right-4 z-10 rounded-full bg-zinc-950 px-3 py-1 text-sm font-bold text-[#ffd60a]">
+      <span aria-hidden="true">↓ </span>
+      {text}
+    </span>
+  );
+}
+
 // Éclat de rayons manga derrière Bobbee (lignes de concentration).
 const RAYS_BACKGROUND = {
   backgroundColor: "#ffd60a",
@@ -67,6 +95,15 @@ export default function Home() {
   const [question, setQuestion] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const timeoutIdRef = useRef<number | null>(null);
+  const [tourStep, setTourStep] = useState<number | null>(null);
+  const zoneRefs = useRef<(HTMLElement | null)[]>([]);
+
+  function goToTourStep(step: number | null) {
+    setTourStep(step);
+    if (step !== null) {
+      zoneRefs.current[step]?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
 
   useEffect(() => {
     return () => {
@@ -117,7 +154,16 @@ export default function Home() {
             Ici, tu découvres l&apos;équipe et tes premiers pas.
           </p>
 
-          <div className="mt-1 flex flex-col gap-3.5 rounded-xl border-4 border-zinc-950 bg-white p-[22px] shadow-[6px_6px_0_#09090b]">
+          <div
+            ref={(el) => {
+              zoneRefs.current[0] = el;
+            }}
+            className={`relative mt-1 flex flex-col gap-3.5 rounded-xl border-4 border-zinc-950 bg-white p-[22px] shadow-[6px_6px_0_#09090b] ${tourStep === 0 ? TOUR_ACTIVE : ""}`}
+          >
+            <TourTag active={tourStep === 0} text={TOUR_STEPS[0].label} />
+            <h2 className="text-xl font-extrabold leading-snug text-zinc-950">
+              Pose ta question à Bobbee
+            </h2>
             <form onSubmit={handleAsk} className="contents">
               <input
                 ref={inputRef}
@@ -133,16 +179,16 @@ export default function Home() {
                 type="submit"
                 className={`${bangers.className} flex min-h-[60px] cursor-pointer items-center justify-center gap-3 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-4 py-2.5 text-center text-[19px] tracking-[1px] text-zinc-950 no-underline shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5 sm:px-6 sm:text-[28px] sm:tracking-[1.5px]`}
               >
-                POSE TA QUESTION À BOBBEE →
+                ENVOYER À BOBBEE →
               </button>
             </form>
-            <p className="-mt-1.5 text-center text-[13px] text-zinc-600">
-              S&apos;ouvre dans Claude, dans un nouvel onglet. Un avertissement de Claude peut
-              s&apos;afficher : c&apos;est normal.
+            <p className="-mt-1.5 text-center text-sm leading-snug text-zinc-700">
+              Ta question s&apos;ouvre dans Claude, dans un nouvel onglet, et Bobbee te répond
+              là-bas. Si Claude affiche un avertissement, c&apos;est normal : continue.
             </p>
             <div className="flex flex-col gap-0.5 border-t-2 border-dashed border-zinc-200 pt-3">
               <p className="mb-0.5 text-sm font-semibold text-zinc-600">
-                Idées de questions (clique pour la saisir) :
+                Pas d&apos;idée ? Clique sur une question pour la mettre dans le champ.
               </p>
               {EXAMPLE_QUESTIONS.map((example) => (
                 <button
@@ -173,12 +219,8 @@ export default function Home() {
           </div>
         </div>
 
-        <a
-          href={CLAUDE_ASSISTANT_URL}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Poser une question à Bobbee dans Claude (nouvel onglet)"
-          className="relative flex min-h-[460px] min-w-0 flex-[1_1_400px] flex-col items-center justify-center overflow-hidden rounded-xl border-4 border-zinc-950 px-5 pb-8 pt-20 text-zinc-950 no-underline shadow-[6px_6px_0_#09090b] transition-transform hover:-translate-y-1"
+        <div
+          className="relative flex min-h-[460px] min-w-0 flex-[1_1_400px] flex-col items-center justify-center overflow-hidden rounded-xl border-4 border-zinc-950 px-5 pb-8 pt-20 text-zinc-950 shadow-[6px_6px_0_#09090b]"
           style={RAYS_BACKGROUND}
         >
           <p
@@ -187,22 +229,71 @@ export default function Home() {
           >
             BZZZ !
           </p>
-          <div className="relative max-w-[300px] rounded-[22px] border-[3px] border-zinc-950 bg-white px-[18px] py-3.5 text-center text-lg font-extrabold leading-snug">
-            Pour toute question, Bobbee te répond dans Claude.
+          <div
+            aria-live="polite"
+            className="relative max-w-[300px] rounded-[22px] border-[3px] border-zinc-950 bg-white px-[18px] py-3.5 text-center text-lg font-extrabold leading-snug"
+          >
+            {tourStep === null ? TOUR_INTRO : TOUR_STEPS[tourStep].bubble}
             <span
               aria-hidden="true"
               className="absolute -bottom-4 left-1/2 -ml-3 h-6 w-6 rotate-45 border-b-[3px] border-r-[3px] border-zinc-950 bg-white"
             />
           </div>
-          <Image
-            src={BOBBEE_IMAGE_BY_STATE[bobbeeState]}
-            alt="Bobbee, la mascotte"
-            width={480}
-            height={480}
-            priority
-            className="mt-6 h-auto w-[min(300px,75%)] drop-shadow-[0_10px_14px_rgba(120,72,0,0.25)]"
-          />
-        </a>
+          <button
+            type="button"
+            onClick={() => goToTourStep(tourStep === null ? 0 : null)}
+            aria-label={
+              tourStep === null
+                ? "Lancer la visite guidée avec Bobbee"
+                : "Arrêter la visite guidée"
+            }
+            className="mt-6 w-[min(300px,75%)] cursor-pointer transition-transform hover:scale-105"
+          >
+            <Image
+              src={BOBBEE_IMAGE_BY_STATE[bobbeeState]}
+              alt="Bobbee, la mascotte"
+              width={480}
+              height={480}
+              priority
+              className="h-auto w-full drop-shadow-[0_10px_14px_rgba(120,72,0,0.25)]"
+            />
+          </button>
+          {tourStep !== null && (
+            <div className="mt-4 flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => goToTourStep(tourStep - 1)}
+                aria-label="Étape précédente"
+                className={`${TOUR_ROUND_BUTTON} ${tourStep === 0 ? "invisible" : ""}`}
+              >
+                ‹
+              </button>
+              <div className="flex items-center gap-1">
+                {TOUR_STEPS.map((step, index) => (
+                  <button
+                    key={step.label}
+                    type="button"
+                    onClick={() => goToTourStep(index)}
+                    aria-label={`Étape ${index + 1} sur ${TOUR_STEPS.length}`}
+                    className="flex h-6 w-6 cursor-pointer items-center justify-center"
+                  >
+                    <span
+                      className={`h-2.5 w-2.5 rounded-full border-2 border-zinc-950 ${index === tourStep ? "bg-zinc-950" : "bg-white"}`}
+                    />
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => goToTourStep(tourStep === TOUR_STEPS.length - 1 ? null : tourStep + 1)}
+                aria-label={tourStep === TOUR_STEPS.length - 1 ? "Terminer la visite" : "Étape suivante"}
+                className={TOUR_ROUND_BUTTON}
+              >
+                {tourStep === TOUR_STEPS.length - 1 ? "✓" : "›"}
+              </button>
+            </div>
+          )}
+        </div>
       </section>
 
       <section aria-labelledby="parcours" className="flex flex-col gap-5">
@@ -213,7 +304,13 @@ export default function Home() {
           TON PARCOURS
         </h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-6">
-          <article className={STEP_CARD}>
+          <article
+            ref={(el) => {
+              zoneRefs.current[1] = el;
+            }}
+            className={`relative ${STEP_CARD} ${tourStep === 1 ? TOUR_ACTIVE : ""}`}
+          >
+            <TourTag active={tourStep === 1} text={TOUR_STEPS[1].label} />
             <StepHeader number={1} title="DÉCOUVRE L'ÉQUIPE" />
             <p className={STEP_TEXT}>Qui fait quoi dans la ruche, et d&apos;où vient Bobbee.</p>
             <div className="flex flex-col">
@@ -226,7 +323,13 @@ export default function Home() {
             </div>
           </article>
 
-          <article className={STEP_CARD}>
+          <article
+            ref={(el) => {
+              zoneRefs.current[2] = el;
+            }}
+            className={`relative ${STEP_CARD} ${tourStep === 2 ? TOUR_ACTIVE : ""}`}
+          >
+            <TourTag active={tourStep === 2} text={TOUR_STEPS[2].label} />
             <StepHeader number={2} title="DÉMARRE" />
             <p className={STEP_TEXT}>Les étapes clés pour bien démarrer.</p>
             <div className="flex flex-col">
@@ -244,7 +347,13 @@ export default function Home() {
             </div>
           </article>
 
-          <article className={STEP_CARD}>
+          <article
+            ref={(el) => {
+              zoneRefs.current[3] = el;
+            }}
+            className={`relative ${STEP_CARD} ${tourStep === 3 ? TOUR_ACTIVE : ""}`}
+          >
+            <TourTag active={tourStep === 3} text={TOUR_STEPS[3].label} />
             <StepHeader number={3} title="TOUS TES LIENS" />
             <p className={STEP_TEXT}>
               Les premiers repères à garder sous la main pour avancer simplement.
