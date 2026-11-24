@@ -17,7 +17,6 @@ const CLAUDE_NEW_CHAT_URL = CLAUDE_ASSISTANT_URL.replace("/project/", "/new?proj
 // Exemples de questions à poser dans Claude (elles remplissent le champ de saisie au clic).
 const EXAMPLE_QUESTIONS = [
   "Qui maîtrise la TVA dans l'équipe ?",
-  "Qu'est-ce qui a été décidé sur la facture électronique ?",
   "Qui est le PO du pôle Lavande ?",
 ];
 // Liens de la case « Démarre » (repris de « Les essentiels » et de l'ancienne carte Checklist).
@@ -60,7 +59,7 @@ const TOUR_ROUND_BUTTON =
 function TourTag({ active, text }: { active: boolean; text: string }) {
   if (!active) return null;
   return (
-    <span className="absolute -top-5 right-4 z-10 max-w-[90%] rounded-2xl border-[3px] border-zinc-950 bg-white px-4 py-1 text-lg font-extrabold leading-snug text-zinc-950 shadow-[3px_3px_0_#09090b]">
+    <span className="absolute -top-5 right-4 z-10 max-w-[90%] rounded-2xl border-[3px] border-zinc-950 bg-zinc-950 px-4 py-1 text-lg font-extrabold leading-snug text-white shadow-[3px_3px_0_#09090b]">
       <span aria-hidden="true">↓ </span>
       {text}
     </span>
@@ -77,7 +76,7 @@ const RAYS_BACKGROUND = {
 const STEP_CARD = "flex flex-col gap-3 rounded-xl border-[3px] border-zinc-950 bg-white p-[22px]";
 const STEP_NUMBER = `${bangers.className} inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] text-2xl`;
 const STEP_TITLE = `${bangers.className} text-[27px] font-normal leading-none tracking-[1.2px]`;
-const STEP_TEXT = "text-base leading-normal text-zinc-600";
+const STEP_TEXT = "text-base italic leading-normal text-zinc-600";
 const STEP_LINK =
   "flex min-h-11 items-center justify-between text-base font-bold text-zinc-950 no-underline hover:text-[#5b4300]";
 
@@ -162,7 +161,7 @@ export default function Home() {
           >
             <TourTag active={tourStep === 0} text={TOUR_STEPS[0].label} />
             <h2 className="text-xl font-extrabold leading-snug text-zinc-950">
-              Pose ta question à Bobbee
+              Pose ta question
             </h2>
             <form onSubmit={handleAsk} className="contents">
               <input
@@ -179,19 +178,27 @@ export default function Home() {
                 type="submit"
                 className={`${bangers.className} flex min-h-[60px] cursor-pointer items-center justify-center gap-3 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-4 py-2.5 text-center text-[19px] tracking-[1px] text-zinc-950 no-underline shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5 sm:px-6 sm:text-[28px] sm:tracking-[1.5px]`}
               >
-                ENVOYER À BOBBEE
+                ENVOYER À L&apos;ASSISTANT BOBBEE
               </button>
             </form>
-            <p className="-mt-1.5 text-center text-sm leading-snug text-zinc-700">
+            <p className="-mt-1.5 text-center text-sm italic leading-snug text-zinc-700">
               Ta question s&apos;ouvre dans Claude, dans un nouvel onglet, et Bobbee te répond
               là-bas. Si Claude affiche un avertissement, c&apos;est normal : continue.
             </p>
-            <p className="-mt-1.5 text-center text-sm leading-snug text-zinc-700">
+            <p className="-mt-1.5 text-center text-sm italic leading-snug text-zinc-700">
               Pas encore d&apos;accès à Claude ? Ça peut prendre quelques jours : en attendant,
               découvre la ruche avec ton parcours ci-dessous.
             </p>
+            <p className="-mt-1.5 text-center text-sm font-semibold text-zinc-950">
+              <Link
+                href="/assistant"
+                className="underline decoration-[#ffd60a] decoration-[3px] underline-offset-4 hover:text-[#5b4300]"
+              >
+                Comment paramétrer l&apos;assistant dans Claude ?
+              </Link>
+            </p>
             <div className="flex flex-col gap-0.5 border-t-2 border-dashed border-zinc-200 pt-3">
-              <p className="mb-0.5 text-sm font-semibold text-zinc-600">
+              <p className="mb-0.5 text-sm font-semibold italic text-zinc-600">
                 Pas d&apos;idée ? Clique sur une question pour la mettre dans le champ.
               </p>
               {EXAMPLE_QUESTIONS.map((example) => (
