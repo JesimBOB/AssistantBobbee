@@ -144,7 +144,7 @@ export default function Home() {
               href={CLAUDE_ASSISTANT_URL}
               target="_blank"
               rel="noreferrer"
-              className={`${bangers.className} flex min-h-[60px] items-center justify-center gap-3 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-5 py-2.5 text-center text-[22px] tracking-[1.5px] text-zinc-950 no-underline shadow-[5px_5px_0_#09090b] transition-transform hover:-translate-y-0.5 sm:text-[30px]`}
+              className={`${bangers.className} flex min-h-[60px] items-center justify-center gap-3 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-4 py-2.5 text-center text-[19px] tracking-[1px] sm:px-5 sm:tracking-[1.5px] text-zinc-950 no-underline shadow-[5px_5px_0_#09090b] transition-transform hover:-translate-y-0.5 sm:text-[30px]`}
             >
               POSE TA QUESTION À BOBBEE →
             </a>
