@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { CLAUDE_ASSISTANT_URL, MangaPage, bangers } from "./manga";
 
 type BobbeeState = "idle" | "found";
@@ -12,7 +12,9 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   found: "/bobbee/bobbee-found.png",
 };
 const FOUND_DURATION_MS = 1500;
-// Exemples de questions à poser dans Claude (copiées dans le presse-papiers au clic).
+// Nouvelle conversation Claude rattachée au projet ; la question y est préremplie via « q ».
+const CLAUDE_NEW_CHAT_URL = CLAUDE_ASSISTANT_URL.replace("/project/", "/new?project=");
+// Exemples de questions à poser dans Claude (elles remplissent le champ de saisie au clic).
 const EXAMPLE_QUESTIONS = [
   "Qui maîtrise la TVA dans l'équipe ?",
   "Qu'est-ce qui a été décidé sur la facture électronique ?",
@@ -62,7 +64,8 @@ function StepHeader({ number, title }: { number: number; title: string }) {
 
 export default function Home() {
   const [bobbeeState, setBobbeeState] = useState<BobbeeState>("idle");
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [question, setQuestion] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const timeoutIdRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -73,34 +76,29 @@ export default function Home() {
     };
   }, []);
 
-  async function handleCopyQuestion(question: string, index: number) {
-    try {
-      await navigator.clipboard.writeText(question);
-    } catch {
-      // Repli si le presse-papiers moderne est refusé par le navigateur.
-      const textarea = document.createElement("textarea");
-      textarea.value = question;
-      document.body.appendChild(textarea);
-      textarea.select();
-      const copied = document.execCommand("copy");
-      textarea.remove();
-
-      if (!copied) {
-        return;
-      }
-    }
+  function handleSelectExample(example: string) {
+    setQuestion(example);
+    inputRef.current?.focus();
 
     if (timeoutIdRef.current !== null) {
       window.clearTimeout(timeoutIdRef.current);
     }
 
-    setCopiedIndex(index);
     setBobbeeState("found");
     timeoutIdRef.current = window.setTimeout(() => {
       timeoutIdRef.current = null;
-      setCopiedIndex(null);
       setBobbeeState("idle");
     }, FOUND_DURATION_MS);
+  }
+
+  function handleAsk(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmed = question.trim();
+    // Champ vide : on ouvre simplement le projet, comme avant.
+    const url = trimmed
+      ? `${CLAUDE_NEW_CHAT_URL}&q=${encodeURIComponent(trimmed)}`
+      : CLAUDE_ASSISTANT_URL;
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (
@@ -120,26 +118,37 @@ export default function Home() {
           </p>
 
           <div className="mt-1 flex flex-col gap-3.5 rounded-xl border-4 border-zinc-950 bg-white p-[22px] shadow-[6px_6px_0_#09090b]">
-            <a
-              href={CLAUDE_ASSISTANT_URL}
-              target="_blank"
-              rel="noreferrer"
-              className={`${bangers.className} flex min-h-[60px] items-center justify-center gap-3 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-4 py-2.5 text-center text-[19px] tracking-[1px] text-zinc-950 no-underline shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5 sm:px-6 sm:text-[28px] sm:tracking-[1.5px]`}
-            >
-              POSE TA QUESTION À BOBBEE →
-            </a>
+            <form onSubmit={handleAsk} className="contents">
+              <input
+                ref={inputRef}
+                type="text"
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                maxLength={500}
+                aria-label="Ta question pour Bobbee"
+                placeholder="Écris ta question pour Bobbee…"
+                className="min-h-[52px] w-full rounded-xl border-[3px] border-zinc-950 bg-white px-4 text-base font-semibold text-zinc-950 placeholder:text-zinc-500 focus:outline-none focus:ring-4 focus:ring-[#ffd60a]"
+              />
+              <button
+                type="submit"
+                className={`${bangers.className} flex min-h-[60px] cursor-pointer items-center justify-center gap-3 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-4 py-2.5 text-center text-[19px] tracking-[1px] text-zinc-950 no-underline shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5 sm:px-6 sm:text-[28px] sm:tracking-[1.5px]`}
+              >
+                POSE TA QUESTION À BOBBEE →
+              </button>
+            </form>
             <p className="-mt-1.5 text-center text-[13px] text-zinc-600">
-              S&apos;ouvre dans Claude, dans un nouvel onglet.
+              S&apos;ouvre dans Claude, dans un nouvel onglet. Un avertissement de Claude peut
+              s&apos;afficher : c&apos;est normal.
             </p>
             <div className="flex flex-col gap-0.5 border-t-2 border-dashed border-zinc-200 pt-3">
               <p className="mb-0.5 text-sm font-semibold text-zinc-600">
-                Idées de questions (clique pour copier) :
+                Idées de questions (clique pour la saisir) :
               </p>
-              {EXAMPLE_QUESTIONS.map((question, index) => (
+              {EXAMPLE_QUESTIONS.map((example) => (
                 <button
-                  key={question}
+                  key={example}
                   type="button"
-                  onClick={() => handleCopyQuestion(question, index)}
+                  onClick={() => handleSelectExample(example)}
                   className="flex min-h-9 items-center gap-2 self-start py-1 text-left text-base font-semibold text-zinc-950 underline decoration-[#ffd60a] decoration-[3px] underline-offset-4 hover:text-[#5b4300]"
                 >
                   <svg
@@ -157,7 +166,7 @@ export default function Home() {
                     <rect x="9" y="9" width="12" height="12" rx="2" />
                     <path d="M5 15V5a2 2 0 0 1 2-2h10" />
                   </svg>
-                  {copiedIndex === index ? "Copié ! Colle-la dans Claude" : question}
+                  {example}
                 </button>
               ))}
             </div>
