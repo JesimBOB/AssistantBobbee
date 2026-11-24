@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Bangers } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
+
+// Direction visuelle « Manga » : encre noire, ombres pleines, trame de points.
+const bangers = Bangers({ weight: "400", subsets: ["latin"] });
+const HALFTONE_BACKGROUND =
+  "bg-[#fffdf5] bg-[radial-gradient(#e9e2c8_1.2px,transparent_1.2px)] bg-[length:14px_14px]";
 
 type BobbeeState = "idle" | "found";
 
@@ -99,8 +105,6 @@ const FIRST_STEPS = [
     ],
   },
 ];
-const ROUNDED_FONT_STACK =
-  '"Arial Rounded MT Bold", "Trebuchet MS", Arial, sans-serif';
 
 function FirstStepsContent() {
   return (
@@ -108,13 +112,12 @@ function FirstStepsContent() {
       {FIRST_STEPS.map((step, stepIndex) => (
         <li
           key={step.title}
-          className="rounded-[18px] bg-amber-50/72 px-3 py-2.5 ring-1 ring-amber-200/45 lg:rounded-[1cqw] lg:px-[0.8cqw] lg:py-[0.7cqw]"
+          className="rounded-md border-[3px] border-zinc-950 bg-white px-3 py-2.5 shadow-[3px_3px_0_#09090b] lg:px-[0.8cqw] lg:py-[0.7cqw]"
         >
           <p
-            className="flex items-center gap-2 text-[15px] font-semibold text-zinc-900 lg:text-[clamp(12px,1.05cqw,15px)]"
-            style={{ fontFamily: ROUNDED_FONT_STACK }}
+            className={`${bangers.className} flex items-center gap-2 text-[19px] tracking-wide text-zinc-950 lg:text-[clamp(14px,1.35cqw,19px)]`}
           >
-            <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-300 text-[12px] text-amber-950 lg:h-[1.6cqw] lg:w-[1.6cqw] lg:text-[clamp(10px,0.85cqw,12px)]">
+            <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-zinc-950 bg-[#ffd60a] text-[14px] text-zinc-950 lg:h-[1.7cqw] lg:w-[1.7cqw] lg:text-[clamp(11px,1cqw,14px)]">
               {stepIndex + 1}
             </span>
             {step.title}
@@ -122,7 +125,7 @@ function FirstStepsContent() {
           <ul className="mt-2 flex flex-col gap-1 pl-8 lg:mt-[0.5cqw] lg:pl-[2.1cqw]">
             {step.links.map((link) => {
               const className =
-                "text-[13px] leading-5 text-zinc-700 underline decoration-amber-300 underline-offset-2 transition-colors hover:text-zinc-950 lg:text-[clamp(11px,0.9cqw,13px)] lg:leading-snug";
+                "text-[13px] font-bold leading-5 text-zinc-900 underline decoration-[#ffd60a] decoration-[3px] underline-offset-2 transition-colors hover:text-[#5b4300] lg:text-[clamp(11px,0.9cqw,13px)] lg:leading-snug";
 
               return (
                 <li key={link.label}>
@@ -194,16 +197,13 @@ export default function Home() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-50 bg-[url('/backgrounds/internal-page-background.webp')] bg-cover bg-top px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:bg-none lg:p-0">
+    <main className={`relative min-h-screen overflow-hidden ${HALFTONE_BACKGROUND} px-6 py-12 text-zinc-950 sm:px-10 lg:flex lg:items-center lg:justify-center lg:p-0`}>
       <div className="home-desktop-stage @container relative z-10 mx-auto w-full lg:mx-0 lg:shrink-0">
       <Link
         href="/essentiels"
-        className="mb-4 inline-flex w-fit min-w-[150px] items-center gap-2.5 rounded-full border-2 border-amber-400 bg-[linear-gradient(135deg,#fff7d6_0%,#fde68a_52%,#fef3c7_100%)] px-4 py-2 text-sm font-semibold text-amber-950 shadow-[0_14px_26px_-18px_rgba(146,64,14,0.85),0_3px_0_rgba(180,83,9,0.18)] ring-1 ring-white/80 transition-colors hover:border-amber-500 hover:bg-amber-100 lg:absolute lg:left-[2.5%] lg:top-[6.5%] lg:z-20 lg:mb-0"
+        className={`${bangers.className} mb-4 inline-flex w-fit min-w-[150px] items-center gap-2.5 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-4 py-2 text-xl tracking-wider text-zinc-950 shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5 lg:absolute lg:left-[2.5%] lg:top-[6.5%] lg:z-20 lg:mb-0`}
       >
-        <span
-          className="text-3xl leading-none text-orange-500 drop-shadow-[0_2px_0_rgba(120,53,15,0.18)]"
-          aria-hidden="true"
-        >
+        <span className="text-2xl leading-none text-zinc-950" aria-hidden="true">
           ★
         </span>
         <span>Les essentiels</span>
@@ -211,33 +211,31 @@ export default function Home() {
 
       <header className="mx-auto mt-6 max-w-md text-center lg:absolute lg:left-[35.5%] lg:top-[5%] lg:z-20 lg:mt-0 lg:w-[34%] lg:max-w-none">
         <h1
-          className="rounded-[22px] border-[3px] border-amber-700/80 bg-[linear-gradient(180deg,#fff6e0_0%,#fbe3b5_100%)] px-5 py-3 shadow-[0_5px_0_rgba(146,64,14,0.35),0_18px_30px_-20px_rgba(120,53,15,0.7)] lg:rounded-[1.6cqw] lg:border-[0.25cqw] lg:px-[2cqw] lg:py-[1cqw]"
-          style={{ fontFamily: ROUNDED_FONT_STACK }}
+          className={`${bangers.className} -rotate-[1.5deg] rounded-md border-4 border-zinc-950 bg-[#ffd60a] px-5 py-3 tracking-wider shadow-[6px_6px_0_#09090b] lg:border-[0.3cqw] lg:px-[2cqw] lg:py-[0.9cqw] lg:shadow-[0.5cqw_0.5cqw_0_#09090b]`}
         >
-          <span className="block text-[26px] leading-tight text-zinc-900 lg:text-[2.5cqw]">
+          <span className="block text-[30px] leading-[0.95] text-zinc-950 lg:text-[2.8cqw]">
             Bienvenue
           </span>
-          <span className="block text-[34px] leading-tight text-amber-400 [-webkit-text-stroke:2px_#3f2a14] [paint-order:stroke_fill] lg:text-[3.3cqw] lg:[-webkit-text-stroke:0.22cqw_#3f2a14]">
+          <span className="block text-[44px] leading-[0.95] text-white [-webkit-text-stroke:2px_#09090b] [paint-order:stroke_fill] lg:text-[4cqw] lg:[-webkit-text-stroke:0.2cqw_#09090b]">
             dans la ruche.
           </span>
         </h1>
-        <p className="mt-3 text-sm leading-6 text-zinc-700 lg:mt-[0.9cqw] lg:text-[1.05cqw] lg:leading-normal">
+        <p className="mt-4 rounded border-2 border-zinc-950 bg-white px-3 py-1.5 text-sm font-bold leading-6 text-zinc-900 lg:mt-[1.1cqw] lg:px-[0.9cqw] lg:py-[0.4cqw] lg:text-[1.05cqw] lg:leading-normal">
           Ici, tu découvres l&apos;équipe et tes premiers pas. Pour toute
           question,{" "}
-          <span className="font-semibold text-orange-500">Bobbee</span>{" "}
+          <span className="bg-[#ffd60a] px-1">Bobbee</span>{" "}
           te répond dans Claude.
         </p>
       </header>
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-[3.8%] left-[78.3%] right-[1.6%] top-[17.5%] z-10 hidden rounded-[2cqw] border border-amber-200/80 bg-[#fdf3e1]/85 shadow-[0_18px_40px_-30px_rgba(120,53,15,0.55)] lg:block"
+        className="pointer-events-none absolute bottom-[3.8%] left-[78.3%] right-[1.6%] top-[17.5%] z-10 hidden rounded-md border-[0.3cqw] border-zinc-950 bg-[#fff7cc] shadow-[0.5cqw_0.5cqw_0_#09090b] lg:block"
       >
         <p
-          className="absolute left-[8%] top-[3%] flex items-center gap-[0.5cqw] text-[1.45cqw] font-bold text-zinc-900"
-          style={{ fontFamily: ROUNDED_FONT_STACK }}
+          className={`${bangers.className} absolute left-[8%] top-[3%] flex items-center gap-[0.5cqw] text-[2cqw] tracking-wider text-zinc-950`}
         >
-          Tes premiers pas <span className="text-amber-400">✦</span>
+          Tes premiers pas <span>✦</span>
         </p>
       </div>
 
@@ -268,15 +266,14 @@ export default function Home() {
         </div>
 
         <section
-          className="w-full max-w-xl rounded-[30px] border border-white/70 bg-gradient-to-b from-amber-100/88 via-amber-50/78 to-white/96 p-3.5 text-left shadow-[0_28px_70px_-32px_rgba(24,24,27,0.55)] ring-1 ring-amber-300/45 sm:p-4 lg:absolute lg:left-[35%] lg:top-[65.5%] lg:flex lg:max-h-[34%] lg:w-[34%] lg:max-w-none lg:flex-col lg:overflow-hidden lg:p-[1.1cqw]"
+          className="w-full max-w-xl rounded-md border-4 border-zinc-950 bg-white p-3.5 text-left shadow-[6px_6px_0_#09090b] sm:p-4 lg:absolute lg:border-[0.3cqw] lg:shadow-[0.5cqw_0.5cqw_0_#09090b] lg:left-[35%] lg:top-[65.5%] lg:flex lg:max-h-[34%] lg:w-[34%] lg:max-w-none lg:flex-col lg:overflow-hidden lg:p-[1.1cqw]"
           aria-label="Poser une question à Bobbee"
         >
           <a
             href={CLAUDE_ASSISTANT_URL}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center justify-center gap-2 rounded-[18px] bg-zinc-900 px-4 py-3.5 text-center text-[16px] font-semibold text-amber-50 no-underline shadow-[0_16px_28px_-18px_rgba(24,24,27,0.85)] ring-1 ring-zinc-700/60 transition-colors hover:bg-zinc-800 lg:py-[0.8cqw] lg:text-[clamp(13px,1.2cqw,17px)]"
-            style={{ fontFamily: ROUNDED_FONT_STACK }}
+            className={`${bangers.className} flex items-center justify-center gap-2 rounded-full border-[3px] border-zinc-950 bg-[#ffd60a] px-4 py-3 text-center text-[19px] tracking-wide sm:text-[22px] sm:tracking-wider text-zinc-950 no-underline shadow-[4px_4px_0_#09090b] transition-transform hover:-translate-y-0.5 lg:py-[0.6cqw] lg:text-[clamp(16px,1.6cqw,24px)]`}
           >
             Pose ta question à Bobbee
             <span aria-hidden="true">→</span>
@@ -294,7 +291,7 @@ export default function Home() {
                 key={question}
                 type="button"
                 onClick={() => handleCopyQuestion(question, index)}
-                className="rounded-full bg-white/95 px-3 py-1.5 text-left text-[13px] text-zinc-800 shadow-[0_8px_14px_-12px_rgba(24,24,27,0.45)] ring-1 ring-amber-200/80 transition-colors hover:bg-amber-50 lg:px-[0.8cqw] lg:py-[0.35cqw] lg:text-[clamp(11px,0.9cqw,13px)]"
+                className="rounded-full border-2 border-zinc-950 bg-white px-3 py-1.5 text-left text-[13px] font-semibold text-zinc-900 shadow-[2px_2px_0_#09090b] transition-colors hover:bg-[#fff7cc] lg:px-[0.8cqw] lg:py-[0.35cqw] lg:text-[clamp(11px,0.9cqw,13px)]"
               >
                 {copiedIndex === index ? "Copié ! Colle-la dans Claude" : question}
               </button>
@@ -304,14 +301,13 @@ export default function Home() {
       </section>
 
       <section
-        className="relative z-10 mx-auto mt-8 w-full max-w-3xl rounded-[24px] border border-amber-200/90 bg-[#fdf3e1]/90 p-4 text-left shadow-[0_16px_30px_-24px_rgba(120,53,15,0.7)] lg:hidden"
+        className="relative z-10 mx-auto mt-8 w-full max-w-3xl rounded-md border-4 border-zinc-950 bg-[#fff7cc] p-4 text-left shadow-[6px_6px_0_#09090b] lg:hidden"
         aria-label="Tes premiers pas"
       >
         <h2
-          className="mb-3 text-[19px] font-bold text-zinc-900"
-          style={{ fontFamily: ROUNDED_FONT_STACK }}
+          className={`${bangers.className} mb-3 text-[26px] tracking-wider text-zinc-950`}
         >
-          Tes premiers pas <span className="text-amber-400">✦</span>
+          Tes premiers pas <span>✦</span>
         </h2>
         <FirstStepsContent />
       </section>
@@ -325,15 +321,14 @@ export default function Home() {
             <>
               <span className="relative z-10 flex min-h-full w-full flex-col text-left">
                 <span
-                  className="w-[60%] text-[19px] leading-tight text-zinc-900 sm:w-full lg:w-[60%] lg:text-[1.75cqw]"
-                  style={{ fontFamily: ROUNDED_FONT_STACK }}
+                  className={`${bangers.className} w-[60%] text-[22px] leading-tight tracking-wide text-zinc-950 sm:w-full lg:w-[60%] lg:text-[1.8cqw]`}
                 >
                   {card.title}
                 </span>
                 <span className="mb-3 mt-1.5 w-[60%] text-[13px] leading-5 text-zinc-700 sm:w-full lg:mb-[0.6cqw] lg:mt-[0.5cqw] lg:w-[60%] lg:text-[clamp(11px,0.95cqw,14px)] lg:leading-snug">
                   {card.description}
                 </span>
-                <span className="mt-auto inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full bg-amber-300 px-3 py-1.5 text-[13px] font-semibold text-amber-950 shadow-[0_6px_14px_-10px_rgba(146,64,14,0.9)] transition-colors group-hover:bg-amber-400 lg:mt-auto lg:px-[0.9cqw] lg:py-[0.45cqw] lg:text-[clamp(11px,0.95cqw,14px)]">
+                <span className="mt-auto inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full border-2 border-zinc-950 bg-[#ffd60a] px-3 py-1.5 text-[13px] font-bold text-zinc-950 shadow-[2px_2px_0_#09090b] transition-colors group-hover:bg-[#ffe347] lg:mt-auto lg:px-[0.9cqw] lg:py-[0.45cqw] lg:text-[clamp(11px,0.95cqw,14px)]">
                   {card.cta}
                   <span aria-hidden="true">→</span>
                 </span>
@@ -349,7 +344,7 @@ export default function Home() {
             </>
           );
           const className =
-            "group relative flex min-h-[9.5rem] overflow-hidden rounded-[24px] border border-amber-200/90 bg-[#fdeed7] p-4 no-underline shadow-[0_16px_30px_-24px_rgba(120,53,15,0.7)] transition-shadow hover:shadow-[0_18px_34px_-20px_rgba(120,53,15,0.75)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 lg:min-h-0 lg:flex-1 lg:rounded-[1.6cqw] lg:p-[1.3cqw]";
+            "group relative flex min-h-[9.5rem] overflow-hidden rounded-md border-4 border-zinc-950 bg-white p-4 no-underline shadow-[5px_5px_0_#09090b] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-950 lg:min-h-0 lg:flex-1 lg:border-[0.3cqw] lg:p-[1.3cqw] lg:shadow-[0.45cqw_0.45cqw_0_#09090b]";
 
           return card.external ? (
             <a
@@ -374,10 +369,6 @@ export default function Home() {
         @media (min-width: 1024px) {
           .home-desktop-stage {
             aspect-ratio: 7 / 4;
-            background-image: url("/backgrounds/internal-page-background.webp");
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: contain;
             max-width: 1400px;
             width: calc(100% - 2rem);
           }
