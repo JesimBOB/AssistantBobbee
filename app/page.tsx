@@ -45,7 +45,7 @@ const TOUR_STEPS = [
     label: "Ici, pose ta question à Bobbee",
     bubble: "Ici, pose ta question à Bobbee. Je te réponds dans Claude.",
   },
-  { label: "Là, découvre l'organigramme", bubble: "Là, découvre l'organigramme." },
+  { label: "Bobbee, c'est nous", bubble: "Bobbee, c'est nous." },
   {
     label: "Ce qu'il te faut pour bien démarrer",
     bubble: "Ce qu'il te faut pour bien démarrer.",
@@ -55,12 +55,12 @@ const TOUR_STEPS = [
 const TOUR_INTRO = "Bzzz ! Clique sur moi, je te fais visiter.";
 const TOUR_ACTIVE = "ring-[5px] ring-[#ffd60a]";
 const TOUR_ROUND_BUTTON =
-  "flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-[3px] border-zinc-950 bg-white text-base font-extrabold leading-none text-zinc-950";
+  "flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-[3px] border-zinc-950 bg-white text-xl font-extrabold leading-none text-zinc-950";
 
 function TourTag({ active, text }: { active: boolean; text: string }) {
   if (!active) return null;
   return (
-    <span className="absolute -top-4 right-4 z-10 rounded-full bg-zinc-950 px-3 py-1 text-sm font-bold text-[#ffd60a]">
+    <span className="absolute -top-5 right-4 z-10 max-w-[90%] rounded-2xl bg-zinc-950 px-4 py-1.5 text-lg font-bold leading-snug text-white">
       <span aria-hidden="true">↓ </span>
       {text}
     </span>
@@ -275,10 +275,10 @@ export default function Home() {
                     type="button"
                     onClick={() => goToTourStep(index)}
                     aria-label={`Étape ${index + 1} sur ${TOUR_STEPS.length}`}
-                    className="flex h-6 w-6 cursor-pointer items-center justify-center"
+                    className="flex h-7 w-7 cursor-pointer items-center justify-center"
                   >
                     <span
-                      className={`h-2.5 w-2.5 rounded-full border-2 border-zinc-950 ${index === tourStep ? "bg-zinc-950" : "bg-white"}`}
+                      className={`h-3 w-3 rounded-full border-2 border-zinc-950 ${index === tourStep ? "bg-zinc-950" : "bg-white"}`}
                     />
                   </button>
                 ))}
