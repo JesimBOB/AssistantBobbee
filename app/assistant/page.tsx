@@ -1,13 +1,19 @@
 import { CLAUDE_ASSISTANT_URL, MangaPage, PAGE_TITLE, PANEL, bangers } from "../manga";
+import CopyInstructionsButton from "./CopyInstructionsButton";
 
-const STEPS = [
+const STEPS: { title: string; text: string; copy?: boolean }[] = [
   {
     title: "Avoir accès à Claude",
     text: "Ton compte Claude est créé automatiquement. Compte 24 à 48 heures après ton arrivée : pas d'inquiétude, découvre la ruche en attendant.",
   },
   {
-    title: "Ouvrir le projet de Bobbee",
-    text: "Le bouton en bas de page ouvre le projet partagé dans Claude. C'est là que Bobbee répond.",
+    title: "Créer ton projet",
+    text: "Dans Claude, clique sur Projets dans le menu de gauche, puis sur le petit + (Créer un projet). Nomme-le « Bobbee · Assistant de recherche », laisse la visibilité sur Privé, puis clique sur Créer un projet.",
+  },
+  {
+    title: "Coller les instructions",
+    text: "Dans ton projet, à droite, clique sur le crayon à côté d'Instructions. Colle le texte copié avec le bouton ci-dessous, puis enregistre.",
+    copy: true,
   },
   {
     title: "Connecter tes outils",
@@ -43,6 +49,7 @@ export default function AssistantPage() {
               </h2>
             </div>
             <p className="text-base italic leading-normal text-zinc-600">{step.text}</p>
+            {step.copy ? <CopyInstructionsButton /> : null}
           </li>
         ))}
       </ol>
