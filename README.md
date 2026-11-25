@@ -1,15 +1,12 @@
 # AssistantBobbee
 
-Socle initial de la V2 du portail interne Bobbee.
+Portail interne Bobbee (V2) pour accueillir les nouveaux arrivants : https://assistant-bobbee.vercel.app
 
 ## Statut
 
-Projet en cours de construction.
+Le site est en ligne. Il sert à **découvrir** : parcours d'arrivée (accueil), organigramme, histoire de Bobbee, liens essentiels, et la page « L'assistant Bobbee » qui explique comment paramétrer Claude. Les **questions** se posent dans Claude (voir « Poser une question à Bobbee »).
 
-À ce stade, le repo contient :
-- un socle Next.js minimal
-- les règles de gouvernance du repo
-- les premières décisions techniques
+Le repo contient aussi les règles de gouvernance et les décisions techniques (fichiers `.md` à la racine et dans `docs/`). Elles datent de la construction ; les parties qui parlent d'un chat intégré au site sont dépassées depuis le 24/11/2026.
 
 ## Stack
 
@@ -65,7 +62,7 @@ Il montre les changements sans commiter ni pousser. Si Chrome n'est pas ouvert o
 
 ### Actualisation des sujets Jira (chaque mois conseillé)
 
-Alimente la rubrique « Ont travaillé dessus » du chat.
+Régénère `data/jira-sujets.json`. Depuis le 24/11/2026, plus aucune page du site ne lit ce fichier (l'ancien chat a été retiré) ; il est conservé pour d'éventuels usages côté Claude (skill Bobbee).
 
 Automatique le 1er de chaque mois à 9 h (tâche planifiée « Bobbee : actualiser les sujets Jira »), qui montre les changements sans commiter ni pousser. Manuellement :
 
@@ -102,6 +99,11 @@ Le site entier est protégé par un mot de passe commun (fichier `proxy.ts`), lu
 - Tout `git push` sur la branche `main` déclenche une mise en ligne automatique sur Vercel (environ 1 minute) : https://assistant-bobbee.vercel.app
 - En cas de problème : Vercel → projet → **Overview** → bouton **Instant Rollback** pour revenir à la version précédente.
 
-### Assistant de recherche Claude
+### Poser une question à Bobbee (Claude)
 
-Le projet Claude « Assistant documentation » (recherche dans Confluence, Teams et Outlook) est partagé avec l'organisation et accessible depuis la page Essentiels et le chat (quand Bobbee ne trouve rien). Ses consignes se modifient dans claude.ai, pas dans ce repo.
+Le site ne répond pas lui-même aux questions : il les envoie à Claude. Un projet Claude ne peut pas être partagé entre les organisations Claude de l'entreprise (Isagri R&D 1 à 4, contrainte de l'éditeur confirmée par l'administrateur le 25/11/2026), donc le site n'utilise aucun projet.
+
+- Le champ « Pose ta question » de l'accueil, le bouton « Poser une question » du menu et le bouton de la page `/assistant` ouvrent un **nouveau chat** Claude (`https://claude.ai/new?q=…`) dont le premier message contient un court rappel de consignes, puis la question.
+- Ce rappel (rôle, tutoiement, ordre de recherche Confluence puis Teams, Outlook, SharePoint, format de réponse, ne rien inventer) est la constante `BOBBEE_CONTEXT` dans `app/manga.tsx`. La fonction `claudeChatUrl` construit le lien. Pour changer le comportement de l'assistant, c'est là qu'il faut modifier.
+- Chaque personne doit **connecter ses propres outils** dans Claude (Atlassian MCP pour Confluence et Jira, Microsoft 365 pour Outlook, Teams et SharePoint). C'est l'étape « Connecter tes outils » de la page `/assistant`, qui est la seule procédure d'installation.
+- Le compte Claude est créé automatiquement, 24 à 48 heures après l'arrivée de la personne.
