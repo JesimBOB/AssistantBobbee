@@ -1,7 +1,6 @@
-import { MangaPage, PAGE_TITLE, PANEL, SECTION_TITLE, bangers, claudeChatUrl } from "../manga";
-import CopyInstructionsButton from "./CopyInstructionsButton";
+import { MangaPage, PAGE_TITLE, PANEL, bangers, claudeChatUrl } from "../manga";
 
-type Step = { title: string; text: string; copy?: boolean };
+type Step = { title: string; text: string };
 
 const STEPS: Step[] = [
   {
@@ -15,19 +14,6 @@ const STEPS: Step[] = [
   {
     title: "Poser ta première question",
     text: "Écris ta question à Bobbee. Il cherche dans tes outils connectés et te répond.",
-  },
-];
-
-// Facultatif : un projet Claude personnel avec les instructions complètes.
-const OPTIONAL_STEPS: Step[] = [
-  {
-    title: "Créer ton projet",
-    text: "Dans Claude, clique sur Projets dans le menu de gauche, puis sur le petit + (Créer un projet). Nomme-le « Bobbee · Assistant de recherche », laisse la visibilité sur Privé, puis clique sur Créer un projet.",
-  },
-  {
-    title: "Coller les instructions",
-    text: "Dans ton projet, à droite, clique sur le crayon à côté d'Instructions. Colle le texte copié avec le bouton ci-dessous, puis enregistre.",
-    copy: true,
   },
 ];
 
@@ -45,7 +31,6 @@ function StepCard({ step, index }: { step: Step; index: number }) {
         </h2>
       </div>
       <p className="text-base italic leading-normal text-zinc-600">{step.text}</p>
-      {step.copy ? <CopyInstructionsButton /> : null}
     </li>
   );
 }
@@ -74,20 +59,6 @@ export default function AssistantPage() {
       >
         OUVRIR L&apos;ASSISTANT DANS CLAUDE ↗
       </a>
-
-      <section className="mt-6 flex flex-col gap-3.5">
-        <h2 className={SECTION_TITLE}>POUR ALLER PLUS LOIN</h2>
-        <p className="text-lg font-semibold">
-          Facultatif : crée ton propre projet Claude avec les instructions complètes de Bobbee
-          (liens, vocabulaire maison). Tu peux le faire plus tard.
-        </p>
-      </section>
-
-      <ol className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
-        {OPTIONAL_STEPS.map((step, index) => (
-          <StepCard key={step.title} step={step} index={index} />
-        ))}
-      </ol>
     </MangaPage>
   );
 }
