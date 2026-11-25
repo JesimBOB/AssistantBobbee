@@ -157,7 +157,7 @@ export default function Home() {
                 href="/assistant"
                 className="underline decoration-[#ffd60a] decoration-[3px] underline-offset-4 hover:text-[#5b4300]"
               >
-                Comment paramétrer l&apos;assistant dans Claude ?
+                Comment paramétrer l&apos;assistant (dans Claude) ?
               </Link>
             </p>
             <p className="-mt-1.5 text-center text-sm italic leading-snug text-zinc-700">
