@@ -20,10 +20,6 @@ const essentials = [
         label: "Organigramme MAIDO public",
         href: "https://app.klaxoon.com/participate/board/WF2N6AF",
       },
-      {
-        label: "Assistant de recherche Claude (Confluence, Teams, Outlook)",
-        href: "https://claude.ai/project/01a1d5a2-f43a-733c-838f-6ad6eede2d06",
-      },
     ],
   },
   {
