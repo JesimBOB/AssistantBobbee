@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { CLAUDE_ASSISTANT_URL, MangaPage, bangers } from "./manga";
 
 type BobbeeState = "idle" | "found";
@@ -11,14 +11,8 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   found: "/bobbee/bobbee-found.png",
 };
-const FOUND_DURATION_MS = 1500;
 // Nouvelle conversation Claude rattachée au projet ; la question y est préremplie via « q ».
 const CLAUDE_NEW_CHAT_URL = CLAUDE_ASSISTANT_URL.replace("/project/", "/new?project=");
-// Exemples de questions à poser dans Claude (elles remplissent le champ de saisie au clic).
-const EXAMPLE_QUESTIONS = [
-  "Qui maîtrise la TVA dans l'équipe ?",
-  "Qui est le PO du pôle Lavande ?",
-];
 // Liens de la case « Démarre » (repris de « Les essentiels » et de l'ancienne carte Checklist).
 const START_LINKS = [
   {
@@ -90,10 +84,9 @@ function StepHeader({ number, title }: { number: number; title: string }) {
 }
 
 export default function Home() {
-  const [bobbeeState, setBobbeeState] = useState<BobbeeState>("idle");
+  const [bobbeeState] = useState<BobbeeState>("idle");
   const [question, setQuestion] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const timeoutIdRef = useRef<number | null>(null);
   const [tourStep, setTourStep] = useState<number | null>(null);
   const zoneRefs = useRef<(HTMLElement | null)[]>([]);
 
@@ -108,29 +101,6 @@ export default function Home() {
         zone.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
     }
-  }
-
-  useEffect(() => {
-    return () => {
-      if (timeoutIdRef.current !== null) {
-        window.clearTimeout(timeoutIdRef.current);
-      }
-    };
-  }, []);
-
-  function handleSelectExample(example: string) {
-    setQuestion(example);
-    inputRef.current?.focus();
-
-    if (timeoutIdRef.current !== null) {
-      window.clearTimeout(timeoutIdRef.current);
-    }
-
-    setBobbeeState("found");
-    timeoutIdRef.current = window.setTimeout(() => {
-      timeoutIdRef.current = null;
-      setBobbeeState("idle");
-    }, FOUND_DURATION_MS);
   }
 
   function handleAsk(event: FormEvent<HTMLFormElement>) {
@@ -177,7 +147,7 @@ export default function Home() {
                 onChange={(event) => setQuestion(event.target.value)}
                 maxLength={500}
                 aria-label="Ta question pour Bobbee"
-                placeholder="Écris ta question pour Bobbee…"
+                placeholder="Ex. : Qui maîtrise la TVA dans l'équipe ?"
                 className="min-h-[52px] w-full rounded-xl border-[3px] border-zinc-950 bg-white px-4 text-base font-semibold text-zinc-950 placeholder:text-zinc-500 focus:outline-none focus:ring-4 focus:ring-[#ffd60a]"
               />
               <button
@@ -203,36 +173,6 @@ export default function Home() {
                 Comment paramétrer l&apos;assistant dans Claude ?
               </Link>
             </p>
-            <div className="flex flex-col gap-0.5 border-t-2 border-dashed border-zinc-200 pt-3">
-              <p className="mb-0.5 text-sm font-semibold italic text-zinc-600">
-                Pas d&apos;idée ? Clique sur une question pour la mettre dans le champ.
-              </p>
-              {EXAMPLE_QUESTIONS.map((example) => (
-                <button
-                  key={example}
-                  type="button"
-                  onClick={() => handleSelectExample(example)}
-                  className="flex min-h-9 items-center gap-2 self-start py-1 text-left text-base font-semibold text-zinc-950 underline decoration-[#ffd60a] decoration-[3px] underline-offset-4 hover:text-[#5b4300]"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#71717a"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                    className="shrink-0"
-                  >
-                    <rect x="9" y="9" width="12" height="12" rx="2" />
-                    <path d="M5 15V5a2 2 0 0 1 2-2h10" />
-                  </svg>
-                  {example}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
 
