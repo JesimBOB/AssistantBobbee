@@ -64,7 +64,7 @@ Il montre les changements sans commiter ni pousser. Si Chrome n'est pas ouvert o
 
 Régénère `data/jira-sujets.json`. Depuis le 24/11/2026, plus aucune page du site ne lit ce fichier (l'ancien chat a été retiré) ; il est conservé pour d'éventuels usages côté Claude (skill Bobbee).
 
-Automatique le 1er de chaque mois à 9 h (tâche planifiée « Bobbee : actualiser les sujets Jira »), qui montre les changements sans commiter ni pousser. Manuellement :
+La tâche planifiée mensuelle « Bobbee : actualiser les sujets Jira » (le 1er à 9 h) est **en pause depuis le 25/11/2026**, car plus rien ne lit ce fichier ; elle se réactive dans l'application Claude (Tâches planifiées). Manuellement :
 
 1. Dire à Claude : *« Mets à jour les sujets Jira »*.
 2. Claude exporte les tickets via le connecteur Atlassian dans un fichier `.ndjson` temporaire (non versionné), une ligne par ticket : `{"key","summary","assignee","resolved"}`. Requête utilisée :

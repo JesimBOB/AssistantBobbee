@@ -5,12 +5,6 @@ import Image from "next/image";
 import { useRef, useState, type FormEvent } from "react";
 import { MangaPage, bangers, claudeChatUrl } from "./manga";
 
-type BobbeeState = "idle" | "found";
-
-const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
-  idle: "/bobbee/bobbee-idle.png",
-  found: "/bobbee/bobbee-found.png",
-};
 // Liens de la case « Démarre » (repris de « Les essentiels » et de l'ancienne carte Checklist).
 const START_LINKS = [
   {
@@ -82,9 +76,7 @@ function StepHeader({ number, title }: { number: number; title: string }) {
 }
 
 export default function Home() {
-  const [bobbeeState] = useState<BobbeeState>("idle");
   const [question, setQuestion] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
   const [tourStep, setTourStep] = useState<number | null>(null);
   const zoneRefs = useRef<(HTMLElement | null)[]>([]);
 
@@ -136,7 +128,6 @@ export default function Home() {
             </h2>
             <form onSubmit={handleAsk} className="contents">
               <input
-                ref={inputRef}
                 type="text"
                 value={question}
                 onChange={(event) => setQuestion(event.target.value)}
@@ -208,7 +199,7 @@ export default function Home() {
             className="mt-6 w-[min(300px,75%)] cursor-pointer transition-transform hover:scale-105"
           >
             <Image
-              src={BOBBEE_IMAGE_BY_STATE[bobbeeState]}
+              src="/bobbee/bobbee-idle.png"
               alt="Bobbee, la mascotte"
               width={480}
               height={480}

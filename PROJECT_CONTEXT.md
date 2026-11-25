@@ -11,6 +11,12 @@ AssistantBobbee est la V2 du portail d’onboarding BOBBEE.
 Le projet ne vise pas un simple site vitrine.
 Il vise un assistant d’onboarding évolutif, clair et utile, centré sur un personnage-guide et un chat.
 
+## Évolution depuis le 24/11/2026
+
+Le site est en ligne et sert à **découvrir** : parcours d'arrivée, organigramme, histoire de Bobbee, liens essentiels, page « L'assistant Bobbee ».
+
+Il n'y a plus de chat intégré au site. Les questions sont posées dans Claude : le site ouvre un nouveau chat Claude avec un court rappel de consignes (voir la section « Poser une question à Bobbee (Claude) » du `README.md`). Les mentions de « chat » dans la suite de ce document, comme dans les autres documents de gouvernance et bilans, décrivent la vision d'origine et sont dépassées.
+
 ## Intention produit
 
 L’expérience cible repose sur 4 piliers :
