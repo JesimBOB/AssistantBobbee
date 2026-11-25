@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState, type FormEvent } from "react";
-import { CLAUDE_ASSISTANT_URL, MangaPage, bangers } from "./manga";
+import { MangaPage, bangers, claudeChatUrl } from "./manga";
 
 type BobbeeState = "idle" | "found";
 
@@ -11,8 +11,6 @@ const BOBBEE_IMAGE_BY_STATE: Record<BobbeeState, string> = {
   idle: "/bobbee/bobbee-idle.png",
   found: "/bobbee/bobbee-found.png",
 };
-// Nouvelle conversation Claude rattachée au projet ; la question y est préremplie via « q ».
-const CLAUDE_NEW_CHAT_URL = CLAUDE_ASSISTANT_URL.replace("/project/", "/new?project=");
 // Liens de la case « Démarre » (repris de « Les essentiels » et de l'ancienne carte Checklist).
 const START_LINKS = [
   {
@@ -106,11 +104,8 @@ export default function Home() {
   function handleAsk(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = question.trim();
-    // Champ vide : on ouvre simplement le projet, comme avant.
-    const url = trimmed
-      ? `${CLAUDE_NEW_CHAT_URL}&q=${encodeURIComponent(trimmed)}`
-      : CLAUDE_ASSISTANT_URL;
-    window.open(url, "_blank", "noopener,noreferrer");
+    // Champ vide : le chat s'ouvre avec le rappel de consignes, la personne écrit sa question à la suite.
+    window.open(claudeChatUrl(trimmed), "_blank", "noopener,noreferrer");
   }
 
   return (

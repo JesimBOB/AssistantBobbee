@@ -7,9 +7,14 @@ import type { ReactNode } from "react";
 // encre noire, jaune vif, police BD, ombres pleines, trame de points.
 export const bangers = Bangers({ weight: "400", subsets: ["latin"] });
 
-// Projet Claude partagé : Bobbee répond aux questions (Outlook, Teams, Confluence, SharePoint, Jira).
-export const CLAUDE_ASSISTANT_URL =
-  "https://claude.ai/project/01a1d5a2-f43a-733c-838f-6ad6eede2d06";
+// Un projet Claude ne se partage pas entre organisations : on ouvre un nouveau chat Claude
+// dont le premier message contient un court rappel de consignes, puis la question.
+const BOBBEE_CONTEXT =
+  "Tu es l'assistant de recherche de l'équipe R&D du produit Bobbee (ISAGRI). Tutoie-moi, sois simple et rassurant : je suis nouveau. Cherche dans Confluence, puis Teams, Outlook et SharePoint, et croise les sources. Réponds en une phrase, puis donne le détail avec les sources et leurs liens. Si l'information manque, dis-le sans rien inventer et indique à qui demander. Pour les questions RH personnelles, ne cherche pas : renvoie vers mon manager ou les RH. Si tu n'as accès à aucun outil, dis-moi d'activer mes connecteurs Atlassian et Microsoft 365 dans les paramètres de Claude. Points de départ : guide d'onboarding Dev https://isagri.atlassian.net/wiki/x/AYCLbwE et QA https://isagri.atlassian.net/wiki/x/AoDDcQE.\n\nMa question : ";
+
+export function claudeChatUrl(question = "") {
+  return `https://claude.ai/new?q=${encodeURIComponent(BOBBEE_CONTEXT + question)}`;
+}
 
 // Classes réutilisées par les pages.
 export const PANEL =
@@ -64,7 +69,7 @@ function SiteNav({ current }: { current: NavKey }) {
         )}
       </nav>
       <a
-        href={CLAUDE_ASSISTANT_URL}
+        href={claudeChatUrl()}
         target="_blank"
         rel="noreferrer"
         className="rounded-full bg-zinc-950 px-4 py-2.5 text-[15px] font-extrabold text-[#ffd60a] no-underline hover:bg-zinc-800"
