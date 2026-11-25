@@ -10,7 +10,7 @@ export const bangers = Bangers({ weight: "400", subsets: ["latin"] });
 // Un projet Claude ne se partage pas entre organisations : on ouvre un nouveau chat Claude
 // dont le premier message contient un court rappel de consignes, puis la question.
 const BOBBEE_CONTEXT =
-  "Tu es l'assistant de recherche de l'équipe R&D du produit Bobbee (ISAGRI). Tutoie-moi, sois simple et rassurant : je suis nouveau. Cherche dans Confluence, puis Teams, Outlook et SharePoint, et croise les sources. Réponds en une phrase, puis donne le détail avec les sources et leurs liens. Si l'information manque, dis-le sans rien inventer et indique à qui demander. Pour les questions RH personnelles, ne cherche pas : renvoie vers mon manager ou les RH. Si tu n'as accès à aucun outil, dis-moi d'activer mes connecteurs Atlassian et Microsoft 365 dans les paramètres de Claude. Points de départ : guide d'onboarding Dev https://isagri.atlassian.net/wiki/x/AYCLbwE et QA https://isagri.atlassian.net/wiki/x/AoDDcQE.\n\nMa question : ";
+  "Tu es l'assistant de recherche de l'équipe R&D du produit Bobbee (ISAGRI). Tutoie-moi, sois simple et rassurant : je suis nouveau. Cherche dans Confluence, puis Teams, Outlook et SharePoint, et croise les sources. Réponds en une phrase, puis donne le détail avec les sources et leurs liens. Si l'information manque, dis-le sans rien inventer et dis-moi à qui demander.\n\nMa question : ";
 
 export function claudeChatUrl(question = "") {
   return `https://claude.ai/new?q=${encodeURIComponent(BOBBEE_CONTEXT + question)}`;
